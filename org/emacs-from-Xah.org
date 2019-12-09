@@ -1,0 +1,131 @@
+* Fun with emacs
+
+1) tetris game   [M-x tetris]
+2) calendar      [M-x calendar]
+3) pretty colors [M-x list-colors-display]
+
+* Keys Basics
+** Moving cursor
+
+ 1) backward-word         [C right]
+ 2) forward-word          [C left]
+ 3) next-whitespace       [C down]
+ 4) previous-whitespace   [C up]
+
+** Delete
+
+ 1) delete word on *right* of cursor       [M-d]
+ 2) delete previous line *left* of cursor  [M-Backspace]
+
+** Select Text
+
+ 1) select All           [C-x h]
+
+* Dried
+
+In dired, Alt+x dired-hide-details-mode. Key is (.
+|        |                         |
+| 【Z】   | dired-do-compress       | compress/decompress the file by gzip |
+| 【% m】 | dired-mark-files-regexp | mark by pattern |
+| 【>】   | dired-next-dirline      | Move cursor to next subdirectory |
+| 【<】   | dired-prev-dirline      | Move cursor to previous subdirectory |
+
+dired is often used together with shell-command 【Alt+!】 or shell. [see Ema
+cs: Run Shell in Emacs]
+
+For complete list of dired commands, Alt+x describe-mode when in dired-mode.
+
+* Buffers
+
+| next-buffer     | 【Ctrl+x  Ctrl+→】 | switch to next buffer     |
+| previous-buffer | 【Ctrl+x  Ctrl+←】 | switch to previous buffer |
+
+* Show cursor position
+
+** Show cursor column number
+
+   M-x   column-number-mode   such as show All(48,42) on modeline
+
+** Show ruler
+
+   M-x   ruler-mode           such as show a ruler on header
+
+** Cursor position in buffer
+
+   M-x   describe-char        show the current cursor position(start from 0)
+
+** Jump to a cursor position
+
+   M-x   goto-char            move cursor to a given position
+
+* Save cursor position
+
+可以记录每一份文件里，上次打开时鼠标的位置
+
+#+BEGIN_SRC emacs-lisp
+(save-place-mode 1)
+#+END_SRC
+
+默认设置里，鼠标位置信息被保存在～/.emacs.d/places 文件里，它的路劲变量在变量save-place-file 中
+
+* Bookmark
+
+** add a bookmark
+
+   Open a file you want to bookmark,
+
+   Alt+x bookmark-set 【Ctrl+x r m】.
+
+   It'll add current file to bookmark file. It will prompt you for a name.Bookmark can be a file or a directory.
+
+** list bookmark
+
+   Alt+x list-bookmark 【Ctrl+x r l(字母)】
+
+   Open bookmark file
+
+** Remove/Rename Bookmark
+
+   When in the bookmark file:
+
+   Type [ d ] to mark the current item for remove.
+   Type [ x ] to remove all D marked ones.
+   Type [ r ] to rename current item's title.
+   Type [ s ] to save the change.
+
+** Save Bookmark File
+
+   Alt+x bookmark-save to save the bookmark file. (Press 【s】 while in bookmark file)
+   Bookmarks are automatically saved when emacs quit.
+
+
+You can control bookmark auto save behavior by bookmark-save-flag.
+
+#+BEGIN_SRC emacs-lisp
+;; everytime bookmark is changed, automatically save it
+(setq bookmark-save-flag 1)
+
+#+END_SRC
+
+** Bookmark File Location
+
+   The default bookmark file path is stored in the variable [ bookmark-default-file ]. Alt+x describe-variable 【Ctrl+h v】 to see its value.
+
+** 在*Bookmark List*这个buffer里，有以下快捷键可以使用：
+
+   * a 显示当前书签的标注信息;
+   * A 在另一个buffer中显示所有书签的所有标注信息;
+   * d 标记书签，以便用来删除 (x – 执行删除);
+   * e 编辑当前书签的标注信息;
+   * m 标记书签，以便用于进一步显示和其他操作 (v – 访问这个书签);
+   * o 选中当前书签，并显示在另一个window中;
+   * C-o 在另一个window中切换到当前这个书签;
+   * r 重命名当前书签;
+   * w 将当前书签的位置显示在minibuffer里。
+
+* Unicode representation in string
+
+In emacs lisp string, you can have Unicode characters directly (For example, "I ♥ 😸"), or, you can represent Unicode char by the following syntax:
+
+"\uxxxx" → A Unicode char. xxxx must be 4 hexadecimal digits, representing the char's codepoint in hex. You need to pad it with 0 if the codepoint is less than 4 hex digits.
+"\U00xxxxxx" → A Unicode char. xxxxxx must be 6 hexadecimal digits, representing the char's codepoint in hex. You need to pad it with 0 if the codepoint is less than 6 hex digits.

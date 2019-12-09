@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../../style/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <title>Note. Git</title>
+</head>
+
+<body>
+  <div>
+    <div class="container-fluid banner-git">
+      <div class="sticky-top">
+        <nav class="container navbar navbar-expand-sm navbar-dark" style="background: #24292d;">
+          <a class="navbar-brand" href="../../index.html">
+            <img src="../../img/Avatar.svg" alt="头像" width="30" height="30" class="d-inline-block align-top"
+              alt="Avatar(头像)">
+            <strong class="pl-2">YanTree</strong>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <form class="mx-auto form-inline search-box align-content-center">
+              <button class="search-btn" type="submit">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </button>
+              <input class="search-txt" type="search" placeholder="Search" aria-label="Search">
+            </form>
+            <ul class="navbar-nav ml-sm-auto d-sm-flex h6">
+              <li class="nav-item active">
+                <a class="nav-link" href="../index.html">Note</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../OS.html">Software</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../about.html">About</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="text-center">
+        <img src="../../img/note/git/Git.svg" alt="Git 图标" width="200" height="200" style="margin-top: 10rem;">
+      </div>
+    </div>
+    <main class="container">
+      <div class="card-card text-monospace">          
+          <h3 class="article-head"><i>1</i> config global user's imformation</h3>
+          <p>
+            <i class="fa fa-caret-right" aria-hidden="true"></i> git config &#x2013&#x2013global user.name "YanTree"
+              <br />
+            <i class="fa fa-caret-right" aria-hidden="true"></i> git config &#x2013&#x2013global user.email "yanshudream@outlook.com"
+          </p>
+          <h3 class="article-head"><i>2</i> 解决git push代码到github上一直提示输入用户名及密码的问题</h3>
+          <p>
+            <p class="h5 ml-4">原因分析</p>
+            <p class="ml-5">
+                出现这种情况的原因是我们使用了http的方式clone代码到本地，相应的，也是使用http的方式将代码push到服务器。
+            </p>
+            <p class="h5 ml-4">解决办法</p>
+            <p class="ml-5">解决办法很简单，将http方式改为ssh方式即可。</p>
+                <ol class="ml-5"> step :
+                  <li>先查看当前方式</li>
+                  <br />
+                  git remote -v 
+                  <br />
+                  <br />
+                  <li>把http方式改为ssh方式。先移除旧的http的origin</li>
+                  <br />
+                  git remote rm origin
+                  <br />
+                  <br />
+                  <li>再添加新的ssh方式的origin</li>
+                  <br />
+                  git remote add origin git@github.com:username/programname.git（可以直接去clone一份地址from github）
+                  <br />
+                  <br />
+                  <li>改动完之后直接执行git push是无法推送代码的，需要设置一下上游要跟踪的分支,
+                      与此同时会自动执行一次git push命令,此时已经不用要求输入用户名及密码啦！</li>
+                  <br />
+                  git push --set-upstream origin master
+                  <br />
+                  <br />
+                </ol>
+          </p>
+          <h3 class="article-head"><i>3</i> 工作区文件操作</h3>
+          <p>
+             <p class="h5 ml-4">撤销操作</p>
+             <p class="ml-5">
+               <br>
+                （使用 "git checkout -- <文件>..." 丢弃工作区的改动）
+                <br>
+                例如： git checkout -- filename
+             </p>
+             <br>         
+              <p class="h5 ml-4">提交和删除操作</p>
+              <p class="ml-5">
+                <br>
+                （使用 "git add/rm <文件>..." 更新要提交的内容）
+                <br>
+                例如： 添加 git add filename
+                <br>
+                &#160&#160&#160&#160&#160&#160删除 git rm filename
+              </p>           
+              <br>
+              <p class="h5 ml-4">移除版本控制</p>
+              <p class="ml-5">
+                <br>
+                先 git  rm  -r  --cached   文件
+                <br>
+                在 .gitignore中添加
+                <br>
+                最后 git commit -m  '提交.gitignore'
+              </p>      
+          </p>
+          <h3 class="article-head"><i>4</i> branch操作</h3>
+          <p class="h5 ml-4">创建操作</p>                    
+          <p class="ml-5">
+            <ol class="ml-5">
+              <li>我们创建dev分支，然后切换到dev分支</li>
+              <br>
+              $ git checkout -b dev
+              <br>
+              Switched to a new branch 'dev'
+              <br>
+              <br>
+              <li>git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：</li>
+              <br>
+              $ git branch dev
+              <br>
+              $ git checkout dev
+              <br>
+                 Switched to branch 'dev'
+            </ol>
+          </p>
+          <p class="h5 ml-4">查看并切换</p>
+          <p class="ml-5">
+            <ol class="ml-5">
+              <li>查看</li>
+              <br>
+              $ git branch
+              <br>
+                dev
+              <br>
+                * master
+              <br>
+              <li>切换</li>
+              <br>
+              $ git checkout {dev}              
+              <br>
+            </ol>
+          </p>
+          <p class="h5 ml-4">合并</p>
+          <p class="ml-5">$ git merge dev</p> 
+          <p class="h5 ml-4">删除</p>
+          <p class="ml-5">$ git branch -d dev
+              Deleted branch dev (was b17d20e).</p>
+          <h3 class="article-head"><i>5</i> 设置远程仓库</h3>
+          <p class="h5 ml-4">创建 SSH Key</p>
+          <br>
+          <p class="ml-5"> 打开Shell,创建ssh key
+            <br>
+            <br>
+            $ ssh-keygen -t rsa -C "youremail@example.com"
+            <br>
+            $ ssh-keygen -t rsa -C "yanshudream@outlook.com" 这是我的邮箱
+            <br>
+            <br>
+            id_rsa是私钥   id_rsa.pub是公钥</p>
+            <br>
+          <p class="h5 ml-4">登录 Github</p>
+          <br>
+          <p class="ml-5">打开“Account settings”，“SSH Keys”页面：然后，点“Add SSH Key”，
+              填上任意Title，在Key文本框里粘贴id_rsa.pub文件(也就是上面的公钥)的内容,点“Add Key”，你
+              就应该看到已经添加的Key.</p>
+          <h3 class="article-head"><i>6</i> 回滚</h3>
+          <ol class="ml-5">
+              <li>查看当前版本库的状态 |git log| or |git log --pretty=oneline|</li>
+              <li>回滚到上一次提交 |git reset --hard HEAD^|</li>
+              或者 |git reset --hard (commit id(前五到六位数就够了))|
+            </ol>
+            <p class="ml-4">
+                注：1.参数 --hard的作用
+                <br>
+                2.HEAD^^=HEAD~2 回滚到前两次提交的状态
+            <br>
+            <br>
+            3.如果想恢复到新版本
+            <br>
+            <p class="ml-5">
+                1.git reflog 查看commit记录
+                <br>
+                2.根据commit id 进行回滚(见步骤2)
+            </p>
+            </p>
+      </div>
+    </main>
+    <footer class="bg-dark">
+        <div class="container d-flex justify-content-between">
+          <div class="ml-5">
+            <p class="mt-4 mb-4 h3 text-light">YanTree</p>
+          </div>
+          <div class="mr-5 text-muted">
+            <p class="mt-5 mb-4 h5">友情链接</p>
+            <div>
+                <a class="footer-link pl-1" href="https://github.com/YanTree"><i class="fa fa-github fa-2x" aria-hidden="true"></i></a>
+              </div>
+              <br />
+            <a class="footer-link pl-1" href="https://github.com/YanTree/.emacs.d">Emacs</a>
+            <a class="footer-link pl-3" href="https://github.com/kasusa/kasusa.github.io">Kasusa</a>
+          </div>
+        </div>
+      </footer>
+  </div>
+</body>
+</html>

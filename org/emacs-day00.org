@@ -1,0 +1,535 @@
+* 符号约定
+
+C   -------> Ctrl
+M   -------> Alt (mac上好像是 command键)
+S   -------> Shift
+SPC -------> 空格键(很长的那个)　如果你是用spacemacs or evil,将会经常看见这个词(SPC)
+TAB -------> Tab键
+
+C-a -------> 同时按住 Ctrl 和 a
+M-e -------> 同时按住 Alt 和 e
+......
+
+* 光标
+** 精准使用
+
+  使用 C-p 、 C-b 、 C-f 和 C-n 这四个命令。它们的功能跟四个方向键是一样的，如下图所示：
+
+
+
+                     上一行 C-p
+                         ^
+                         |
+                         |
+                         |
+                         |
+   向左移 C-b  < ---------+--------->  向右移 C-f
+                         |
+                         |
+                         |
+                         |
+                         ^
+                     下一行 C-n
+
+
+
+
+
+    “p d b f”四个字母分别代表了四个词
+
+    p 代表 previous（上一行）
+    n 代表 next（下一行）
+    b 代表 backward（回退）
+    f 则代表 forward（前进）。
+    M-g M-g :跳到指定行
+
+** 全局使用浏览翻页
+
+    翻页浏览时相当有用：
+
+    C-v         向前移动一屏
+    M-v         向后移动一屏
+    C-l         重绘屏幕，并将光标所在行置于屏幕的中央(是字母 l,不是数字 1)
+    M-<  （META 小于号）可以将光标移动到所有文字的最开头
+    M->  （META 大于号）可以将光标移动到所有文字的最末尾
+
+    也可以使用 PgUp 和 PgDn
+
+** 局部使用
+
+    1.以单词为单位
+    M-f (META-f) 可以将光标往前移动一个词
+    M-b 则是往后移。
+    【这里的“词”指英文单词，对中文来说，则是指移动到下一个标点符号。】
+
+    2.类似的惯例在“行”与“句子”之间也同样适用
+    C-a 和 C-e 可以将光标移动到“一行”的头部和尾部
+    M-a 和 M-e 则将光标移动到“一句”的头部和尾部。
+
+    3.
+    META 系列组合键用来操作“由语言定义的单位（比如词、句子、段落）
+    CONTROL 系列组合键用来操作“与语言无关的基本单位（比如字符、行等等）。
+
+    4.总结
+
+    M-f     向右移动一个词【对中文是移动到下一个标点符号】
+    M-b     向左移动一个词【对中文是移动到上一个标点符号】
+
+    C-a     移动到行首
+    C-e     移动到行尾
+
+    M-a     移动到句首
+    M-e     移动到句尾
+
+** C-u
+    C-u number command
+    举例来说： C-u 8 C-f 会向前移动 8 个字符。
+
+    C-v 和 M-v 则属于另一种类型的例外。当给定一个参数时，它们将滚动你指
+    定的“行数”，而不是“屏数”。举例来说，C-u 8 C-v 将文本向下滚动 8 行。
+
+** 修改光标样式
+
+#+BEGIN_SRC emacs-lisp
+;;我喜欢习惯使用 box 类型,你可以使用 bar ----> |,更可以查看 cursor-type 变量的值,自己定制
+(setq cursor-type 'bar)
+
+#+END_SRC
+
+* 插入与删除
+
+   >>  试试 C-u 8 *，这将会插入 ********。
+
+   C-o          当前行插入一空行
+   <DEL>        删除光标后的一个字符
+   C-d          删除光标后的一个字符
+
+   <Backspace>  删除光标前的一个字符
+   M-<DEL>      移除光标前的一个词
+   M-d          移除光标后的一个词
+
+* 保存与退出
+
+| command | function                               |
+|---------+----------------------------------------|
+| C-x C-s | save current buffer if buffer modified |
+| C-x s   | save all buffer if buffer modified     |
+| C-x C-c | exit                                   |
+
+* 放大和缩小文本
+
+| feature           | keyblinding                                                       |
+|-------------------+-------------------------------------------------------------------|
+| make font bigger  | C-x C-= 接着按 =(等号) -> make bigger, 按 -(减号) -> make smaller |
+| make font smaller | C-x C-- 接着按 =(等号) -> make bigger, 按 -(减号) -> make smaller |
+
+在执行上述两个命令中的任意一个(C-x C-= or C-x C--) 之后,再按 = 放大文本,按 - 缩小文本, 用不着再按 C-x C-= or C-x C--
+
+* undo（撤销）
+
+   undo 命令进行撤销：C-/
+   不推荐 或者C-x u
+   不推荐 或者C-_
+
+* help
+
+   >> Type C-h c commands
+
+result:Emacs displays a very brief description of the command.
+
+例如:
+   >> Type C-h c C-p.
+
+   The message should be something like this:
+
+   C-p runs the command previous-line
+
+   This tells you the "name of the function".  Since function names
+   are chosen to indicate what the command does, they can serve as
+   very brief documentation--sufficient to remind you of commands you
+   have already learned.
+
+   >> Type C-h a file <Return>.
+
+   This displays in another window a list of all M-x commands with "file"
+   in their names.  You will see character-commands listed beside the
+   corresponding command names (such as C-x C-f beside find-file).
+
+   1.C-h t  打开tutorial
+   2.C-h r  Emacs使用手册   ***
+   3.C-h i  《Emacs的说明》  *** ---> info 系统
+   4.C-h a  搜索命令
+   2.C-h ?  Emacs会告诉你它能提供了哪些帮助
+   3.C-h k C-p  命令会新打开一个 Emacs 窗格以显示函数(此刻是函数C-p)的名称及其文档
+   4.C-h f 解释一个函数。需要输入函数名。
+
+* mark set
+
+   >> Type C-<SPC>.  Emacs should display a message "Mark set"
+   at the bottom of the screen.
+   这个快捷键会失效,因为被绑在了切换输入法热键里了,所以先去取消这个热键就行了
+
+   >> Type C-@.  Emacs should display a message "Mark set"
+   at the bottom of the screen.
+
+   >> Type C-x h mark-whole-buffer(标记所有内容)
+
+* 中断指令(非常非常重要的命令)
+
+   C-g     keyboard-quite
+
+* Cut copy and paste
+
+kill 和那个什么来着的概念,好好看一下
+
+** Cut
+   C-w          kill-region(marked)
+   C-k          移除从光标到“行尾”间的字符
+   M-k          移除从光标到“句尾”间的字符
+
+** Copy
+   M-w          kill-region-save(marked)
+
+** Paste
+   C-y          可以召回最近一次移除的内容
+   M-y          召回前几次移除的内容
+
+* 搜索
+
+   C-s 是向前搜索   <--------
+   C-r 是向后搜索。 -------->
+
+   要跳到下一个命中位置，就再按一次 C-s。
+   如果找不到目标，Emacs 会发出“哔”的一声，告诉你搜索失败。在整个过程中，
+   都可以用 C-g 来终止搜索。
+
+* 分裂窗口(垂直分，水平分)
+
+   >> C-x 2 split-window-below • Split window top / bottom
+
+   它会将屏幕划分成上下两个窗格。
+
+   >> C-x 3 split-window-right • Split window side by side
+
+   他会将屏幕分化成左右两个窗格
+
+   >> C-M-v 滚动下方的窗格。
+   （如果你并没有 META 键，用 ESC C-v 也可以。）
+   【向上滚动是 C-M-S-v，也就是同时按住 CONTROL、META 和 SHIFT 再按 v】
+
+   >> 输入 C-x o（“o”指的是“其它（other）”），
+   将光标转移到下方的窗格。
+
+   >> 在下方的窗格中，用 C-v 和 M-v 来滚动。
+
+   >> 再输入 C-x o 将光标移回到上方的窗格里。
+   光标会回到它在上方窗格中原本所在的位置。
+
+* buffers
+
+   >> Try C-x C-b now.
+
+   你将会看到一个 buffer 的列表，里面一定有 *scratch* *Message* buffer
+
+   See how each buffer has a name, and it may also have a file name for
+   the file whose contents it holds.  ANY text you see in an Emacs window
+   is always part of some buffer.
+
+   >> Type C-x 1 to get rid of the buffer list.
+
+   只显示(full the window)光标所在的 buffer,其他的 buffer 被隐藏掉了
+
+   >> Type C-x b *Messages* <Return> to look at the buffer of messages.
+   Then type C-x b TUTORIAL <Return> to come back to this tutorial.
+
+   C-x s     Save some buffers
+
+* Make frame (多窗口)
+
+   >> 输入 M-x make-frame <Return>。
+
+   可以看到一个新的窗口出现在了你的屏幕上。
+
+   >> 输入 M-x delete-frame <Return>.
+
+   这个命令将会关闭选中的窗口。
+
+   >> Type C-x 5 2.
+   See a new frame appear on your screen.
+
+   You can do everything you did in the original frame in the new frame.
+   There is nothing special about the first frame.
+
+   >> Type C-x 5 0.
+   This removes the selected frame.
+
+* EXTENDING THE COMMAND SET(拓展的命令)
+
+   C-x	Character extend.  Followed by one character.
+   M-x	Named command eXtend.  Followed by a long name.
+   你可以通过这个快捷键来找到emacs所有的命令 *非常重要的命令*
+
+* load-file,load,autoload,provide,requiread-file(from Xha)
+
+load-file →   load one specific file. The file name argument should contain filename
+extension, such as .el .elc
+
+(load-file filename) just calls
+
+(load (expand-file-name filename) nil nil t)
+
+Use load-file when you have a specific full path of a file in mind.
+
+** load
+
+load → is the general function for loading a file.
+Syntax is:
+
+(load FILE &optional NOERROR NOMESSAGE NOSUFFIX MUST-SUFFIX)
+
+If no optional argument is given, it'll try to load the FILE by searching
+for it in a list of directory stored in variable load-path, by first
+appending .elc to the argument FILE, and if none found, it'll try
+appending .el, and others, and finally try just FILE as given.
+
+For example, if you
+(load "x"), it'll first try
+
+      1.x.elc
+      2.x.el
+      3.x
+
+** autoload(company为例)
+
+    遍历elpa中的packages,扫描每一个package中的.el文件,然后提取注释里面带有autoloads
+关键字的函数,并将这些函数写进company(package-name)-autoloads.el这个文件,然后根据注释
+里面的内容(也就是函数),在package-name-autoloads.el文件里生成相应函数的autoload语句块.
+当我们调用(package-initialize)时候,执行每个package里面的xxxx-autoloads.el文件,加载
+文件里定义的函数到emacs中去.
+
+** provide
+
+#+BEGIN_SRC emacs-lisp
+(provide 'company-abbrev)
+#+END_SRC
+put the symbolize company-abbrev in variable features
+
+** require
+
+require → Load a package if it has not already been loaded.
+(require FEATURE &optional FILENAME NOERROR)
+
+require checks if the symbol FEATURE is in variable features. If not, then
+ it calls load to load it.
+
+File name is guessed from the feature name FEATURE, or specified in the
+optional argument.
+
+require is best used in elisp libraries or scripts, similar to other
+language's “require” or “improve"
+
+* Config package(such as company)
+
+M-x custom             自定义(such as face font theme...)
+M-x customize-group    自定义特定的 group(输入package name) (such as company ivy...)
+
+^
+|
+|
+'---进入可视化选项区对指定的插件做自定义设置,当选择 Save for future session 后,刚刚做的设计就会被保存在你的配置文件 custom.el 中.
+
+choices your setting
+这些设置会保存在一个叫做 custom.el 的文件里
+
+* dired
+** Basic dired
+
+- enter and a
+- +: to create directory
+- C-x C-f: to create file
+- d: delete file
+- g: to refresh dired buffer
+- ^: go to parent directory
+- >: move cursor to next subdirectory
+- <: move cursor to previous subdirectory
+- o and C-o open a file on another frame
+
+- C: copy file
+- D: delete after confirm
+- Z: compress/decompress the file by gzip
+
+** Regex
+
+- m: mark a file
+- u: unmark
+- U: unmark all files
+- *. : mark files with regex
+- t : to toggle marks
+- %m: mark by pattern(regex) example mark all txt files ----> %m--->\.txt$[REN]
+
+** Renaming files
+
+- R: rename files,不好用(不推荐,推荐用下面的方法)
+- C-x C-q -- Edit dired inline(在一个普通的buffer里编辑文字)
+
+** Hight function
+#+BEGIN_SRC emacs-lisp
+;;less typing when emacs ask you yes or no
+((fset 'yes-or-no-p 'y-or-n-p))
+
+;;always delete and copy recursively
+(setq dired-recursive-deletes 'always)
+(setq dired-recursive-copies 'always)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;;use dired on current buffer
+(require 'dired-x) ;;keybing C-x C-j
+#+END_SRC
+
+* org-mode
+** Basic org
+*** 使用tab展开和缩放一个标题(前面带星星 ** 的)
+1.如何建立一个标题    ------>   ** + SPC(try one two three four five six *)
+2.展开,缩放标题      ------>   光标移至标题按tab(当前标题)
+                   ------>   S-TAB (循环展开,缩放所有标题)
+** Insteresting function
+
+#+BEGIN_SRC emacs-lisp
+(setq x 10)
+(* x x)
+#+END_SRC
+
+#+RESULTS:
+: 100
+
+是不是很直观，明晰
+
+- <s 按TAB         创建一个上面的框架
+- emacs-lisp       紧跟着敲写emacs-lisp
+- (setq x 10)      敲入这两个S表达式,并在每个括号后面按一次C-x C-e
+  (* x x)      你会在回显区内看到他们的计算结果
+- C-c C-c          在(* x x)括号后执行一次,就会看到结果打印在下面了
+
+把 emacs-lisp 换成你熟悉的编程语言试试
+
+** Hight function
+
+1.使用C-c C-t 建立一个TODO事项，再按一次.......
+
+** Agenda
+
+agenda
+这些命令全是在 agenda 里才能用,如何打开一个 agenda
+
+ ----> M-x org-agenda [RET] 会跳出来一个窗口
+ ----> 看不懂就按 a
+ ----> 界面里应该是什么都没有的,你可以尝试下面的命令了(w,d),仔细观察,有什么变了
+
+| command | describe      |
+|---------+---------------|
+| w       | weekly agenda |
+| d       | dayly agenda  |
+| r       | refresh       |
+
+** org export
+
+export to html,you could also export to pdf
+;;C-c C-e
+
+* Package
+
+这个就不多介绍了
+
+** occur and imenu mode
+
+1.improve occur
+#+BEGIN_SRC emacs-lisp
+;;配置 Occur Mode 使其默认搜索当前被选中的或者在光标下的字符串
+(defun occur-dwim ()
+  "Call `occur' with a sane default."
+  (interactive)
+  (push (if (region-active-p)
+            (buffer-substring-no-properties
+             (region-beginning)
+             (region-end))
+          (let ((sym (thing-at-point 'symbol)))
+            (when (stringp sym)
+              (regexp-quote sym))))
+        regexp-history)
+  (call-interactively 'occur))
+
+(global-set-key (kbd "M-s o") 'occur-dwim)  ;;快捷键
+#+END_SRC
+
+2.improve imenu
+#+BEGIN_SRC emacs-lisp
+(defun js2-imenu-make-index ()
+      (interactive)
+      (save-excursion
+        ;; (setq imenu-generic-expression '((nil "describe\\(\"\\(.+\\)\"" 1)))
+        (imenu--generic-function '(("describe" "\\s-*describe\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                   ("it" "\\s-*it\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                   ("test" "\\s-*test\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                   ("before" "\\s-*before\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                   ("after" "\\s-*after\\s-*(\\s-*[\"']\\(.+\\)[\"']\\s-*,.*" 1)
+                                   ("Function" "function[ \t]+\\([a-zA-Z0-9_$.]+\\)[ \t]*(" 1)
+                                   ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
+                                   ("Function" "^var[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*=[ \t]*function[ \t]*(" 1)
+                                   ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*()[ \t]*{" 1)
+                                   ("Function" "^[ \t]*\\([a-zA-Z0-9_$.]+\\)[ \t]*:[ \t]*function[ \t]*(" 1)
+                                   ("Task" "[. \t]task([ \t]*['\"]\\([^'\"]+\\)" 1)))))
+(add-hook 'js2-mode-hook
+              (lambda ()
+                (setq imenu-create-index-function 'js2-imenu-make-index)))
+
+(global-set-key (kbd "M-s i") 'counsel-imenu) ;;快捷键
+#+END_SRC
+
+** expand-region and iedit mode
+
+1.expand
+方便标记字符串  (C-S @: Make set) 换一种方式
+代码: 绑定快捷键 例如 (global-set-key (kbd "C-=") 'er/expand-region)
+
+2.iedit
+编辑当前 buffer 中相同的字符串
+代码: 绑定快捷键 例如 (global-set-key (kbd "M-s e") 'iedit-mode')
+
+* 小技巧
+** 快速重新排序
+
+1. w
+2. h
+9. o
+4. a
+5. m
+6. i
+
+在 i 后面按 M-RET,观察会发生什么
+
+** abbrev-mode(通过一个缩写来映射到对应的字符串)
+
+这个mode反正我用着,没反应
+#+BEGIN_SRC emacs-lisp
+(setq-default abbrev-mode t)
+(define-abbrev-table 'global-abbrev-table '(
+                                            ;; Shifu
+                                            ("8zl" "zilongshanren")
+                                            ;; Tudi
+                                            ("8lxy" "lixinyang")
+                                           ))
+#+END_SRC
+
+* Pandoc
+
+一个用于格式转化的神器
+
+pandoc -o lab3.org -f html -t org lab3.html
+
+* chen bing
+
+  Reddit
+  Quora.com
+  在 twitter 上以 "emacs :en" 定期搜索
+  google "emacs-related-keywords site:stackoverflow.com

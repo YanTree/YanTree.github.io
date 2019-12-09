@@ -1,0 +1,64 @@
+1.1
+
+10
+12
+8
+3
+-16
+A
+B
+19
+nil
+4
+16
+6
+16
+
+1.2
+(/ (+ 5 4 (- 2 (- 3 (+ 6 4/5))))
+	    (* 3 (- 6 2) (- 2 7)))
+
+1.3
+1.定义平方的运算 (defun square(x)
+	                (* x x))
+2.定义两个数平方和的运算 (defun sum-of-square(x y)
+	                 	(+ (square x)
+	      			   (square y)
+3.(1.1)取两数中的大数 (defun bigger (x y)
+	   		(if (> x y)
+	       			x
+	       			y))
+  (1.2)取两数中的小数 (defun smaller (x y)
+	   		(if (> x y)
+	       			y
+	       			x))
+  (1.3)搭配上述两个函数，进行取三数中较大的两数的运算
+
+4.最终程序(过程) (defun bigger-sum-of-squares (x y z)
+	   		(sum-of-square (bigger x y)
+			  (bigger (smaller x y) z)))
+
+例子：CL-USER> (bigger-sum-of-squares 2 6 9)
+      117
+
+1.4
+答：a加上b的绝对值的运算
+
+1.5
+理解正则序求值与应用序求值之间的差异
+应用序
+先计算出每个对象的值，再具体的应用至函数上
+正则序
+先对将函数展开(剖开)，直到需要他们的值时再去求值。
+
+1.6
+自己的理解：由于cond语句是普通的函数(当然自己不会表诉的这么准确，但是意思相同，我用的common lisp)，
+在(defun new-if(predicate then-clause else-clause)
+	   (cond (predicate then-clause)
+		 (t else-clause))) 中，第二句(t else-clause)始终执行，最终导致出错。
+
+引用答案：根据书本 12 页所说， if 语句是一种特殊形式，当它的 predicate 部分为真时， then-clause 分支会被求值，否则的话， else-clause 分支被求值，
+两个 clause 只有一个会被求值。而另一方面，新定义的 new-if 只是一个普通函数，它没有 if 所具有的特殊形式，根据解释器所使用的应用序求值规则，每个函数
+的实际参数在传入的时候都会被求值，因此，当使用 new-if 函数时，无论 predicate 是真还是假， then-clause 和 else-clause 两个分支都会被求值。用 new-
+if 重定义的 sqrt-iter 会出错：因为无论测试结果如何， sqrt-iter 都会一直递归下去。问题出在 sqrt-iter 函数，如果使用 trace 来跟踪它的调用过程的话，
+就会发现它执行了大量的递归调用，这些调用数量非常庞大，最终突破解释器的栈深度，造成错误。

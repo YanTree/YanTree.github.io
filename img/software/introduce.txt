@@ -1,0 +1,7 @@
+Flagship
+外框：1400px*700px         72px/in
+中心图标：128px*128px
+
+Additional
+外框：300px*300px           72px/in
+中心图标：128px*128px

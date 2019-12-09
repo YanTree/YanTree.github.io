@@ -1,0 +1,150 @@
+* font
+
+| feature           | keyblinding |
+|-------------------+-------------|
+| make font bigger  | C-x C-=...  |
+| make font smaller | C-x C--...  |
+
+* insert link
+
+type _C-c C-l_
+
+You could look the link type Backspace,then type " ] " reduction.
+
+type _C-c C-o_ We can contact Internet
+
+* Elisp
+
+ new package  org-bullets
+
+
+#+BEGIN_SRC emacs-lisp
+(previous-line 5) ;;it's insteresting function
+
+
+(view-lossage) ;;it show you the history of you command
+#+END_SRC
+* Text
+
+we can type M-q refills the paragraph.
+
+we can type M-/ slash
+
+example
+
+ball
+banana
+bigger
+back
+b type M-/
+* Org
+** use emacs-lisp
+ #+BEGIN_SRC emacs-lisp
+ (* 5 69)   ;;type C-c C-c to evaluate
+ #+END_SRC
+
+ #+RESULTS:
+ : 345
+
+** Note time
+ - type C-c C-x 0 set start-time
+ - type C-c C-x . note time
+ - type C-c C-x , timer pause
+ - type C-u C-c C-x , time stopped
+
+** C-c '
+将block中的代码，在另外一个buffer中打开
+
+** org magic
+
+-> org-table-convert-region
+
+** C-c C-x a
+toggle archive
+
+* Package reveal.js html
+
+install this package you can export org file to reveal.js html
+
+* Use mouse on emacs
+
+我们可以打开 artist-mode 这样我们就能使用鼠标进行画图的操作了
+
+* Macros
+repeat keystrokes
+| command | bind          |
+|---------+---------------|
+| f3      | define Macros |
+| f4      | define it     |
+
+接下来每按一次f4都会重复一下上面定义的 Macros
+
+* Rectangle
+bind <C-x r ...>
+| command | bind                    | describle               |
+|---------+-------------------------+-------------------------|
+| C-x r t | string-rectangle        |                         |
+| C-x r k | kill-rectangle          |                         |
+| C-x r y | yank-rectangle          |                         |
+| C-x r o | open-rectangle          | insert little rectangle |
+| C-x spc | rectangle-mode          |                         |
+|         | string-insert-rectangle |                         |
+
+* Ibuffer
+点击h,获取帮助.H,在另一个frame里打开
+#+BEGIN_SRC emacs-lisp
+  (setq ibuffer-save-filter-groups
+        (quote (("default"
+                 ("Emacs" (or
+                           (name . "^\\*scratch\\*$")
+                           (name . "^\\*Messages\\*$")
+                           (name . "^\\*info\\*$")))
+                 ("shell" (or (mode . eshell-mode) (mode . shell-mode)))
+                 ("dired" (mode . dired-mode))
+                 ("org" (name . "^.*org$"))
+                 ("Web" (or (mode . web-mode) (mode . js2-mode)))
+                 ("Program" (or
+                             (mode . c-mode)
+                             (mode . scheme-mode)))))))
+  (add-hook 'ibuffer-mode-hook
+            (lambda ()
+              (ibuffer-auto-mode 1)
+              (ibuffer-switch-to-saved-filter-groups "default")))
+
+#+END_SRC
+
+* emmet-mode(html,css)
+* message-box
+#+begin_src emacs-lisp
+(if (= 3 3)
+    (message-box "It's true")
+  (message-box "It's false"))
+#+end_src
+* Dired
+** 按文件类型标记
+*.<类型名>  这将会标记所有同种类型文件
+t          反选
+
+** 按文件类型标记 plus (regexp)
+% m
+.*\(<类型名>\|<类型名>\).*
+
+** 查找
+find-dired
+-name \*org
+
+* ag
+
+ag-dired-regexp
+  .*org -->查找所有的 org 文件
+
+ag-project-dired-regexp
+  emacs.*org -->查找该项目下所有的 emacs *.org 文件
+
+在 counsel-ag 或者 counsel-rg 中使用 wgrep
+
+1. search with counsel-ag
+2. hit C-c C-o jump to occur buffer
+3. M-x wgrep-change-to-wgrep-mode
+4. Edit this
+5. Apply changes with C-x C-s
