@@ -6,11 +6,24 @@
     font-family: Stxingka;
     src:url("../fonts/STXINGKA.TTF") format("TrueType");
 }
+@font-face {
+    font-family: 'webfont';
+    font-display: swap;
+    src: url('//at.alicdn.com/t/webfont_yci42pq8wuf.eot'); /* IE9*/
+    src: url('//at.alicdn.com/t/webfont_yci42pq8wuf.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('//at.alicdn.com/t/webfont_yci42pq8wuf.woff2') format('woff2'),
+    url('//at.alicdn.com/t/webfont_yci42pq8wuf.woff') format('woff'), /* chrome、firefox */
+    url('//at.alicdn.com/t/webfont_yci42pq8wuf.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('//at.alicdn.com/t/webfont_yci42pq8wuf.svg#站酷小薇体') format('svg'); /* iOS 4.1- */
+  }
 .font-calibri{
     font-family: calibri;
 }
 .bg-f8f9fb{
     background-color: #f8f9fb;
+}
+.bg-0093dd{
+    background-color: #0093dd;
 }
 html,body {
    background-color:rgba(255, 255, 234, 0.1);
@@ -183,4 +196,38 @@ footer{
     100% {
         transform: translate(1px, -2px) rotate(-1deg);
     }
+}
+.resume-skill{
+    height: 1.2rem; 
+    width: 12rem; 
+    background: #6f6f6f;
+    display: block;
+    margin: 0;
+}
+@keyframes skill{
+    0%{width: 0; background-color:#2e2e2e;}
+}
+.resume-3ds-max{
+    width: 3rem;
+    height: 1.2rem;
+    background-color: #2e2e2e;
+    animation: skill 2s linear 0s 1;
+}
+.resume-PS{
+    width: 5rem;
+    height: 1.2rem;
+    background-color: #2e2e2e;
+    animation: skill 2s linear 0s 1;
+}
+.resume-Maya{
+    width: 3rem;
+    height: 1.2rem;
+    background-color: #2e2e2e;
+    animation: skill 2s linear 0s 1;
+}
+.resume-AE{
+    width: 2rem;
+    height: 1.2rem;
+    background-color: #2e2e2e;
+    animation: skill 2s linear 0s 1;
 }
