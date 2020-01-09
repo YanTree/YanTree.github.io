@@ -231,3 +231,9 @@ footer{
     background-color: #2e2e2e;
     animation: skill 2s linear 0s 1;
 }
+#backtop{
+    position: fixed;
+    right: 5rem;
+    bottom: 2rem;
+    color: #6b757f;
+}
