@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>3d_artist on YanTree&#39;s BLOG</title>
+    <link>https://yantree.github.io/posts/3d/</link>
+    <description>Recent content in 3d_artist on YanTree&#39;s BLOG</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Apr 2020 15:10:16 +0800</lastBuildDate>
+    
+	<atom:link href="https://yantree.github.io/posts/3d/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Test_artist01</title>
+      <link>https://yantree.github.io/posts/3d/test_3d01/</link>
+      <pubDate>Thu, 09 Apr 2020 15:14:17 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/3d/test_3d01/</guid>
+      <description>成为一个艺术家，大佬！ </description>
+    </item>
+    
+  </channel>
+</rss>

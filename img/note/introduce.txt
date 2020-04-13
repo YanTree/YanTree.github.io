@@ -1,7 +1,0 @@
-XXX-big
-外框：700px*220px         72px/in
-中心图标：128px*128px
-
-XXX-small
-外框：320px*200px           72px/in
-中心图标：≈150px*150px
