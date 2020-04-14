@@ -11,14 +11,5 @@
 	<atom:link href="https://yantree.github.io/posts/3d/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Test_artist01</title>
-      <link>https://yantree.github.io/posts/3d/test_3d01/</link>
-      <pubDate>Thu, 09 Apr 2020 15:14:17 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/3d/test_3d01/</guid>
-      <description>成为一个艺术家，大佬！ </description>
-    </item>
-    
   </channel>
 </rss>

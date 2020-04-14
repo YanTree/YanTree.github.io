@@ -11,50 +11,5 @@
 	<atom:link href="https://yantree.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Life_test02</title>
-      <link>https://yantree.github.io/posts/life/life_test02/</link>
-      <pubDate>Mon, 13 Apr 2020 09:07:30 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/life/life_test02/</guid>
-      <description>another test for life section </description>
-    </item>
-    
-    <item>
-      <title>Test_others01</title>
-      <link>https://yantree.github.io/posts/others/test_others01/</link>
-      <pubDate>Thu, 09 Apr 2020 15:14:38 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/others/test_others01/</guid>
-      <description>哈哈哈，test-others01 page! </description>
-    </item>
-    
-    <item>
-      <title>Test_artist01</title>
-      <link>https://yantree.github.io/posts/3d/test_3d01/</link>
-      <pubDate>Thu, 09 Apr 2020 15:14:17 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/3d/test_3d01/</guid>
-      <description>成为一个艺术家，大佬！ </description>
-    </item>
-    
-    <item>
-      <title>Test_develop01</title>
-      <link>https://yantree.github.io/posts/develop/test_develop01/</link>
-      <pubDate>Thu, 09 Apr 2020 15:13:58 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/test_develop01/</guid>
-      <description>maybe you want to be a game developer！！！develop-testing </description>
-    </item>
-    
-    <item>
-      <title>Life_test01</title>
-      <link>https://yantree.github.io/posts/life/life_test01/</link>
-      <pubDate>Thu, 09 Apr 2020 15:13:43 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/life/life_test01/</guid>
-      <description>hehe test-life page！意义不明 </description>
-    </item>
-    
   </channel>
 </rss>
