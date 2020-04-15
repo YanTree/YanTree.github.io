@@ -32,28 +32,6 @@
 
   <script crossorigin="anonymous" async="async"
           type="application/javascript" src="https://yantree.github.io/style/js/github-bootstrap.js"></script>
-  <script>
-    let classs = ['pinned-item-desc', 'text-gray', 'text-small', 'd-block', 'mt-2', 'mb-3'];
-    const pinned_posts = document.getElementsByName('pinned-post');
-    for (let i = 0; i < pinned_posts.length; i++) {
-        for (let j = 0; j < classs.length; j++) {
-            const ps = pinned_posts[i].getElementsByTagName('p');
-            for (let k = 0; k < ps.length; k++) {
-                ps[k].classList.add(classs[j]);
-            }
-        }
-    }
-    classs = [ 'd-inline-block', 'text-gray', 'mb-2', 'pr-4'];
-    const posts_posts = document.getElementsByName('posts-post');
-    for (let i = 0; i < posts_posts.length; i++) {
-        for (let j = 0; j < classs.length; j++) {
-            const ps = posts_posts[i].getElementsByTagName('p');
-            for (let k = 0; k < ps.length; k++) {
-                ps[k].classList.add(classs[j]);
-            }
-        }
-    }
-  </script>
 </head>
 <body class="env-production emoji-size-boost page-responsive page-profile mine"><div class="position-relative js-header-wrapper">
   <a href="#start-of-content" class="p-3 bg-blue text-white show-on-focus js-skip-to-content">Skip to content</a>
@@ -276,7 +254,7 @@
                           <a aria-current="page" class="UnderlineNav-item mr-0 mr-md-1 mr-lg-3 selected" href="https://yantree.github.io/posts/others/">
                             Others
                             <span class="Counter hide-lg hide-md hide-sm">
-                              0
+                              1
                             </span>
                           </a>
                     </nav>
@@ -285,6 +263,28 @@
                 <div class="position-relative">
                     <div id="user-repositories-list">
                         <ul data-filterable-for="your-repos-filter" data-filterable-type="substring">
+                            
+                            <li class="col-12 d-flex width-full py-4 border-bottom public fork">
+                                <div class="col-12 col-lg-12 d-inline-block">
+                                    <div class="d-inline-block mb-1">
+                                        <h3>
+                                            <a href="https://yantree.github.io/posts/others/2020-04-14-first-post-new-start/">第一篇文章，讲讲为什么要搭建这个博客</a>
+                                        </h3>
+                                    </div>
+            
+                                    <div name="posts-post">
+                                      <p class="d-inline-block text-gray mb-2 pr-4">
+                                        搭建博客的原因，为什么选择使用 <a href="https://gohugo.io/">HUGO</a>，主题的选择
+                                      </p>
+                                    </div>
+            
+                                    <div class="f6 text-gray mt-2">
+                                        Updated <relative-time datetime="2020-04-14" class="no-wrap"
+                                            title="Modifyd at 2020/04/14">
+                                            April 14, 2020</relative-time>
+                                    </div>
+                                </div>
+                            </li>
                             
                         </ul>
                         

@@ -5,11 +5,20 @@
     <link>https://yantree.github.io/posts/others/</link>
     <description>Recent content in Others on YanTree&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>zh-cn</language>
     <lastBuildDate>Thu, 09 Apr 2020 15:10:28 +0800</lastBuildDate>
     
 	<atom:link href="https://yantree.github.io/posts/others/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>第一篇文章，讲讲为什么要搭建这个博客</title>
+      <link>https://yantree.github.io/posts/others/2020-04-14-first-post-new-start/</link>
+      <pubDate>Tue, 14 Apr 2020 21:26:23 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/others/2020-04-14-first-post-new-start/</guid>
+      <description>搭建博客的原因，为什么选择使用 &lt;a href=&#34;https://gohugo.io/&#34;&gt;HUGO&lt;/a&gt;，主题的选择</description>
+    </item>
     
   </channel>
 </rss>
