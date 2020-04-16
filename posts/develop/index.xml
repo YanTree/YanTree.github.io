@@ -11,5 +11,14 @@
 	<atom:link href="https://yantree.github.io/posts/develop/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>「Git」命令行版本学习</title>
+      <link>https://yantree.github.io/posts/develop/2020-04-15-learning-git-and-github/</link>
+      <pubDate>Wed, 15 Apr 2020 18:30:30 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/develop/2020-04-15-learning-git-and-github/</guid>
+      <description>Git 命令行与 Github 的使用笔记</description>
+    </item>
+    
   </channel>
 </rss>
