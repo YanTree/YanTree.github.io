@@ -11,14 +11,5 @@
 	<atom:link href="https://yantree.github.io/posts/life/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>Test</title>
-      <link>https://yantree.github.io/posts/life/test/</link>
-      <pubDate>Thu, 16 Apr 2020 22:02:22 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/life/test/</guid>
-      <description>用于测试一些功能</description>
-    </item>
-    
   </channel>
 </rss>
