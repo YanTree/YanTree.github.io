@@ -11,5 +11,14 @@
 	<atom:link href="https://yantree.github.io/posts/3d/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>「blender」Blender 的学习</title>
+      <link>https://yantree.github.io/posts/3d/2020-06-20-learning-blender/</link>
+      <pubDate>Sat, 20 Jun 2020 10:38:32 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/3d/2020-06-20-learning-blender/</guid>
+      <description>学习如何使用开源软件 &lt;a href=&#34;https://www.blender.org/&#34;&gt;blender&lt;/a&gt; 的各项功能</description>
+    </item>
+    
   </channel>
 </rss>
