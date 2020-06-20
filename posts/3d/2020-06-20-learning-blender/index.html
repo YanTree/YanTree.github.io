@@ -170,10 +170,18 @@
                             <article class="markdown-body entry-content p-3 p-md-6" itemprop="text"><h1 id="blender-常见功能概述">blender 常见功能概述</h1>
 <h2 id="physics-物理模拟">physics [物理模拟]</h2>
 <p>该功能是在 blender 实际模拟物理效果，比如苹果从树上掉到地上，blender 可以模拟这一过程。截至 2020.06.20 blender 2.83版本里，blender 内置了 8 种常见的物理属性。</p>
-<p><!-- raw HTML omitted --></p>
+<figure>
+    <img src="../../../img/3d/blender-2020-06-20-eight-physics.png"
+         alt="blender-2020-06-20-eight-physics" width="30%" height="50%"/> 
+</figure>
+
 <h3 id="p---rigid-body-刚体">[P] -&gt; Rigid Body [刚体]</h3>
 <p>要解释该功能的作用就有点绕了。在任何三维软件里，建模是最基本的工作，为模型添加 <code>Rigid Body</code> 是使用模型的一种方法。为什么会有为模型添加 Rigid Body 的需要呢？在游戏领域里有 <code>Sprite</code> (中译：灵魂) 的概念，在添加 Rigid Body 前，每一个模型都只是 Sprite，像动画里的灵魂一样，我们能看见，但是我们却不能同他们握手拥抱，因为我们会穿过他们，在三维软件里没添加 Rigid Body 的模型就是这样的，带来的结果就是，模型与模型之间无法产生接触，发生碰撞，在做游戏的时候这是一个非常令人头大的问题。</p>
-<p><!-- raw HTML omitted --></p>
+<figure>
+    <img src="../../../img/3d/blender-2020-06-20-physics-rigid-body.png"
+         alt="blender-2020-06-20-eight-physics" width="40%" height="40%"/> 
+</figure>
+
 <p>初次使用 Rigid Body 模拟苹果掉在地上需要注意的参数就只有上面三个了。</p>
 <p><strong>1. Type：</strong> 有 <strong>Active</strong> 和 <strong>Passive</strong> 之分，由于地面可以看作是静止不动的，所以这里改成 <strong>Passive</strong>，苹果会掉落，是运动的，这里设置为 <strong>Active</strong>。</p>
 <p><strong>2. Shape：</strong> 细心的话就会发现这是设置 <strong>Collisions Shape</strong> 的，想要得到最好的效果，不管是地面还是苹果，都设置为 <strong>Mesh</strong>更符合实际（物体是什么形状，它的碰撞范围就是什么样）。</p>
