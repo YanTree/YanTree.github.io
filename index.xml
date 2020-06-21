@@ -6,10 +6,19 @@
     <description>Recent content on YanTree&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 20 Jun 2020 10:38:32 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2020 19:56:17 +0800</lastBuildDate>
     
 	<atom:link href="https://yantree.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「Git」Github Actions 推送 Github Page</title>
+      <link>https://yantree.github.io/posts/develop/2020-06-20-action-delopy-github-page/</link>
+      <pubDate>Sat, 20 Jun 2020 19:56:17 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/develop/2020-06-20-action-delopy-github-page/</guid>
+      <description>使用 action 功能自动推送 Github Page</description>
+    </item>
     
     <item>
       <title>「blender」Blender 的学习</title>
