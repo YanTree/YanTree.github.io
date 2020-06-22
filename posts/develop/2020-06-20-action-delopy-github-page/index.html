@@ -161,7 +161,7 @@
                     <div class="Box mt-3 position-relative">
                         <div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center">
                             <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
-                                583 Words
+                                573 Words
                                 
                             </div>
                         </div>
@@ -172,41 +172,79 @@
 <h2 id="1-绑定-ssh-key">1. 绑定 SSH Key</h2>
 <p>如果是两个独立的仓库的，将 <strong>Public Key</strong> 添加到 <code>&lt;YourName&gt;.github.io</code> 仓库，打开 <strong>setting</strong> 面板，找到 <strong>Deploy keys</strong> 选项，<strong>Title： Deploy Github Page</strong>（看你个人喜好）。<strong>Key：</strong> <strong>Public Key</strong> ；将 <strong>Private Key</strong> 添加到 <code>another repository</code> 仓库，打开 <strong>setting</strong> 面板，找到 <strong>Secrets</strong> 选项，<strong>Name：</strong> <code>ACTIONS_DEPLOY_KEY</code>（后面会用到）。<strong>Value：</strong> <strong>Private Key</strong> 。这里有一个坑，要复制整个 Private Key 的值作为 <strong>Value</strong> ，不然后面会报错。这是具体的<a href="https://forums.fast.ai/t/fastpages-ssh-issues-solved/65948">issues</a></p>
 <h2 id="2-配置-yml">2. 配置 yml</h2>
-<pre><code> name: Github Pages
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span></span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span></span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"> <span style="color:#66d9ef">name</span>: Github Pages
 
-on:
-  push:
-    branches:
+<span style="color:#66d9ef">on</span>:
+  <span style="color:#66d9ef">push</span>:
+    <span style="color:#66d9ef">branches</span>:
       - master
 
-jobs:
-  deploy:
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
-        #with:
-          #submodules: true  # Fetch Hugo themes (true OR recursive)
-          #fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+<span style="color:#66d9ef">jobs</span>:
+  <span style="color:#66d9ef">deploy</span>:
+    <span style="color:#66d9ef">runs-on</span>: ubuntu<span style="color:#ae81ff">-18.04</span>
+    <span style="color:#66d9ef">steps</span>:
+      - <span style="color:#66d9ef">uses</span>: actions/checkout@v2
+        <span style="color:#75715e">#with:</span>
+          <span style="color:#75715e">#submodules: true  # Fetch Hugo themes (true OR recursive)</span>
+          <span style="color:#75715e">#fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod</span>
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: '0.71.1'
-          # extended: true
+      - <span style="color:#66d9ef">name</span>: Setup Hugo
+        <span style="color:#66d9ef">uses</span>: peaceiris/actions-hugo@v2
+        <span style="color:#66d9ef">with</span>:
+          <span style="color:#66d9ef">hugo-version</span>: <span style="color:#e6db74">&#39;0.71.1&#39;</span>
+          <span style="color:#75715e"># extended: true</span>
 
-      - name: Build
-        run: hugo
+      - <span style="color:#66d9ef">name</span>: Build
+        <span style="color:#66d9ef">run</span>: hugo
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          external_repository: YanTree/YanTree.github.io
-          publish_branch: master     #推送的分支
-          publish_dir: ./public      #要推送的文件夹
-          commit_message: ${{ github.event.head_commit.message }}
-</code></pre>
-<p>注意 <strong>deploy_key</strong> ，<strong>external_repository</strong> ，<strong>publish_branch</strong> ，<strong>publish_dir</strong>，这四个值，ACTIONS_DEPLOY_KEY 对应的是上面 <code>Secret</code> 的 <strong>Name</strong> ，<code>external_repository</code> 改成你对应的仓库名 <code>&lt;YourName&gt;/&lt;YourName&gt;.github.io</code></p>
+      - <span style="color:#66d9ef">name</span>: Deploy
+        <span style="color:#66d9ef">uses</span>: peaceiris/actions-gh-pages@v3
+        <span style="color:#66d9ef">with</span>:
+<span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#66d9ef">deploy_key</span>: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#66d9ef">external_repository</span>: YanTree/YanTree.github.io
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#66d9ef">publish_branch</span>: master     <span style="color:#75715e">#推送的分支</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">          <span style="color:#66d9ef">publish_dir</span>: ./public      <span style="color:#75715e">#要推送的文件夹</span>
+</span>          <span style="color:#66d9ef">commit_message</span>: ${{ github.event.head_commit.message }}
+</code></pre></td></tr></table>
+</div>
+</div><p>注意调整上面 <strong>29-32</strong> 高亮行的值，ACTIONS_DEPLOY_KEY 对应的是上面 <code>Secret</code> 的 <strong>Name</strong> ，<code>external_repository</code> 改成你对应的仓库名 <code>&lt;YourName&gt;/&lt;YourName&gt;.github.io</code></p>
 <h2 id="反思">反思</h2>
 <p>如果是使用 <strong>SSH</strong> 作为 <code>Token</code> ，在电脑重装系统或者更换电脑的情况下，我们每一次都要重新更新 <strong>Deploy keys</strong> ， <strong>Secrets</strong> 的值，对于我这种动不动就重装系统的人不太友好😁。所以我新建了一个 <strong><a href="https://github.com/settings/tokens">Personal access tokens</a></strong> 专门干这件事儿，目前看来是避免了上诉的痛点。本来是打算使用 <strong>GITHUB_TOKEN</strong> 的，都不要额外配置，但是这个 <code>TOKEN</code> 只适用于同一个仓库，这是具体的 <a href="https://github.com/peaceiris/actions-gh-pages/issues/318">issues</a>，如果你是使用的同一个仓库的话，就可以使用这个功能了。</p>
 </article>
@@ -232,7 +270,7 @@ jobs:
     <div class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
       <ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
         <li class="mr-3 mr-lg-0">© 2020 YanTree.</li>
-          <li class="mr-3 mr-lg-0"><a href="https://github.com/YanTree/.emacs.d">Emacs</a></li>
+          <li class="mr-3 mr-lg-0"><a href="https://github.com/YanTree/.emacs.d">.emacs.d</a></li>
           <li class="mr-3 mr-lg-0"><a href="#"></a></li>
           <li class="mr-3 mr-lg-0"><a href="http://commonmark.org/help/">Markdown</a></li>
           <li class="mr-3 mr-lg-0"><a href="#"></a></li>
