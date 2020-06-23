@@ -123,51 +123,51 @@
     </template>
   </div><div id="content">
 <div class="application-main " data-commit-hovercards-enabled="">
-    <div itemscope="" itemtype="http://schema.org/SoftwareSourceCode" class="">
-        <main id="js-repo-pjax-container" data-pjax-container="">
-            <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav pt-0 pt-lg-4 ">
-                <div class="repohead-details-container clearfix container-lg p-responsive d-none d-lg-block">
-                    <div class="mb-3 d-flex">
-                        <h1 class="public css-truncate float-none flex-auto width-fit pl-0">
-                            <a class="avatar mr-1">
-                                <img
-                                    src="https://avatars3.githubusercontent.com/u/42629243?s=60&u=4c15c4c420106664f4020caa794ccfc78a762ece&v=4" width="26" height="26">
-                            </a>
-                            <span class="author"><a
-                                    href="https://yantree.github.io/">YanTree</a></span>
-                            <span class="path-divider">/</span>
-                            <strong itemprop="name" class="css-truncate-target" style="max-width: 410px"><a
-                                    href="https://yantree.github.io/posts/develop/2020-06-20-action-delopy-github-page/">「Git」Github Actions 推送 Github Page</a></strong>
+  <div itemscope="" itemtype="http://schema.org/SoftwareSourceCode" class="">
+    <main id="js-repo-pjax-container" data-pjax-container="">
+      <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav pt-0 pt-lg-4 ">
+        <div class="repohead-details-container clearfix container-lg p-responsive d-none d-lg-block">
+          <div class="mb-3 d-flex">
+            <h1 class="public css-truncate float-none flex-auto width-fit pl-0">
+              <a class="avatar mr-1">
+                <img
+                  src="https://avatars3.githubusercontent.com/u/42629243?s=60&u=4c15c4c420106664f4020caa794ccfc78a762ece&v=4" width="26" height="26">
+              </a>
+              <span class="author"><a
+                                     href="https://yantree.github.io/">YanTree</a></span>
+              <span class="path-divider">/</span>
+              <strong itemprop="name" class="css-truncate-target" style="max-width: 410px"><a
+                                                                                             href="https://yantree.github.io/posts/develop/2020-06-20-action-delopy-github-page/">「Git」Github Actions 推送 Github Page</a></strong>
 
-                            <div class="d-block text-small text-gray">
-                                Created <time-ago datetime="2020-06-20" class="no-wrap"
-                                    title="Created at 2020/06/20">
-                                    2020-06-20</time-ago>
-                                <span class="file-info-divider"></span>
-                                Modifyed <time-ago datetime="2020-06-20" class="no-wrap"
-                                    title="Modified  at 2020/06/20">
-                                    2020-06-20</time-ago>
-                            </div>
-                        </h1>
-                    </div>
-                </div>
-
-
+              <div class="d-block text-small text-gray">
+                Created <time-ago datetime="2020-06-20" class="no-wrap"
+                                  title="Created at 2020/06/20">
+                  2020-06-20</time-ago>
+                <span class="file-info-divider"></span>
+                Modifyed <time-ago datetime="2020-06-20" class="no-wrap"
+                                   title="Modified  at 2020/06/20">
+                  2020-06-20</time-ago>
+              </div>
+            </h1>
+          </div>
+        </div>
 
 
+
+
+      </div>
+      <div class="container-lg clearfix new-discussion-timeline experiment-repo-nav  p-responsive">
+        <div class="repository-content ">
+          <div class="Box mt-3 position-relative">
+            <div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center">
+              <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                573 Words
+                
+              </div>
             </div>
-            <div class="container-lg clearfix new-discussion-timeline experiment-repo-nav  p-responsive">
-                <div class="repository-content ">
-                    <div class="Box mt-3 position-relative">
-                        <div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center">
-                            <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
-                                573 Words
-                                
-                            </div>
-                        </div>
 
-                        <div id="readme" class="Box-body readme blob instapaper_body js-code-block-container">
-                            <article class="markdown-body entry-content p-3 p-md-6" itemprop="text"><h1 id="hugogithub-actionsgithub-pages">HUGO|Github Actions|Github Pages</h1>
+            <div id="readme" class="Box-body readme blob instapaper_body js-code-block-container">
+              <article class="markdown-body entry-content p-3 p-md-6" itemprop="text"><h1 id="hugogithub-actionsgithub-pages">HUGO|Github Actions|Github Pages</h1>
 <p>使用方法主要参考了这篇 <a href="https://zhuanlan.zhihu.com/p/109057290">文章</a> 。在这里我只是提炼一些关键点和遇到的坑。</p>
 <h2 id="1-绑定-ssh-key">1. 绑定 SSH Key</h2>
 <p>如果是两个独立的仓库的，将 <strong>Public Key</strong> 添加到 <code>&lt;YourName&gt;.github.io</code> 仓库，打开 <strong>setting</strong> 面板，找到 <strong>Deploy keys</strong> 选项，<strong>Title： Deploy Github Page</strong>（看你个人喜好）。<strong>Key：</strong> <strong>Public Key</strong> ；将 <strong>Private Key</strong> 添加到 <code>another repository</code> 仓库，打开 <strong>setting</strong> 面板，找到 <strong>Secrets</strong> 选项，<strong>Name：</strong> <code>ACTIONS_DEPLOY_KEY</code>（后面会用到）。<strong>Value：</strong> <strong>Private Key</strong> 。这里有一个坑，要复制整个 Private Key 的值作为 <strong>Value</strong> ，不然后面会报错。这是具体的<a href="https://forums.fast.ai/t/fastpages-ssh-issues-solved/65948">issues</a></p>
@@ -248,25 +248,25 @@
 <h2 id="反思">反思</h2>
 <p>如果是使用 <strong>SSH</strong> 作为 <code>Token</code> ，在电脑重装系统或者更换电脑的情况下，我们每一次都要重新更新 <strong>Deploy keys</strong> ， <strong>Secrets</strong> 的值，对于我这种动不动就重装系统的人不太友好😁。所以我新建了一个 <strong><a href="https://github.com/settings/tokens">Personal access tokens</a></strong> 专门干这件事儿，目前看来是避免了上诉的痛点。本来是打算使用 <strong>GITHUB_TOKEN</strong> 的，都不要额外配置，但是这个 <code>TOKEN</code> 只适用于同一个仓库，这是具体的 <a href="https://github.com/peaceiris/actions-gh-pages/issues/318">issues</a>，如果你是使用的同一个仓库的话，就可以使用这个功能了。</p>
 </article>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </main>
-    </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 </div>
 
 <div class="utterances"></div>
 <script src="https://utteranc.es/client.js"
-        repo="https://yantree.github.io/"
-        issue-term="title"
+        repo="YanTree/HUGO_COMMENT"
+        issue-term="pathname"
         theme="github-light"
         crossorigin="anonymous"
         async>
 </script>
 
 
-        </div><div class="footer container-xl width-full p-responsive" role="contentinfo">
+    </div><div class="footer container-xl width-full p-responsive" role="contentinfo">
     <div class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
       <ul class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
         <li class="mr-3 mr-lg-0">© 2020 YanTree.</li>
