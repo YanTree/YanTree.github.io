@@ -161,7 +161,7 @@
           <div class="Box mt-3 position-relative">
             <div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center">
               <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
-                1545 Words
+                1747 Words
                 
               </div>
             </div>
@@ -175,6 +175,12 @@
 <li><a href="#leaning-git-and-github">Leaning Git and Github!</a>
 <ul>
 <li><a href="#config-global-users-imformation">config global user&rsquo;s imformation</a></li>
+<li><a href="#git-clone">git clone</a>
+<ul>
+<li><a href="#1-%E5%88%A9%E7%94%A8-gitee-%E5%81%9A%E5%B7%A5%E5%85%B7%E4%BA%BA">1. 利用 Gitee 做工具人</a></li>
+<li><a href="#2-%E4%BD%BF%E7%94%A8-cnpmjs%E9%95%9C%E5%83%8F">2. 使用 cnpmjs镜像</a></li>
+</ul>
+</li>
 <li><a href="#%E8%A7%A3%E5%86%B3git-push%E4%BB%A3%E7%A0%81%E5%88%B0github%E4%B8%8A%E4%B8%80%E7%9B%B4%E6%8F%90%E7%A4%BA%E8%BE%93%E5%85%A5%E7%94%A8%E6%88%B7%E5%90%8D%E5%8F%8A%E5%AF%86%E7%A0%81%E7%9A%84%E9%97%AE%E9%A2%98">解决git push代码到github上一直提示输入用户名及密码的问题</a>
 <ul>
 <li><a href="#%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90">原因分析</a></li>
@@ -212,9 +218,37 @@
 </ul>
 <!-- raw HTML omitted -->
 <h2 id="config-global-users-imformation">config global user&rsquo;s imformation</h2>
-<pre><code>&gt; git config --global user.name &quot;YourName&quot;
-&gt; git config --global user.email &quot;YourEmail@example.com&quot;
-</code></pre><h2 id="解决git-push代码到github上一直提示输入用户名及密码的问题">解决git push代码到github上一直提示输入用户名及密码的问题</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git config --global user.name <span style="color:#e6db74">&#34;YourName&#34;</span>
+git config --global user.email <span style="color:#e6db74">&#34;YourEmail@example.com&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="git-clone">git clone</h2>
+<p>因为一些原因，国内克隆 <strong>GitHub</strong> 仓库的下载速度非常非常慢，这里提供两种解决办法。</p>
+<h3 id="1-利用-gitee-做工具人">1. 利用 Gitee 做工具人</h3>
+<p>注册一个 <strong><a href="https://gitee.com/signup">Gitee</a></strong> 账号。点击右上角的 ➕ ，选择 <strong>从 Github/GitLab 导入仓库</strong>，导入完成后使用 Github 同样的方式克隆仓库就行了。<code>git clone git@gitee.com:[YourName]/[YourRepository] </code> ，将 github 换成 gitee。这个方法有点繁琐，不过效果好。</p>
+<h3 id="2-使用-cnpmjs镜像">2. 使用 cnpmjs镜像</h3>
+<p>这个方法非常简单，只要修改地址后面的 <code>github.com</code> 为 <code>github.com.cnpmjs.org</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git clone https://github.com/<span style="color:#f92672">[</span>YourName<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>YourRepository<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># 使用cnpmjs</span>
+git clone  https://github.com.cnpmjs.org/<span style="color:#f92672">[</span>YourName<span style="color:#f92672">]</span>/<span style="color:#f92672">[</span>YourRepository<span style="color:#f92672">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="解决git-push代码到github上一直提示输入用户名及密码的问题">解决git push代码到github上一直提示输入用户名及密码的问题</h2>
 <h3 id="原因分析">原因分析</h3>
 <p>出现这种情况的原因是我们使用了 <code>http</code> 的方式 <code>clone</code> 代码到本地,相应的,也是使用 <code>http</code> 的方式将代码 <code>push</code> 到服务器.</p>
 <h3 id="解决办法">解决办法</h3>
@@ -223,70 +257,189 @@
 <ol>
 <li>先查看当前方式</li>
 </ol>
-<pre><code>&gt; git remote -v
-</code></pre><ol start="2">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote -v
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
 <li>把<code>http</code>方式改为<code>ssh</code>方式。先移除旧的<code>http</code>的<code>origin</code></li>
 </ol>
-<pre><code>&gt; git remote rm origin
-</code></pre><ol start="3">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote rm origin
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
 <li>再添加新的<code>ssh</code>方式的<code>origin</code></li>
 </ol>
-<pre><code>&gt; git remote add origin git@github.com:userName/repositoryName.git
-</code></pre><ol start="4">
-<li>改动完之后直接执行git push是无法推送代码的，需要设置一下上游要跟踪的分支,与此同时会自动执行一次git push命令,此时已经不用要求输入用户名及密码啦！💥 注意自己当前的分支，下面是推送到 <code>master</code> 分支。</li>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote add origin git@github.com:userName/repositoryName.git
+</code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>改动完之后直接执行git push是无法推送代码的，需要设置一下上游要跟踪的分支,与此同时会自动执行一次git push命令,此时已经不用要求输入用户名及密码啦！​⚠​ 注意自己当前的分支，下面是推送到 <code>master</code> 分支。</li>
 </ol>
-<pre><code>&gt;  git push --set-upstream origin master
-</code></pre><h2 id="工作区的文件操作">工作区的文件操作</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git push --set-upstream origin master
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="工作区的文件操作">工作区的文件操作</h2>
 <h3 id="撤销操作">撤销操作</h3>
 <p>假设有文件 <code>test01.txt</code>和<code>/test/test02.txt</code></p>
 <p>代码分别是：</p>
-<pre><code>&gt; git checkout -- test01.txt
-&gt; git checkout -- /test/test02.txt
-</code></pre><h3 id="添加和删除操作">添加和删除操作</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git checkout -- test01.txt
+git checkout -- /test/test02.txt
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="添加和删除操作">添加和删除操作</h3>
 <p>添加</p>
-<pre><code>&gt; git add filename
-</code></pre><p>删除</p>
-<pre><code>&gt; git rm filename
-</code></pre><h3 id="移除版本控制">移除版本控制</h3>
-<pre><code>&gt; git rm -r --cached file
-</code></pre><p>在 <code>.gitignore</code> 中添加要移除的文件，最后：</p>
-<pre><code>&gt; git commit -m  'modified .gitignore'
-</code></pre><h2 id="branch操作">branch操作</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git add filename
+</code></pre></td></tr></table>
+</div>
+</div><p>删除</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git rm filename
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="移除版本控制">移除版本控制</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git rm -r --cached file
+</code></pre></td></tr></table>
+</div>
+</div><p>在 <code>.gitignore</code> 中添加要移除的文件，最后：</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git commit -m  <span style="color:#e6db74">&#39;modified .gitignore&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="branch操作">branch操作</h2>
 <h3 id="创建操作">创建操作</h3>
 <p>我们创建<code>dev</code>分支，然后切换到<code>dev</code>分支</p>
-<pre><code>&gt; git checkout -b dev
-</code></pre><p>❗ 解释上一条命令。</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git checkout -b dev
+</code></pre></td></tr></table>
+</div>
+</div><p>❗ 解释上一条命令。</p>
 <p>git checkout命令加上 <code>-b</code> 参数表示创建并切换，相当于以下两条命令：</p>
-<pre><code>&gt; git branch dev
-&gt; git checkout dev
-</code></pre><h3 id="查看并切换">查看并切换</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git branch dev
+git checkout dev
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="查看并切换">查看并切换</h3>
 <ol>
 <li>查看
 紧接着上面创建 <code>dev</code> 分支后，继续讲。带 <code>*</code> 号的就是当前分支。</li>
 </ol>
-<pre><code>&gt; git branch
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git branch
 
 * dev
   master
-</code></pre><ol start="2">
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
 <li>切换至 <code>master</code> 分支</li>
 </ol>
-<pre><code>&gt; git checkout {master}
-</code></pre><h3 id="合并merge">合并(merge)</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git checkout <span style="color:#f92672">{</span>master<span style="color:#f92672">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="合并merge">合并(merge)</h3>
 <p><code>master</code> ➡ <code>dev</code></p>
-<pre><code>&gt; git merge dev
-</code></pre><h3 id="删除分支delete">删除分支(delete)</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git merge dev
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="删除分支delete">删除分支(delete)</h3>
 <p>删除 <code>dev</code> 分支</p>
-<pre><code>&gt; git branch -d dev
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git branch -d dev
 
-Deleted branch dev (was b17d20e).
-</code></pre><h2 id="设置远程仓库">设置远程仓库</h2>
+Deleted branch dev <span style="color:#f92672">(</span>was b17d20e<span style="color:#f92672">)</span>.
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="设置远程仓库">设置远程仓库</h2>
 <ol>
 <li>创建SSH key</li>
 </ol>
 <p>打开Shell，输入以下代码</p>
-<pre><code>&gt; ssh-keygen -t rsa -C &quot;youremail@example.com&quot;
-</code></pre><p>之后不用管直接按两次 <code>Enter</code> 就创建完毕了。</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh-keygen -t rsa -C <span style="color:#e6db74">&#34;youremail@example.com&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>之后不用管直接按两次 <code>Enter</code> 就创建完毕了。</p>
 <ol start="2">
 <li>添加SSH密匙
 创建完毕后用户目录下应该有个 <code>.ssh</code> 的文件夹。（❗ 没有的话，可能是你没有显示隐藏文件）复制 <code>id_rsa.pub</code> 文件里的所有内容。
@@ -301,29 +454,77 @@ Deleted branch dev (was b17d20e).
 </li>
 </ol>
 <h2 id="push-an-existing-repository-from-the-command-line">push an existing repository from the command line</h2>
-<pre><code>&gt; git remote add origin git@github.com:userName/repositoryName.git
-&gt; git push -u origin master
-</code></pre><h2 id="create-a-new-repository-on-the-command-line">create a new repository on the command line</h2>
-<pre><code>&gt; echo &quot;# .emacs.d(your repository name)&quot; &gt;&gt; README.md
-&gt; git init
-&gt; git add README.md
-&gt; git commit -m &quot;first commit&quot;
-&gt; git remote add origin git@github.com:userName/repositoryName.git
-&gt; git push -u origin master
-</code></pre><h2 id="回滚">回滚</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git remote add origin git@github.com:userName/repositoryName.git
+git push -u origin master
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="create-a-new-repository-on-the-command-line">create a new repository on the command line</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">echo <span style="color:#e6db74">&#34;# .emacs.d(your repository name)&#34;</span> &gt;&gt; README.md
+git init
+git add README.md
+git commit -m <span style="color:#e6db74">&#34;first commit&#34;</span>
+git remote add origin git@github.com:userName/repositoryName.git
+git push -u origin master
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="回滚">回滚</h2>
 <ol>
 <li>查看当前版本库的状态</li>
 </ol>
-<pre><code>&gt; git log
-</code></pre><p>or</p>
-<pre><code>&gt; git log --pretty=oneline
-</code></pre><ol start="2">
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git log
+</code></pre></td></tr></table>
+</div>
+</div><p>or</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git log --pretty<span style="color:#f92672">=</span>oneline
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
 <li>回滚到上一次提交</li>
 </ol>
-<pre><code>&gt; git reset --hard HEAD^
-</code></pre><p>or</p>
-<pre><code>&gt; git reset --hard [commit id(前五到六位数就够了)]
-</code></pre><p>❗ 注意</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git reset --hard HEAD^
+</code></pre></td></tr></table>
+</div>
+</div><p>or</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">git reset --hard <span style="color:#f92672">[</span>commit id<span style="color:#f92672">(</span>前五到六位数就够了<span style="color:#f92672">)]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>⚠ 注意</p>
 <ul>
 <li>参数 <code>hard</code> 的作用</li>
 <li><code>HEAD^^=HEAD~2</code> 意思就是回滚到前两次提交的状态</li>
