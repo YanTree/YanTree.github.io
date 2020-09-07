@@ -161,15 +161,59 @@
           <div class="Box mt-3 position-relative">
             <div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center">
               <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
-                1072 Words
+                1675 Words
                 
               </div>
             </div>
 
             <div id="readme" class="Box-body readme blob instapaper_body js-code-block-container">
               <article class="markdown-body entry-content p-3 p-md-6" itemprop="text"><h1 id="blender-常见功能概述">blender 常见功能概述</h1>
+<p>&laquo;&laquo;&laquo;&lt; HEAD</p>
 <!-- raw HTML omitted -->
-<p><strong>Table of Contents</strong></p>
+<h1 id="table-of-contents"><strong>Table of Contents</strong></h1>
+<h2 id="particle-properties">Particle Properties</h2>
+<p>**粒子属性：**基于一个对象，然后把它复制到另一个对象的表面上。</p>
+<figure>
+    <img src="../../../img/3d/blender-2020-08-01-particle-properties.png"
+         alt="blender-2020-08-01-particle-properties" width="30%" height="50%"/> 
+</figure>
+
+<p>点击 ➕ 后，就会新生成一个粒子属性。一个粒子属性分为两类，<strong>Emitter</strong> 动态类粒子，<strong>Hair</strong> 静态类粒子，我们根据情况选择其中一个就好了。</p>
+<h3 id="hair">Hair</h3>
+<p>选择 hair 后，物体表面全是发射状的细线，为了使用特定的对象作为粒子。</p>
+<ol>
+<li>选择 <strong>Render</strong> 下拉框，<strong>Render As</strong> 属性设置为 <strong>Object</strong> 。(<strong>Path</strong> 是用于做毛发之类的粒子)</li>
+<li>展开 Render 下的 <strong>object</strong> 子属性，<strong>Instance Object</strong> 属性设置为 &lt;作为粒子的对象&gt;。</li>
+</ol>
+<p>以上就是 <strong>静态粒子</strong> 的最基本的使用方法。</p>
+<h4 id="rotation">Rotation</h4>
+<p>勾选 <strong>Hair</strong> 类例子下面的 <strong>Advanced</strong> ，下面就会出现 <strong>Rotation</strong> 属性面板。</p>
+<ol>
+<li><strong>Orientation Axis</strong> 属性设置。[Normal, X, Y, Z，甜甜圈酥皮上的糖屑选择 <strong>Normal</strong>]</li>
+<li><strong>Randomize</strong> 属性设置，各个粒子的旋转轴不一样。[酥皮糖屑稍微调整一下该值]</li>
+<li><strong>Randomize Phase</strong> 属性设置，粒子绕着各自的法线轴旋转。[酥皮糖屑拉高一点该值]</li>
+</ol>
+<p>以上就是 <strong>Rotation</strong> 的简单介绍。</p>
+<h4 id="weight-paint">Weight Paint</h4>
+<p>定义那些部分有粒子。</p>
+<p>切换为 <strong>Weight Paint Mode</strong> 后，整个模型都会变成蓝色，用笔触绘画后，编程红色，红色表示1，蓝色表示0，值越大，粒子在该区域出现的概率越大。</p>
+<p>打开 <strong>Vertex Groups</strong> 属性，将 <strong>Density</strong> 设置为 Group。</p>
+<h2 id="physics-物理模拟">physics [物理模拟]</h2>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>dev</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <ul>
 <li><a href="#blender-%E5%B8%B8%E8%A7%81%E5%8A%9F%E8%83%BD%E6%A6%82%E8%BF%B0">blender 常见功能概述</a>
 <ul>
@@ -209,6 +253,18 @@
 <p><strong>1. Type：</strong> 有 <strong>Active</strong> 和 <strong>Passive</strong> 之分，由于地面可以看作是静止不动的，所以这里改成 <strong>Passive</strong>，苹果会掉落，是运动的，这里设置为 <strong>Active</strong>。</p>
 <p><strong>2. Shape：</strong> 细心的话就会发现这是设置 <strong>Collisions Shape</strong> 的，想要得到最好的效果，不管是地面还是苹果，都设置为 <strong>Mesh</strong>更符合实际（物体是什么形状，它的碰撞范围就是什么样）。</p>
 <p><strong>3. Margin：</strong> 这个概念和网页里的 Margin 有点类似，通俗的解释就是在原来的碰撞检测范围外再添加一点间距，当然是间距越小效果越好了。为什么会有这个选项呢？当一个模型太薄的时候这个就派上用场了。</p>
+<h2 id="tips">TIPS</h2>
+<h3 id="depth-of-field">Depth of Field</h3>
+<p>人眼有焦点距离，范围之内的物体比较清晰可见，范围外的物体会随着距离的增加而不可见。为了模拟该功能，<strong>Camera</strong> 下设置了 <strong>Depth of Field</strong> 属性。</p>
+<figure>
+    <img src="../../../img/3d/blender-2020-08-13-Depth-of-Field.png"
+         alt="blender-2020-08-13-Depth-of-Field" width="30%" height="50%"/> 
+</figure>
+
+<p><strong>Focus Object：</strong> 可以自由设置焦点的物体。</p>
+<p><strong>F-Stop：</strong> 设置上诉焦点距离。</p>
+<h4 id="use">USE</h4>
+<p>通常添加一个 <strong>Plain Axis</strong> 作为 <strong>Focus Object</strong> 这样我们可以在不影响场景的情况下调整焦点位置。</p>
 </article>
             </div>
           </div>
