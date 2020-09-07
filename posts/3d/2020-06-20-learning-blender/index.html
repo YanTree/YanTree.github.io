@@ -161,18 +161,13 @@
           <div class="Box mt-3 position-relative">
             <div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center">
               <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
-                1721 Words
+                1204 Words
                 
               </div>
             </div>
 
             <div id="readme" class="Box-body readme blob instapaper_body js-code-block-container">
               <article class="markdown-body entry-content p-3 p-md-6" itemprop="text"><h1 id="blender-常见功能概述">blender 常见功能概述</h1>
-<p>&laquo;&laquo;&laquo;&lt; HEAD
-&laquo;&laquo;&laquo;&lt; HEAD</p>
-<!-- raw HTML omitted -->
-<h1 id="table-of-contents"><strong>Table of Contents</strong></h1>
-<p>=======</p>
 <!-- raw HTML omitted -->
 <p><strong>Table of Contents</strong></p>
 <ul>
@@ -206,21 +201,6 @@
 </li>
 </ul>
 <!-- raw HTML omitted -->
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>dev</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
 <h2 id="particle-properties">Particle Properties</h2>
 <p><strong>粒子属性：</strong> 基于一个对象，然后把它复制到另一个对象的表面上。</p>
 <figure>
@@ -249,73 +229,18 @@
 <p>切换为 <strong>Weight Paint Mode</strong> 后，整个模型都会变成蓝色，用笔触绘画后，编程红色，红色表示1，蓝色表示0，值越大，粒子在该区域出现的概率越大。</p>
 <p>打开 <strong>Vertex Groups</strong> 属性，将 <strong>Density</strong> 设置为 Group。</p>
 <h2 id="physics-物理模拟">physics [物理模拟]</h2>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>dev</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<ul>
-<li><a href="#blender-%E5%B8%B8%E8%A7%81%E5%8A%9F%E8%83%BD%E6%A6%82%E8%BF%B0">blender 常见功能概述</a>
-<ul>
-<li><a href="#texture">Texture</a>
-<ul>
-<li><a href="#diffuse">Diffuse</a></li>
-<li><a href="#bump">Bump</a></li>
-</ul>
-</li>
-<li><a href="#physics">Physics</a>
-<ul>
-<li><a href="#rigid-body-%E5%88%9A%E4%BD%93">Rigid Body [刚体]</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- raw HTML omitted -->
-<p>&laquo;&laquo;&laquo;&lt; HEAD</p>
-<h2 id="texture">Texture</h2>
-<p>绘制贴图，可以让模型看起来更美观，更有质感，增加更多的细节。当然，看了 <strong><a href="https://www.bilibili.com/video/BV1BK411W75W">UE5</a></strong> 宣传预告后，贴图绘制方面可能会有所减少，因为在建模阶段，我们就可以直接将绝大多数的细节做出来。虽然 blender 里能直接绘制贴图，但是整个体验还不是很好，我们只能新建文件，将绘制信息存储在图片里，这样的话，非常不利于后续的调整，最好能引入 <code>PS</code> 里层的概念，将信息先存储在 blend 文件里，保存时，再将所有信息整合，写入图片文件里。</p>
-<h3 id="diffuse">Diffuse</h3>
-<p>漫反射贴图。这是最基础的贴图，和小孩子画画一样，我们直接在模型上面画画，不过会受限于模型本身的精度，在三维空间里，除了基础的色彩，我们不能表达更多的东西了。比如你想要在模型上画一口井，可能在你的视角里看，有立体感，但是当你旋转视图，从其他视角观察时，你就只能看见一个平面，直接拉跨，所以我才说和小孩子画画一样。</p>
-<h3 id="bump">Bump</h3>
-<p>凹凸贴图。那么为了解决上诉的痛点，我们就要使用 <strong>Bump</strong> 贴图了，不同于 <strong>Diffuse</strong> 贴图的是，<strong>Bump</strong> 贴图是 <a href="https://baike.baidu.com/item/%E7%81%B0%E5%BA%A6%E5%9B%BE">灰度图</a> 是黑白电视机色调的图。</p>
-<blockquote>
-<p>⚠NOTE：绘制任何贴图前，一定要先保存图片文件，防止后续不当操作以致绘制信息消失（因为你不保存的话，所有信息都是存储在 blend 文件缓冲区的）。</p>
-</blockquote>
-<h2 id="physics">Physics</h2>
-<p>该功能用于模拟现实生活中的各种物理效果，比如苹果从树上掉到地上，blender 可以模拟这一过程。截至 2020.06.20 blender 2.83版本里，blender 内置了 8 种常见的物理属性。</p>
-<figure style="margin:1rem 0.5rem"><a href="../../../img/../../../img/3d/blender-2020-06-20-eight-physics.png" title="blender-2020-06-20-eight-physics"><img src="../../../img/../../../img/3d/blender-2020-06-20-eight-physics.png" alt="blender-2020-06-20-eight-physics" width=""></a></figure>
+<p>该功能是在 blender 实际模拟物理效果，比如苹果从树上掉到地上，blender 可以模拟这一过程。截至 2020.06.20 blender 2.83版本里，blender 内置了 8 种常见的物理属性。</p>
+<figure>
+    <img src="../../../img/3d/blender-2020-06-20-eight-physics.png"
+         alt="blender-2020-06-20-eight-physics" width="30%" height="50%"/> 
+</figure>
 
-<h3 id="rigid-body-刚体">Rigid Body [刚体]</h3>
-<p>=======</p>
 <h3 id="1-rigid-body-刚体">1. Rigid Body [刚体]</h3>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>dev</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
 <p>要解释该功能的作用就有点绕了。在任何三维软件里，建模是最基本的工作，为模型添加 <code>Rigid Body</code> 是使用模型的一种方法。为什么会有为模型添加 Rigid Body 的需要呢？在游戏领域里有 <code>Sprite</code> (中译：灵魂) 的概念，在添加 Rigid Body 前，每一个模型都只是 Sprite，像动画里的灵魂一样，我们能看见，但是我们却不能同他们握手拥抱，因为我们会穿过他们，在三维软件里没添加 Rigid Body 的模型就是这样的，带来的结果就是，模型与模型之间无法产生接触，发生碰撞，在做游戏的时候这是一个非常令人头大的问题。</p>
-<figure style="margin:1rem 0.5rem"><a href="../../../img/../../../img/3d/blender-2020-06-20-physics-rigid-body.png" title="blender-2020-06-20-physics-rigid-body"><img src="../../../img/../../../img/3d/blender-2020-06-20-physics-rigid-body.png" alt="blender-2020-06-20-physics-rigid-body" width=""></a></figure>
+<figure>
+    <img src="../../../img/3d/blender-2020-06-20-physics-rigid-body.png"
+         alt="blender-2020-06-20-eight-physics" width="40%" height="40%"/> 
+</figure>
 
 <p>初次使用 Rigid Body 模拟苹果掉在地上需要注意的参数就只有上面三个了。</p>
 <p><strong>1. Type：</strong> 有 <strong>Active</strong> 和 <strong>Passive</strong> 之分，由于地面可以看作是静止不动的，所以这里改成 <strong>Passive</strong>，苹果会掉落，是运动的，这里设置为 <strong>Active</strong>。</p>
