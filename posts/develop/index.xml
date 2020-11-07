@@ -12,7 +12,16 @@
     
     
     <item>
-      <title>「Git」Magit✨</title>
+      <title>「Emacs」Doom Emacs</title>
+      <link>https://yantree.github.io/posts/develop/2020-11-06-install-doom-emacs/</link>
+      <pubDate>Fri, 06 Nov 2020 14:17:09 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/develop/2020-11-06-install-doom-emacs/</guid>
+      <description>Doom Emacs 在 win10 上的安装</description>
+    </item>
+    
+    <item>
+      <title>「Emacs」Magit✨</title>
       <link>https://yantree.github.io/posts/develop/2020-06-21-magit-of-emacs/</link>
       <pubDate>Sun, 21 Jun 2020 09:14:22 +0800</pubDate>
       
