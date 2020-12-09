@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>「Unity」URP 基操</title>
+      <link>https://yantree.github.io/posts/develop/2020-11-11-unity-scriptable-render-pipelines/</link>
+      <pubDate>Wed, 11 Nov 2020 21:30:42 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/develop/2020-11-11-unity-scriptable-render-pipelines/</guid>
+      <description>Unity URP Render Pipeline 介绍</description>
+    </item>
+    
+    <item>
       <title>「Emacs」Doom Emacs</title>
       <link>https://yantree.github.io/posts/develop/2020-11-06-install-doom-emacs/</link>
       <pubDate>Fri, 06 Nov 2020 14:17:09 +0800</pubDate>
