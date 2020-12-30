@@ -6,10 +6,19 @@
     <description>Recent content on YanTree&#39;s BLOG</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 11 Nov 2020 21:30:42 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 29 Dec 2020 23:09:27 +0800</lastBuildDate>
     
 	<atom:link href="https://yantree.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>「CG」Visual Studio &amp; OpenGL</title>
+      <link>https://yantree.github.io/posts/develop/2020-12-29-visual-studio-opengl/</link>
+      <pubDate>Tue, 29 Dec 2020 23:09:27 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/develop/2020-12-29-visual-studio-opengl/</guid>
+      <description>使用 Vistual Studio 搭建 OpenGL 环境</description>
+    </item>
     
     <item>
       <title>「Unity」URP 基操</title>
