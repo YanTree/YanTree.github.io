@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>「TA」shader 函数解释</title>
+      <link>https://yantree.github.io/posts/develop/2021-05-22-ta-function-explanation/</link>
+      <pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/develop/2021-05-22-ta-function-explanation/</guid>
+      <description>介绍 shader 编码过程中函数方法</description>
+    </item>
+    
+    <item>
       <title>「CG」Visual Studio &amp; OpenGL</title>
       <link>https://yantree.github.io/posts/develop/2020-12-29-visual-studio-opengl/</link>
       <pubDate>Tue, 29 Dec 2020 23:09:27 +0800</pubDate>
