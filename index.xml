@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>「TA」PBR基础理论</title>
+      <link>https://yantree.github.io/posts/develop/2020-11-27-ta-basic-theory/</link>
+      <pubDate>Fri, 27 Nov 2020 09:59:25 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/develop/2020-11-27-ta-basic-theory/</guid>
+      <description>介绍 PBR 模型的基本理论。</description>
+    </item>
+    
+    <item>
       <title>「Unity」URP 基操</title>
       <link>https://yantree.github.io/posts/develop/2020-11-11-unity-scriptable-render-pipelines/</link>
       <pubDate>Wed, 11 Nov 2020 21:30:42 +0800</pubDate>
