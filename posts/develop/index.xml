@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>「TA」常用的几种光照模型</title>
+      <link>https://yantree.github.io/posts/develop/2021-05-28-ta-lighting-model/</link>
+      <pubDate>Fri, 28 May 2021 22:34:22 +0800</pubDate>
+      
+      <guid>https://yantree.github.io/posts/develop/2021-05-28-ta-lighting-model/</guid>
+      <description>Lambert Phong 等光照模型</description>
+    </item>
+    
+    <item>
       <title>「TA」shader 函数解释</title>
       <link>https://yantree.github.io/posts/develop/2021-05-22-ta-function-explanation/</link>
       <pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate>
