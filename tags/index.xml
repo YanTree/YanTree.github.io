@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on YanTree&#39;s BLOG</title>
-    <link>https://yantree.github.io/tags/</link>
-    <description>Recent content in Tags on YanTree&#39;s BLOG</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    
-	<atom:link href="https://yantree.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tags on YanTree</title><link>https://example.com/tags/</link><description>Recent content in Tags on YanTree</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 28 May 2021 22:34:22 +0800</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml"/><item><title>技术美术TA</title><link>https://example.com/tags/%E6%8A%80%E6%9C%AF%E7%BE%8E%E6%9C%AFta/</link><pubDate>Fri, 28 May 2021 22:34:22 +0800</pubDate><guid>https://example.com/tags/%E6%8A%80%E6%9C%AF%E7%BE%8E%E6%9C%AFta/</guid><description/></item><item><title>Emacs</title><link>https://example.com/tags/emacs/</link><pubDate>Fri, 06 Nov 2020 14:17:09 +0800</pubDate><guid>https://example.com/tags/emacs/</guid><description/></item><item><title>Git&amp;Github</title><link>https://example.com/tags/gitgithub/</link><pubDate>Sat, 20 Jun 2020 19:56:17 +0800</pubDate><guid>https://example.com/tags/gitgithub/</guid><description/></item></channel></rss>

@@ -1,5 +1,0 @@
-Flagship
-中心图标：xxpx*xxpx
-
-Additional
-中心图标：128px*128px

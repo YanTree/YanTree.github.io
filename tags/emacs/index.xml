@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Emacs on YanTree</title><link>https://example.com/tags/emacs/</link><description>Recent content in Emacs on YanTree</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 06 Nov 2020 14:17:09 +0800</lastBuildDate><atom:link href="https://example.com/tags/emacs/index.xml" rel="self" type="application/rss+xml"/><item><title>Doom Emacs</title><link>https://example.com/p/doom-emacs/</link><pubDate>Fri, 06 Nov 2020 14:17:09 +0800</pubDate><guid>https://example.com/p/doom-emacs/</guid><description>Doom Emacs &amp;amp; Win10 Table of Contents
+Doom Emacs &amp;amp; Win10 准备工作 编辑系统环境变量 安装Doom All the icons Doom Emacs，是一份成熟的 Emacs 配置文件，相较于自己一点一滴的积攒 Emacs 配置，Doom Emacs 能让你立即开始你的工作，把更多精力放在编码或者工作上而不是折腾配置文件。
+准备工作 以下方式是不通过第三方包管理器的安装配置过程，使用第三方包管理器会方便很多。
+下载 Git 下载 Ripgrep 和 fd。确保你下载的是 Windows-gnu 版本。 下载主角 Emacs。 Git 是 .exe 文件，双击安装；解压缩 Ripgrep 和 fd，最好重命名一下文件夹分别叫 Ripgrep 和fd ，你可以把这两个文件夹放在你喜欢的位置。(后面会用到) Emacs 有 .exe 文件，可以直接安装，也有免安装版，不管使用什么方式，同上面 Ripgrep 和 fd 的使用一样，记住 Emacs 放在了哪儿。
+编辑系统环境变量 文件浏览器 -&amp;gt; 此电脑 -&amp;gt; 属性(左上角，第二个中间画 √ 的图标) -&amp;gt; 高级系统设置 -&amp;gt; 环境变量 -&amp;gt; 用户变量下面</description></item><item><title>Emacs Magit✨插件</title><link>https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/</link><pubDate>Sun, 21 Jun 2020 09:14:22 +0800</pubDate><guid>https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/</guid><description>Magit A Git Porcelain inside Emacs。Magit
+Magit 可以看作是一个嵌在 Emacs 里的一个客户端，但它同时也提供了命令行的操作（废话）。在 Emacs 里打开一个 Git 项目，M-x: magit-status 这样就启动了 magit 了，之后下面提到的操作就非常简单了。
+Table of Contents
+Magit 1. Branch 2. Stage(all) / Unstage(all) 3. Commit 4. Log 5. Push 6. Reset 总结 1. Branch b
+magit-branch
+会弹出以上菜单，和你平时看到的完全不同（毕竟是在 Emacs）。
+其中紫色对应的是 按键 后面的白色字体就是具体功能的描述了。例如：再单击 c 我们就进入了创建新分支的命令。Branch
+2. Stage(all) / Unstage(all) 这里我们可以 Stage 单个文件，也可以 Stage 全部缓冲区的文件，相反，Unstage 也是这样的。
+s S 全选 , u U 全选 小写对应是单个缓冲区文件，大写对应的是全部缓冲区文件。Stage/Unstage</description></item></channel></rss>

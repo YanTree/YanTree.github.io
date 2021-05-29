@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on YanTree</title><link>https://example.com/post/</link><description>Recent content in Posts on YanTree</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 28 May 2021 22:34:22 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Shader常用的几种光照模型</title><link>https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Fri, 28 May 2021 22:34:22 +0800</pubDate><guid>https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/</guid><description>技美——光照模型 Lambert Lambert 光照模型的光照计算简单粗暴，是光源方向点成法线方向，其值在 [-1, 1] 之间，基本计算公式如下：
+C = (c * m) * max(0 , n * l )
+// 法线方向点乘光源方向 float NdotL = max(0.0,dot(normalDirection,lightDirection)); float LambertDiffuse = NdotL * SurfaceColor; float3 finalColor = LambertDiffuse * LightColor; Half Lambert Lambert 光照模型是一个简单方便的光照计算模型，但是，有一个问题存在。在光照无法照射的区域，模型外观变成了全黑，没有任何明暗的变化，使得模型背光区看起来像一个平面，失去了模型细节表现。可以通过添加环境光来得到非全黑的效果，但即使这样仍然无法解决背光面明暗一样的缺点。为了解决这个问题，有人在 Lambert 光照模型的基础上进行改良，这就是 Half Lambert 光照模型，通过乘以一个系数 a 再加上一个系数 b 的方法，将 Lambert 光照模型的值 [-1, 1] 重新映射至 [-a + b, a + b]，绝大多数情况下 a b 的值都取 0.5 ，这样 Half Lambert 光照模型的值 [0, 1]，在一定程度上改善了 Lambert 光照模型所带来的问题：</description></item><item><title>ShaderCode常用函数解释</title><link>https://example.com/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</link><pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate><guid>https://example.com/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</guid><description>技美——函数方法解释 [TextureName]_ST
+举例来说一个纹理贴图：_Main_ST ，其中 ST 代表的是纹理的缩放属性 (Scale) 和平移 (Translation) 的缩写。_Main_ST.xy 存储缩放值，_Main_ST.zw 存储偏移值。不知道什么是纹理的缩放和偏移，建议补一下计算机图形学，里面有详细的介绍。
+POSITION vs SV_POSITION
+POSITION 被用作 vertex shader 的输入，SV_POSITION 被用作 vertex shader 的输出，fragment shader 的输入。SV 是 Systems Value 的简写，SV_POSITION 用来标识经过 vertex shader 变换后的顶点坐标。
+UnityObjectToClipPos
+在unity5.6 以前是 UNITY_MATRIX_MVP，用法：
+unity 5.6 前：o.vertex = mul(UNITY_MATRIX_MVP,v.vertex);
+unity 5.6 后：o.vertex = UnityObjectToClipPos(v.vertex);
+到这里就因该明白了，UnityObjectToClipPos 是一个 MVP 变换方法。
+TRANSFORM_TEX
+将模型顶点的UV与Tiling、Offset两个变量进行运算，计算出实际显示用的顶点UV，在UnityCG.cginc中的定义如下：
+// Transforms 2D UV by scale/bias property #define TRANSFORM_TEX(tex,name) (tex.xy * name##_ST.xy + name##_ST.zw) o.uv = TRANSFORM_TEX (v.</description></item><item><title>Visual Studio &amp; OpenGL</title><link>https://example.com/p/visual-studio-opengl/</link><pubDate>Tue, 29 Dec 2020 23:09:27 +0800</pubDate><guid>https://example.com/p/visual-studio-opengl/</guid><description>Visual Studio &amp;amp; OpenGL 这里采用的方案与 LearnOpenGL 一样，使用 glfw 和 glad。❗ 个人使用 win10 环境。
+Table of Contents
+Visual Studio &amp;amp; OpenGL 1. 配置 Visual Studio 2. 构建开发模块 3. visual Studio 编译 GLFW 4. 下载 GLAD 5. 设置项目 6. 测试用例 1. 配置 Visual Studio 安装基本的开发包，有两个必装的包。这里我使用了英文，在语言包里，我还选择了 English 安装包。
+安装模块
+2. 构建开发模块 新建一个 OpenGL 文件夹
+下载 CMake ，新电脑选择 x64 的安装包，安装 CMake。
+下载 GLFW官网，点击下载 Source package，并解压至 OpenGL 文件夹。</description></item><item><title>PBR基础理论</title><link>https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/</link><pubDate>Fri, 27 Nov 2020 09:59:25 +0800</pubDate><guid>https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/</guid><description>技美——PBR 基础理论 PBR 全称 Physically Based Rendering，这是一个全新的，效果出众的光照模型，是近年来实时渲染领域的趋势。
+Diffusion &amp;amp; Reflection Diffusion 和 Reflection 也被叫做 “diffuse” “specular”，分别描述了物体表面和光的最基本的相互作用。绿色箭头部分的光是 specular，产生完美的反射现象，这种行为跟一个球碰撞到地面发生弹射的行为一样。红色箭头部分的光是 diffuse，会进入物体内部，这部分光要不被物体吸收（通常转化为热能），要不在物体内部散射，其中一部分会从物体表面散射出来而被重新看到。这种现象称为 “漫反射” 或更复杂一点的 “次表面散射”。
+漫反射
+吸收或散射根据物体表面颜色不同而不同（比如，如果物体表面呈现蓝色，表示的是物体表面吸收蓝色以外所有的光，散射出蓝色波长的光）。通常散射方向具有相当的随机性，我们可以认为散射的方向是任何方向。通常着色程序用一个颜色变量称为 “albedo” 或 “diffuse color” 来近似描述物体表面散射颜色。
+1. 不会进入物体部分的光经物体表面反射会形成高光区域 “specular”，依光源颜色决定，一般为白色。
+2. 进入物体部分的光会进一步在物体内部发生发射现象，出射方向是随机的，出射光 “diffuse color”，依物体属性决定
+Translucency &amp;amp; Transparency 某些材质的漫反射要复杂一些——比如那些具有很长散射距离的材质：皮肤、蜡等的散射，通常一个简单的颜色变量是不够的，着色系统还需要考虑这些被照射物体的形状和厚度，如果物体足够薄，可以看到光从其背后散射出来，物体呈现半透明状；如果漫反射非常的小——比如玻璃，几乎没法注意到散射现象，光线完整的从物体的一边穿透到另一边，物体呈现全透明状。不同物体的次表面散射不尽相同，通常需要专门的“次表面散射”着色模型去模拟它。
+当物体漫反射非常的小，diffusion 会穿过物体，呈透明状
+Energy Conservation 根据上面的描述我们得到一个结论：漫反射和镜面反射是互斥的。这是因为被物体散射的光线必须进入物体表面（那它就不能被镜面反射了）。这个结论符合“能量守恒”，也就是说离开表面的光不可能比原始的入射光要亮。着色系统很容易做到这一点：假设1表示100%光能，用1减去镜面反射的光，剩下的就属于漫反射部分。这意味着强烈高光的物体几乎没有漫反射现象，原因就是没有光进入到物体表面，大部分被镜面反射了。反之亦然。
+能量守恒定律
+能量守恒是PBR的一个重要概念。它可以保证美术合适的设置材质的反射率和albedo值，而不破坏物理规则。虽然在着色系统中强制能量守恒的物理限制并不等价于最后好看的着色效果，但起码可以使得渲染效果不至于背离物理规则太远，保证在不同光照条件下物体的光照表现一致性。
+Metals 金属作为最常见导电材质，有几点特性值得被特殊提及。 首先，金属大多比绝缘体更容易发生镜面反射。导体一般的镜面反射率高达60-90%，而绝缘体一般在0-20%的范围。这种高反射率阻止了大部分光到达其内部产生散射，使得金属看起来很闪亮。 其次，导体的反射率在可见光谱中呈现多样变化，使得它们的反射光具有颜色（白光照射下）。反射光具有颜色很奇怪，但确实在我们日常的材质中出现（比如，金、铜和黄铜）。绝缘体大部分情况下不会呈现出这种效果，它们的反射光的颜色是一般跟光源颜色一致。 最后，导体通常对进入其表面的光是吸收而不是散射。这意味着理论上导体不会表现出任何的漫反射，但实际中由于金属表面氧化等原因，还是会表现出部分散射效果。根据金属的这些特性呢，PBR着色系统用“metalness”作为输入来表示材料的金属程度，而不是albedo &amp;amp; reflectivity。
+Metals 属性，其反射光具有颜色
+Fresnel Fresnel 现象是光照反射现象中不可或缺的部分。计算机图形学中 Fresnel 用来定义不同角度下的不同反射率——入射光方向越平行于物体表面，反射率越高。这意味着物体表面在 Fresnel 效果作用下，物体的边缘会更亮。大部分人可能已经对 Fresnel 效果已经有所了解，并且 Fresnel 效果在计算机图形中也不是新东西，然而，PBR 对 Fresnel 估算公式做了一些重要的纠正。 首先，入射光方向接近平行于物体表面时，一切光滑物体边缘表现为完美镜面反射，只要它足够光滑并且在合适的观察角度（也接近平行于物体表面）下，任何材质物体都表现为完美镜面反射。这有点违反直觉，但物理现象就是如此。 其次对 Fresnel 属性的观察发现不同材质的随入射光角度变化得到的 Fresnel 变化曲线和梯度差异并不大。对我们来讲意味着：如果我们期望渲染更加真实，美术对 Fresnel 行为的控制应该被降低，而不是被放大，或者说，没必要暴露多余的 Fresnel 参数让美术去调节。少了参数控制，就简化了美术内容生成，这是个利好。PBR 光照模型根据光泽度和反射率就可以自动去计算合适的 Fresnel 效果。</description></item><item><title>Doom Emacs</title><link>https://example.com/p/doom-emacs/</link><pubDate>Fri, 06 Nov 2020 14:17:09 +0800</pubDate><guid>https://example.com/p/doom-emacs/</guid><description>Doom Emacs &amp;amp; Win10 Table of Contents
+Doom Emacs &amp;amp; Win10 准备工作 编辑系统环境变量 安装Doom All the icons Doom Emacs，是一份成熟的 Emacs 配置文件，相较于自己一点一滴的积攒 Emacs 配置，Doom Emacs 能让你立即开始你的工作，把更多精力放在编码或者工作上而不是折腾配置文件。
+准备工作 以下方式是不通过第三方包管理器的安装配置过程，使用第三方包管理器会方便很多。
+下载 Git 下载 Ripgrep 和 fd。确保你下载的是 Windows-gnu 版本。 下载主角 Emacs。 Git 是 .exe 文件，双击安装；解压缩 Ripgrep 和 fd，最好重命名一下文件夹分别叫 Ripgrep 和fd ，你可以把这两个文件夹放在你喜欢的位置。(后面会用到) Emacs 有 .exe 文件，可以直接安装，也有免安装版，不管使用什么方式，同上面 Ripgrep 和 fd 的使用一样，记住 Emacs 放在了哪儿。
+编辑系统环境变量 文件浏览器 -&amp;gt; 此电脑 -&amp;gt; 属性(左上角，第二个中间画 √ 的图标) -&amp;gt; 高级系统设置 -&amp;gt; 环境变量 -&amp;gt; 用户变量下面</description></item><item><title>Emacs Magit✨插件</title><link>https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/</link><pubDate>Sun, 21 Jun 2020 09:14:22 +0800</pubDate><guid>https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/</guid><description>Magit A Git Porcelain inside Emacs。Magit
+Magit 可以看作是一个嵌在 Emacs 里的一个客户端，但它同时也提供了命令行的操作（废话）。在 Emacs 里打开一个 Git 项目，M-x: magit-status 这样就启动了 magit 了，之后下面提到的操作就非常简单了。
+Table of Contents
+Magit 1. Branch 2. Stage(all) / Unstage(all) 3. Commit 4. Log 5. Push 6. Reset 总结 1. Branch b
+magit-branch
+会弹出以上菜单，和你平时看到的完全不同（毕竟是在 Emacs）。
+其中紫色对应的是 按键 后面的白色字体就是具体功能的描述了。例如：再单击 c 我们就进入了创建新分支的命令。Branch
+2. Stage(all) / Unstage(all) 这里我们可以 Stage 单个文件，也可以 Stage 全部缓冲区的文件，相反，Unstage 也是这样的。
+s S 全选 , u U 全选 小写对应是单个缓冲区文件，大写对应的是全部缓冲区文件。Stage/Unstage</description></item><item><title>Github Actions 推送 Github Page</title><link>https://example.com/p/github-actions-%E6%8E%A8%E9%80%81-github-page/</link><pubDate>Sat, 20 Jun 2020 19:56:17 +0800</pubDate><guid>https://example.com/p/github-actions-%E6%8E%A8%E9%80%81-github-page/</guid><description>HUGO|Github Actions|Github Pages 使用方法主要参考了这篇 文章 。在这里我只是提炼一些关键点和遇到的坑。
+1. 绑定 SSH Key 如果是两个独立的仓库的，将 Public Key 添加到 &amp;lt;YourName&amp;gt;.github.io 仓库，打开 setting 面板，找到 Deploy keys 选项，Title： Deploy Github Page（看你个人喜好）。Key： Public Key ；将 Private Key 添加到 another repository 仓库，打开 setting 面板，找到 Secrets 选项，Name： ACTIONS_DEPLOY_KEY（后面会用到）。Value： Private Key 。这里有一个坑，要复制整个 Private Key 的值作为 Value ，不然后面会报错。这是具体的issues
+2. 配置 yml name:Github Pageson:push:branches:- masterjobs:deploy:runs-on:ubuntu-18.04steps:- uses:actions/checkout@v2#with:#submodules: true # Fetch Hugo themes (true OR recursive)#fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod- name:Setup Hugouses:peaceiris/actions-hugo@v2with:hugo-version:&amp;#39;0.</description></item><item><title>Git 命令行版本学习</title><link>https://example.com/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/</link><pubDate>Wed, 15 Apr 2020 18:30:30 +0800</pubDate><guid>https://example.com/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/</guid><description>Leaning Git and Github! 这是我自己学习使用 Git Github 时整理出的笔记，当时 Github 还没有出 官方教程，没有 论坛，现在都有了，这都是很好的学习资源，强烈推荐:+1:。这份文章列出了我学习时遇到的问题和解决方法，刚好趁这次疫情期间再整理一下，主要是将 ORG 文件转成 Markdown 文件的工作，因为 Github 对 org 文件格式并不友好，真的非常遗憾 :disappointed:！
+Table of Contents
+Leaning Git and Github! config global user&amp;rsquo;s imformation git clone 1. 利用 Gitee 做工具人 2. 使用 cnpmjs镜像 解决git push代码到github上一直提示输入用户名及密码的问题 原因分析 解决办法 工作区的文件操作 撤销操作 添加和删除操作 移除版本控制 branch操作 创建操作 查看并切换 合并(merge) 删除分支(delete) 设置远程仓库 push an existing repository from the command line create a new repository on the command line 回滚 pull requests and merge pull requests merge 总结 config global user&amp;rsquo;s imformation git config --global user.</description></item><item><title>第一篇文章，讲讲为什么要搭建这个博客</title><link>https://example.com/p/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E8%AE%B2%E8%AE%B2%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%90%AD%E5%BB%BA%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2/</link><pubDate>Tue, 14 Apr 2020 21:26:23 +0800</pubDate><guid>https://example.com/p/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E8%AE%B2%E8%AE%B2%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%90%AD%E5%BB%BA%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2/</guid><description>为何搭建这个博客 驱使我搭建博客的原因，有以下几点
+1. 展示、链接作品的需要。 今年鼠年，国内乃至全球遭遇了自二战以来最大的灾难—— COVID-19 新冠病毒。因为这场疫情，开学日期一延再延，而我本人又恰巧没携带笔记本电脑，但所有文件都放在笔记本电脑里（包括个人作品），这样使我在投递简历时先天的落入了一些劣势。痛定思痛，决定搭建这个博客，将个人的作品放在网站里用于展示和提供链接地址以防万一。
+2. 整理笔记的需要。 个人有做笔记的习惯，校内的专业课程十有八九，我都有整理好笔记，此次疫情让我决定不把所有鸡蛋都放在一个篮子里。而且放在网站上的另一个好处是，只要有能够连接到网络的地方，基本上我就能够下载和浏览。
+3. 搭建博客是我计划中的一步 我是在大一春季学期开始接触 Github （当时是为了玩儿 Emacs，放配置文件的需求）。在接触 Github 后就有尝试用 GitHub 平台搭建博客。苦于英语水平较低，当时并不会FQ，没有使用谷歌浏览器，更没有谷歌翻译，不知道 HTML 是什么的时候，进展缓慢，博客地址全是黑体字像极了十年前的网络环境，这都是后话了。上一个版本为了灵活使用 网页美工 所学内容并没有采用生成博客的框架，导致发表内容的时候相当麻烦！即使生成网页模板，但是像写代码一样写文章真的是反人类。为了解决这一痛点，这次我采用了博客生成框架 HUGO 专注于内容写作。
+为什么选择 HUGO 1. Fastest!!! 打开官网，你就会知道了。它的博客生成速度是世界上最快的，以毫秒计时（截至写这篇文章的时间2020.04.14 依然是最快的）。当然，这并不意味着我使用过很多博客生成框架，截至目前我只用过HUGO。
+我又是从哪里了解到 HUGO 的呢？ 这一切还得从 Emacs 说起，Emacs想说爱你真不容易。得益于自己的坚持，最终找到了最大的 Emacs 中文社区 Emacs China （虽然此时我的配置文件已经基本成型，模仿 Hacker Purecell 师傅 的配置思路）。直到现在我每天饭后都会逛逛论坛，没有了一开始那样整天都泡在论坛里，害怕错过了论坛大牛们讨论的激情（因为最新的帖子我已经都看过了:wink:）。大牛们各有各自擅长的领域，我很 :heart: 这个社区，大家都很宽容，虽然会因为技术方面的分歧而争吵，但事后还是会冰释前嫌，依然会发表自己的观点，因此接触到了很多新鲜的东西，希望 Emacs-China 能走得更远！说得有点远了😁。因为社区里有很多使用者都会搭建自己的博客，有 Jekyll，Hexo 的使用者，他们开了一份新帖讨论这个新生的框架 HUGO ，不少人更是转投了 HUGO ，这就是我与 HUGO 的初次相遇。
+2.</description></item></channel></rss>

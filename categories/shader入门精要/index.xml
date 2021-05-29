@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>shader入门精要 on YanTree</title><link>https://example.com/categories/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81/</link><description>Recent content in shader入门精要 on YanTree</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 22 May 2021 20:09:54 +0800</lastBuildDate><atom:link href="https://example.com/categories/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81/index.xml" rel="self" type="application/rss+xml"/><item><title>ShaderCode常用函数解释</title><link>https://example.com/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</link><pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate><guid>https://example.com/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</guid><description>技美——函数方法解释 [TextureName]_ST
+举例来说一个纹理贴图：_Main_ST ，其中 ST 代表的是纹理的缩放属性 (Scale) 和平移 (Translation) 的缩写。_Main_ST.xy 存储缩放值，_Main_ST.zw 存储偏移值。不知道什么是纹理的缩放和偏移，建议补一下计算机图形学，里面有详细的介绍。
+POSITION vs SV_POSITION
+POSITION 被用作 vertex shader 的输入，SV_POSITION 被用作 vertex shader 的输出，fragment shader 的输入。SV 是 Systems Value 的简写，SV_POSITION 用来标识经过 vertex shader 变换后的顶点坐标。
+UnityObjectToClipPos
+在unity5.6 以前是 UNITY_MATRIX_MVP，用法：
+unity 5.6 前：o.vertex = mul(UNITY_MATRIX_MVP,v.vertex);
+unity 5.6 后：o.vertex = UnityObjectToClipPos(v.vertex);
+到这里就因该明白了，UnityObjectToClipPos 是一个 MVP 变换方法。
+TRANSFORM_TEX
+将模型顶点的UV与Tiling、Offset两个变量进行运算，计算出实际显示用的顶点UV，在UnityCG.cginc中的定义如下：
+// Transforms 2D UV by scale/bias property #define TRANSFORM_TEX(tex,name) (tex.xy * name##_ST.xy + name##_ST.zw) o.uv = TRANSFORM_TEX (v.</description></item></channel></rss>

@@ -1,123 +1,1073 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>YanTree&#39;s BLOG</title>
-    <link>https://yantree.github.io/</link>
-    <description>Recent content on YanTree&#39;s BLOG</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Fri, 28 May 2021 22:34:22 +0800</lastBuildDate>
-    
-	<atom:link href="https://yantree.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>「TA」常用的几种光照模型</title>
-      <link>https://yantree.github.io/posts/develop/2021-05-28-ta-lighting-model/</link>
-      <pubDate>Fri, 28 May 2021 22:34:22 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/2021-05-28-ta-lighting-model/</guid>
-      <description>Lambert Phong 等光照模型</description>
-    </item>
-    
-    <item>
-      <title>「TA」shader 函数解释</title>
-      <link>https://yantree.github.io/posts/develop/2021-05-22-ta-function-explanation/</link>
-      <pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/2021-05-22-ta-function-explanation/</guid>
-      <description>介绍 shader 编码过程中函数方法</description>
-    </item>
-    
-    <item>
-      <title>「CG」Visual Studio &amp; OpenGL</title>
-      <link>https://yantree.github.io/posts/develop/2020-12-29-visual-studio-opengl/</link>
-      <pubDate>Tue, 29 Dec 2020 23:09:27 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/2020-12-29-visual-studio-opengl/</guid>
-      <description>使用 Vistual Studio 搭建 OpenGL 环境</description>
-    </item>
-    
-    <item>
-      <title>「TA」PBR基础理论</title>
-      <link>https://yantree.github.io/posts/develop/2020-11-27-ta-basic-theory/</link>
-      <pubDate>Fri, 27 Nov 2020 09:59:25 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/2020-11-27-ta-basic-theory/</guid>
-      <description>介绍 PBR 模型的基本理论。</description>
-    </item>
-    
-    <item>
-      <title>「Unity」URP 基操</title>
-      <link>https://yantree.github.io/posts/develop/2020-11-11-unity-scriptable-render-pipelines/</link>
-      <pubDate>Wed, 11 Nov 2020 21:30:42 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/2020-11-11-unity-scriptable-render-pipelines/</guid>
-      <description>Unity URP Render Pipeline 介绍</description>
-    </item>
-    
-    <item>
-      <title>「Emacs」Doom Emacs</title>
-      <link>https://yantree.github.io/posts/develop/2020-11-06-install-doom-emacs/</link>
-      <pubDate>Fri, 06 Nov 2020 14:17:09 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/2020-11-06-install-doom-emacs/</guid>
-      <description>Doom Emacs 在 win10 上的安装</description>
-    </item>
-    
-    <item>
-      <title>「Emacs」Magit✨</title>
-      <link>https://yantree.github.io/posts/develop/2020-06-21-magit-of-emacs/</link>
-      <pubDate>Sun, 21 Jun 2020 09:14:22 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/2020-06-21-magit-of-emacs/</guid>
-      <description>Emacs 杀手锏之 Magit 常用功能</description>
-    </item>
-    
-    <item>
-      <title>「Git」Github Actions 推送 Github Page</title>
-      <link>https://yantree.github.io/posts/develop/2020-06-20-action-delopy-github-page/</link>
-      <pubDate>Sat, 20 Jun 2020 19:56:17 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/2020-06-20-action-delopy-github-page/</guid>
-      <description>使用 action 功能自动推送 Github Page</description>
-    </item>
-    
-    <item>
-      <title>「blender」Blender 的学习</title>
-      <link>https://yantree.github.io/posts/3d/2020-06-20-learning-blender/</link>
-      <pubDate>Sat, 20 Jun 2020 10:38:32 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/3d/2020-06-20-learning-blender/</guid>
-      <description>学习如何使用开源软件 &lt;a href=&#34;https://www.blender.org/&#34;&gt;blender&lt;/a&gt; 的各项功能</description>
-    </item>
-    
-    <item>
-      <title>「Godot」ARPG 实例</title>
-      <link>https://yantree.github.io/posts/develop/2020-05-05-godot3-2-1-action-rpg/</link>
-      <pubDate>Tue, 05 May 2020 10:53:56 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/2020-05-05-godot3-2-1-action-rpg/</guid>
-      <description>开源引擎 Godot Action RPG 实战</description>
-    </item>
-    
-    <item>
-      <title>「Git」命令行版本学习</title>
-      <link>https://yantree.github.io/posts/develop/2020-04-15-learning-git-and-github/</link>
-      <pubDate>Wed, 15 Apr 2020 18:30:30 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/develop/2020-04-15-learning-git-and-github/</guid>
-      <description>Git 命令行与 Github 的使用笔记</description>
-    </item>
-    
-    <item>
-      <title>第一篇文章，讲讲为什么要搭建这个博客</title>
-      <link>https://yantree.github.io/posts/others/2020-04-14-first-post-new-start/</link>
-      <pubDate>Tue, 14 Apr 2020 21:26:23 +0800</pubDate>
-      
-      <guid>https://yantree.github.io/posts/others/2020-04-14-first-post-new-start/</guid>
-      <description>搭建博客的原因，为什么选择使用 &lt;a href=&#34;https://gohugo.io/&#34;&gt;HUGO&lt;/a&gt;，主题的选择</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YanTree</title><link>https://example.com/</link><description>Recent content on YanTree</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 28 May 2021 22:34:22 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Shader常用的几种光照模型</title><link>https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Fri, 28 May 2021 22:34:22 +0800</pubDate><guid>https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/</guid><description>&lt;img src="https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/topimg.webp" alt="Featured image of post Shader常用的几种光照模型" />&lt;h1 id="技美光照模型">技美——光照模型&lt;/h1>
+&lt;h2 id="lambert">Lambert&lt;/h2>
+&lt;p>Lambert 光照模型的光照计算简单粗暴，是光源方向点成法线方向，其值在 [-1, 1] 之间，基本计算公式如下：&lt;/p>
+&lt;blockquote>
+&lt;p>C = (c * m) * max(0 , n * l )&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="c1">// 法线方向点乘光源方向&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">normalDirection&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">lightDirection&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">LambertDiffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">SurfaceColor&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">finalColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">LambertDiffuse&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">LightColor&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="half-lambert">Half Lambert&lt;/h2>
+&lt;p>Lambert 光照模型是一个简单方便的光照计算模型，但是，有一个问题存在。在光照无法照射的区域，模型外观变成了全黑，没有任何明暗的变化，使得模型背光区看起来像一个平面，失去了模型细节表现。可以通过添加环境光来得到非全黑的效果，但即使这样仍然无法解决背光面明暗一样的缺点。为了解决这个问题，有人在 Lambert 光照模型的基础上进行改良，这就是 &lt;code>Half Lambert&lt;/code> 光照模型，通过乘以一个系数 a 再加上一个系数 b 的方法，将 &lt;code>Lambert&lt;/code> 光照模型的值 [-1, 1] 重新映射至 [-a + b, a + b]，绝大多数情况下 a b 的值都取 0.5 ，这样 &lt;code>Half Lambert&lt;/code> 光照模型的值 [0, 1]，在一定程度上改善了 &lt;code>Lambert&lt;/code> 光照模型所带来的问题：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="c1">// &lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">normalDirection&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">lightDirection&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mf">0.5&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">HalfLambertDiffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">SurfaceColor&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">finalColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">HalfLambertDiffuse&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">LightColor&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="phong-lighting">Phong Lighting&lt;/h2>
+&lt;p>高光计算部分，基本计算公式：&lt;/p>
+&lt;blockquote>
+&lt;p>Cspecular = (Clight * M specular)Max(0, V * r)&lt;/p>
+&lt;/blockquote>
+&lt;p>需要四个参数参与计算，入射光的颜色和强度 Clight，材质的高光反射系数 Mspecular，视线方向 v 以及反射方向 r。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="c1">// 视线方向，摄像机坐标 - 顶点坐标得到视线方向，向量从顶点指向摄像机，就是视线方向 &lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">viewDirection&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_WorldSpaceCameraPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">// 光线反射方向，有光源方向和顶点的法线方向计算得到&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">lightReflectDirection&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">reflect&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">lightDirection&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">normalDirection&lt;/span> &lt;span class="p">);&lt;/span>
+&lt;span class="c1">// Lambert 光照模型&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mo">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">normalDirection&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">lightDirection&lt;/span> &lt;span class="p">));&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">RdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mo">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">lightReflectDirection&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">viewDirection&lt;/span> &lt;span class="p">));&lt;/span>
+&lt;span class="c1">// 计算具体的高光，是一个指数函数，再乘以光照强度、高光颜色&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">specularity&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RdotV&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_SpecularGloss&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">_SpecularPower&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">_SpecularColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">lightingModel&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">diffuseColor&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">specularity&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="blinn-phong">Blinn-Phong&lt;/h2>
+&lt;p>高光计算部分，基本公式：&lt;/p>
+&lt;blockquote>
+&lt;p>Cspecular = (Clight * M specular)Max(0, n * h)&lt;/p>
+&lt;/blockquote>
+&lt;p>不同于 &lt;code>Phong&lt;/code> 模型，这里不使用视线方向 v 和反射方向 r，取而代之的是引入新的矢量 h，通过视角方向 v 和光照方向 i 相加归一化处理后得到。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="c1">// 视线方向，摄像机坐标 - 顶点坐标得到视线方向，向量从顶点指向摄像机，就是视线方向 &lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">viewDirection&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_WorldSpaceCameraPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">// 根据经验取得的模型，让视线方向+光源方向作为光反射的方向&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">halfDirection&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">viewDirection&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">lightDirection&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mo">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">normalDirection&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">lightDirection&lt;/span> &lt;span class="p">));&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">NdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mo">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">normalDirection&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDirection&lt;/span> &lt;span class="p">));&lt;/span>
+&lt;span class="c1">// 计算具体的高光，是一个指数函数，再乘以光照强度、高光颜色&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">specularity&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotV&lt;/span> &lt;span class="p">,&lt;/span>&lt;span class="n">_SpecularGloss&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">_SpecularPower&lt;/span>
+&lt;span class="o">*&lt;/span>&lt;span class="n">_SpecularColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">lightingModel&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">diffuseColor&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">specularity&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>在实际应用中，我们还是大量使用 &lt;code>Half Lambert&lt;/code> 和 &lt;code>Blinn-Phong&lt;/code> 光照模型，需要注意的是，这两个模型都是 &lt;strong>经验&lt;/strong> 模型，我们从物理的角度看，这两个模型都是不正确的，但是，在实际的渲染中，这两个模型的结果更让人满意。最后给出适用的代码，可以根据需要自行注释掉关于光照部分计算的代码来观察不同光照模型之间的区别&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 177; flex-basis: 425px">
+&lt;a href="https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel.png" data-size="1547x872">&lt;img src="https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel.png"
+srcset="https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel_huf926d0fb8ea00f04d34bca55eaa16dd7_262933_480x0_resize_box_2.png 480w, https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel_huf926d0fb8ea00f04d34bca55eaa16dd7_262933_1024x0_resize_box_2.png 1024w"
+width="1547"
+height="872"
+loading="lazy"
+alt="四种不同光照模型的结果">
+&lt;/a>
+&lt;figcaption>四种不同光照模型的结果&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Shader&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">URP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">HalfLambertBlinnPhong&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Properties&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">_Diffuse&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Diffuse&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_Specular&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_Gloss&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Gloss&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">Range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">1.0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">200&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">10&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">SubShader&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderPipeline&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UniversalRenderPipeline&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Opaque&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">LightMode&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UniversalForward&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="n">HLSLPROGRAM&lt;/span>
+&lt;span class="c1">// UnityCG.cginc 文件被代替，使用 HLSL 文件，这里引用文件&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Packages&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">unity&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">render&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">pipelines&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">universal&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">ShaderLibrary&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">Core&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">hlsl&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Packages&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">unity&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">render&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">pipelines&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">universal&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">ShaderLibrary&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">hlsl&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Packages&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">unity&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">render&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">pipelines&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">core&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">ShaderLibrary&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">SpaceTransforms&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">hlsl&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="n">CBUFFER_START&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityPerMaterial&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 兼容 SRP 批处理，将所有材质属性声明在一个 UnityPerMaterial 的 CBUFFER 块中 &lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Diffuse&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_Gloss&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">CBUFFER_END&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">a2v&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">lightmapUV&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">pos&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldPos&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a2v&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">ZERO_INITIALIZE&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 初始化变量&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pos&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">TransformObjectToHClip&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点坐标从模型空间转到裁剪空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">TransformObjectToWorldDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 法线从模型空间转到世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">TransformObjectToWorldDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点从对象空间转到世界空间&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">frag&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Light&lt;/span> &lt;span class="n">mainLight&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">GetMainLight&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 获取主光源&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点法线方向归一化&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">TransformObjectToWorldDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mainLight&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">direction&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 主光源方向归一化&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">viewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_WorldSpaceCameraPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 计算视角方向并且归一化&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">lightReflectDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">reflect&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="p">);&lt;/span> &lt;span class="c1">// 计算 phong 模型中高光部分&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">viewDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 计算半角方向且归一化&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// Lambert&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">RdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">lightReflectDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// Phong&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">NdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// Blinn-Phong&lt;/span>
+&lt;span class="c1">/// lambert + Phong&lt;/span>
+&lt;span class="c1">//half3 diffuse = mainLight.color.rgb * _Diffuse.rgb * NdotL;&lt;/span>
+&lt;span class="c1">//half3 specular = mainLight.color.rgb * _Specular.rgb * pow(RdotV, _Gloss);&lt;/span>
+&lt;span class="c1">/// Lambert + Blinn-Phong&lt;/span>
+&lt;span class="c1">//half3 diffuse = mainLight.color.rgb * _Diffuse.rgb * NdotL;&lt;/span>
+&lt;span class="c1">//half3 specular = mainLight.color.rgb * _Specular.rgb * pow(NdotV, _Gloss);&lt;/span>
+&lt;span class="c1">/// Half Lambert + Phong&lt;/span>
+&lt;span class="c1">//half3 diffuse = mainLight.color.rgb * _Diffuse.rgb * pow(NdotL * 0.5 + 0.5, 2.0);&lt;/span>
+&lt;span class="c1">//half3 specular = mainLight.color.rgb * _Specular.rgb * pow(RdotV, _Gloss);&lt;/span>
+&lt;span class="c1">/// Half Lambert + Blinn-Phong&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mainLight&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Diffuse&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mf">0.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">2.0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">specular&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mainLight&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotV&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_Gloss&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">// 计算环境光&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_GlossyEnvironmentColor&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">col&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ambient&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">specular&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">col&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDHLSL&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">FallBack&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Packages&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">unity&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">render&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">pipelines&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">universal&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">FallbackError&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Shader&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">SRP&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">HalfLambertBlinnPhong&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Properties&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">_Diffuse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Diffuse&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_SpcularColor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Spcular&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_SpcularStrength&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Spcular&lt;/span> &lt;span class="n">Strenght&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">SubShader&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Opaque&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="n">LOD&lt;/span> &lt;span class="mi">100&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">CGPROGRAM&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UnityCG&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Diffuse&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_SpcularColor&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_SpcularStrength&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">appdata&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">pos&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldPos&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">appdata&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">pos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToClipPos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点坐标从模型空间转到裁剪空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 将法线从模型空间转到世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 将顶点从模型空间转到世界空间&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">fixed4&lt;/span> &lt;span class="n">frag&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 获取环境光&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_WorldSpaceLightPos0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 主光源的方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 法线方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">viewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_WorldSpaceCameraPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 视角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">lightReflectDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">reflect&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldNormal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 主光源光线反射方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">viewDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// lambert&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">RdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">lightReflectDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// phong&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">NdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// blinn phong&lt;/span>
+&lt;span class="c1">// lambert + phong&lt;/span>
+&lt;span class="c1">//half3 diffuse = _LightColor0.rgb * _Diffuse * NdotL;&lt;/span>
+&lt;span class="c1">//half3 specular = _LightColor0.rgb * _SpcularColor.rgb * pow(RdotV, _SpcularStrength);&lt;/span>
+&lt;span class="c1">// Lambert + blinn phong&lt;/span>
+&lt;span class="c1">//half3 diffuse = _LightColor0.rgb * _Diffuse * NdotL;&lt;/span>
+&lt;span class="c1">//half3 specular = _LightColor0.rgb * _SpcularColor.rgb * pow(NdotV, _SpcularStrength);&lt;/span>
+&lt;span class="c1">// half lambert + phong&lt;/span>
+&lt;span class="c1">//half3 diffuse = _LightColor0.rgb * _Diffuse * pow(NdotL * 0.5 + 0.5, 2.0);&lt;/span>
+&lt;span class="c1">//half3 specular = _LightColor0.rgb * _SpcularColor.rgb * pow(RdotV, _SpcularStrength);&lt;/span>
+&lt;span class="c1">// half lambert + blinn phong&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Diffuse&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mf">0.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">2.0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">specular&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_SpcularColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotV&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_SpcularStrength&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diffuse&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">specular&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">ambient&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDCG&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>ShaderCode常用函数解释</title><link>https://example.com/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</link><pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate><guid>https://example.com/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</guid><description>&lt;h1 id="技美函数方法解释">技美——函数方法解释&lt;/h1>
+&lt;p>&lt;strong>[TextureName]_ST&lt;/strong>&lt;/p>
+&lt;p>举例来说一个纹理贴图：&lt;code>_Main_ST&lt;/code> ，其中 ST 代表的是纹理的缩放属性 (Scale) 和平移 (Translation) 的缩写。&lt;code>_Main_ST.xy&lt;/code> 存储缩放值，&lt;code>_Main_ST.zw&lt;/code> 存储偏移值。不知道什么是纹理的缩放和偏移，建议补一下计算机图形学，里面有详细的介绍。&lt;/p>
+&lt;p>&lt;strong>POSITION vs SV_POSITION&lt;/strong>&lt;/p>
+&lt;p>&lt;code>POSITION&lt;/code> 被用作 vertex shader 的输入，&lt;code>SV_POSITION&lt;/code> 被用作 vertex shader 的输出，fragment shader 的输入。SV 是 Systems Value 的简写，&lt;code>SV_POSITION&lt;/code> 用来标识经过 vertex shader 变换后的顶点坐标。&lt;/p>
+&lt;p>&lt;strong>UnityObjectToClipPos&lt;/strong>&lt;/p>
+&lt;p>在unity5.6 以前是 UNITY_MATRIX_MVP，用法：&lt;/p>
+&lt;p>unity 5.6 前：o.vertex = mul(UNITY_MATRIX_MVP,v.vertex);&lt;/p>
+&lt;p>unity 5.6 后：o.vertex = UnityObjectToClipPos(v.vertex);&lt;/p>
+&lt;p>到这里就因该明白了，UnityObjectToClipPos 是一个 &lt;code>MVP&lt;/code> 变换方法。&lt;/p>
+&lt;p>&lt;strong>TRANSFORM_TEX&lt;/strong>&lt;/p>
+&lt;p>将模型顶点的UV与Tiling、Offset两个变量进行运算，计算出实际显示用的顶点UV，在UnityCG.cginc中的定义如下：&lt;/p>
+&lt;pre>&lt;code class="language-shader" data-lang="shader">// Transforms 2D UV by scale/bias property
+#define TRANSFORM_TEX(tex,name) (tex.xy * name##_ST.xy + name##_ST.zw)
+&lt;/code>&lt;/pre>&lt;p>o.uv = TRANSFORM_TEX (v.texcoord, _MainTex);&lt;/p>
+&lt;p>v 是 appdata_base 类型，v.texcoord 就是模型顶点的 uv 数据。&lt;/p>
+&lt;p>_MainTex 是使用的图片；&lt;/p>
+&lt;p>name##_ST 实际上就是 _MainTex_ST；
+name## ST.xy 就是 Tiling 的 xy 值；&lt;/p>
+&lt;p>name##_ST.zw 就是 Offset 的 xy 值。&lt;/p>
+&lt;p>&lt;strong>Tex2D(_MainTex, IN.uv_MainTex)&lt;/strong>&lt;/p>
+&lt;p>half4 c = tex2D (_MainTex, IN.uv_MainTex);&lt;/p>
+&lt;p>&lt;code>tex2D(sampler2D tex, float2 s)&lt;/code>函数，这是CG程序中用来在一张贴图中对一个点进行采样的方法，返回一个float4。这里对 _MainTex在输入点上进行了采样，并将其颜色的rbg值赋予了输出的像素颜色，将a值赋予透明度。于是，着色器就明白了应当怎样工作：即找到贴图上 对应的uv点，直接使用颜色信息来进行着色&lt;/p>
+&lt;p>&lt;strong>Scene Depth / Screen Position&lt;/strong>&lt;/p>
+&lt;p>Scene Depth 是除开透明模型之外的深度，Screen Position是所有模型的深度。这里如果用视线空间的 Scene Depth 减去 Screen Position(Raw Model) 的 alpha，就可以得到透明模型与不透明模型相交的边缘。&lt;/p>
+&lt;p>&lt;strong>Posterize Node&lt;/strong>&lt;/p>
+&lt;p>使用该节点会生成的代码：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="k">void&lt;/span> &lt;span class="n">Unity_Posterize_float4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">float4&lt;/span> &lt;span class="n">In&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">float4&lt;/span> &lt;span class="n">Steps&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">out&lt;/span> &lt;span class="n">float4&lt;/span> &lt;span class="n">Out&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Out&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">floor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">In&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">Steps&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">Steps&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将连续的值以 ( 1 / Steps ) 为单位向下取整，产生以 ( 1 / Steps ) 为单位标量的值。(说人话：Steps 值越大，新生成的值越接近原来的值；Steps 值越小，新生成的值越偏离原来的值，最终结果可能只剩下两个值。举例来说：一条函数曲线在 Sterps 越小的情况下越接近一条直线。)&lt;/p>
+&lt;p>&lt;strong>Ellipse Node(Fragment)&lt;/strong>&lt;/p>
+&lt;p>使用该节点会生成的代码：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="k">void&lt;/span> &lt;span class="n">Unity_Ellipse_float&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">float2&lt;/span> &lt;span class="n">UV&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">float&lt;/span> &lt;span class="n">Width&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">float&lt;/span> &lt;span class="n">Height&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">out&lt;/span> &lt;span class="n">float4&lt;/span> &lt;span class="n">Out&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">d&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">length&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">UV&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">float2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Width&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Height&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">Out&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">saturate&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">d&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">fwidth&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">d&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>根据输入 UV 以输入宽度和高度指定的大小生成椭圆形状。&lt;/p>
+&lt;p>&lt;strong>Twirl Node&lt;/strong>&lt;/p>
+&lt;p>使用该节点会生成的代码：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="k">void&lt;/span> &lt;span class="n">Unity_Twirl_float&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">float2&lt;/span> &lt;span class="n">UV&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">float2&lt;/span> &lt;span class="n">Center&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">float&lt;/span> &lt;span class="n">Strength&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">float2&lt;/span> &lt;span class="n">Offset&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">out&lt;/span> &lt;span class="n">float2&lt;/span> &lt;span class="n">Out&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">delta&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UV&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">Center&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">angle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Strength&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">length&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">delta&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">cos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">angle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">delta&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">sin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">angle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">delta&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">angle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">delta&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">cos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">angle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">delta&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">Out&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">float2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">Center&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">Offset&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">Center&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">Offset&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将类似于黑洞的旋转扭曲效果应用于输入UV的值。 变形效果的中心参考点由输入Center定义，效果的整体强度由输入Strength的值定义。 输入偏移量可用于偏移结果的各个通道。&lt;/p></description></item><item><title>Visual Studio &amp; OpenGL</title><link>https://example.com/p/visual-studio-opengl/</link><pubDate>Tue, 29 Dec 2020 23:09:27 +0800</pubDate><guid>https://example.com/p/visual-studio-opengl/</guid><description>&lt;img src="https://example.com/p/visual-studio-opengl/topimg.png" alt="Featured image of post Visual Studio &amp; OpenGL" />&lt;h1 id="visual-studio--opengl">Visual Studio &amp;amp; OpenGL&lt;/h1>
+&lt;p>这里采用的方案与 &lt;strong>&lt;a class="link" href="https://learnopengl.com/Getting-started/Creating-a-window" target="_blank" rel="noopener"
+>LearnOpenGL&lt;/a>&lt;/strong> 一样，使用 &lt;strong>glfw&lt;/strong> 和 &lt;strong>glad&lt;/strong>。❗ 个人使用 &lt;strong>win10&lt;/strong> 环境。&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;strong>Table of Contents&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#visual-studio--opengl" >Visual Studio &amp;amp; OpenGL&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#1-%e9%85%8d%e7%bd%ae-visual-studio" >1. 配置 Visual Studio&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#2-%e6%9e%84%e5%bb%ba%e5%bc%80%e5%8f%91%e6%a8%a1%e5%9d%97" >2. 构建开发模块&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#3-visual-studio-%e7%bc%96%e8%af%91-glfw" >3. visual Studio 编译 GLFW&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#4-%e4%b8%8b%e8%bd%bd-glad" >4. 下载 GLAD&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#5-%e8%ae%be%e7%bd%ae%e9%a1%b9%e7%9b%ae" >5. 设置项目&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#6-%e6%b5%8b%e8%af%95%e7%94%a8%e4%be%8b" >6. 测试用例&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="1-配置-visual-studio">1. 配置 Visual Studio&lt;/h2>
+&lt;p>安装基本的开发包，有两个必装的包。这里我使用了英文，在语言包里，我还选择了 &lt;strong>English&lt;/strong> 安装包。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 200; flex-basis: 480px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize.png" data-size="1570x785">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize_huda128796a8620fd8d1a2f0c57a1fdcea_123716_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize_huda128796a8620fd8d1a2f0c57a1fdcea_123716_1024x0_resize_box_2.png 1024w"
+width="1570"
+height="785"
+loading="lazy"
+alt="安装模块">
+&lt;/a>
+&lt;figcaption>安装模块&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="2-构建开发模块">2. 构建开发模块&lt;/h2>
+&lt;p>新建一个 &lt;strong>OpenGL&lt;/strong> 文件夹&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>下载 &lt;strong>&lt;a class="link" href="https://cmake.org/download/" target="_blank" rel="noopener"
+>CMake&lt;/a>&lt;/strong> ，新电脑选择 x64 的安装包，安装 CMake。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>下载 &lt;strong>&lt;a class="link" href="https://www.glfw.org/download.html" target="_blank" rel="noopener"
+>GLFW官网&lt;/a>&lt;/strong>，点击下载 &lt;strong>Source package&lt;/strong>，并解压至 &lt;strong>OpenGL&lt;/strong> 文件夹。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用 CMake 编译 GLFW。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>当前文件目录如下：&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 141; flex-basis: 338px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory.png" data-size="1128x799">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory_hufbc7154665c30cd809f8d85de53662fe_52871_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory_hufbc7154665c30cd809f8d85de53662fe_52871_1024x0_resize_box_2.png 1024w"
+width="1128"
+height="799"
+loading="lazy"
+alt="项目目录">
+&lt;/a>
+&lt;figcaption>项目目录&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>build 文件夹是我自己创建的，待会编译会用到。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>双击 CMake-gui 程序，进行编译。&lt;/p>
+&lt;p>先设置好对应文件夹，如下图所示：&lt;strong>source code&lt;/strong> 是解压后的 glfw-3.3.2 文件目录，&lt;strong>build binaries&lt;/strong> 是我们新建的 build 文件夹，对应关系如上图所示。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 229; flex-basis: 550px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019.png" data-size="1271x554">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019_hu8428fd3068b8e6fbca41ef419ab8ae22_93086_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019_hu8428fd3068b8e6fbca41ef419ab8ae22_93086_1024x0_resize_box_2.png 1024w"
+width="1271"
+height="554"
+loading="lazy"
+alt="Cmake build glfw">
+&lt;/a>
+&lt;figcaption>Cmake build glfw&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>接下来点击下面的 Configure 按钮。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 218; flex-basis: 524px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure.png" data-size="1297x593">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure_hu065d9883e451eafff5e12cd16c4ab913_126425_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure_hu065d9883e451eafff5e12cd16c4ab913_126425_1024x0_resize_box_2.png 1024w"
+width="1297"
+height="593"
+loading="lazy"
+alt="Cmake 配置">
+&lt;/a>
+&lt;figcaption>Cmake 配置&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>会弹出下图右边的小弹窗，确定选择的是 Visual Studio 16 2019 平台，完成后，点击下面的 Finish 按钮。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>真正开始编译&lt;/p>
+&lt;p>上面点击完 Finish 后等一会会出现如下图左边的红色页面，此时我们点击左边的 &lt;strong>Generate&lt;/strong> 开始编译。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 233; flex-basis: 560px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate.png" data-size="1277x547">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate_hu4a0fab0c16c2489634929aa5061bfdb3_223580_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate_hu4a0fab0c16c2489634929aa5061bfdb3_223580_1024x0_resize_box_2.png 1024w"
+width="1277"
+height="547"
+loading="lazy"
+alt="Cmake 编译">
+&lt;/a>
+&lt;figcaption>Cmake 编译&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>此时，CMake 已经完成了它的所有任务。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="3-visual-studio-编译-glfw">3. visual Studio 编译 GLFW&lt;/h2>
+&lt;p>在 CMake 完成编译后，上图的右边部分，我们可以直接点击 &lt;strong>Open Project&lt;/strong> 用 Visual Studio 打开 project ，或者双击 build 后里的 &lt;strong>GLFW.sln&lt;/strong> 文件，打开 project 后，点击 &lt;strong>build -&amp;gt; build solution&lt;/strong>， 完成后会在 &lt;strong>build -&amp;gt; src -&amp;gt; Debug&lt;/strong> 里生成 &lt;strong>glfw3.lib&lt;/strong> 文件，这是我们需要的。&lt;/p>
+&lt;h2 id="4-下载-glad">4. 下载 GLAD&lt;/h2>
+&lt;p>点击 &lt;strong>&lt;a class="link" href="https://glad.dav1d.de/" target="_blank" rel="noopener"
+>这里&lt;/a>&lt;/strong> 打开 GLAD 在线服务，设置如下：&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 129; flex-basis: 310px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-glad-online.png" data-size="1229x951">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-glad-online.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-glad-online_hube4b39f3a15266da6f6fabb917df5c5a_67754_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-glad-online_hube4b39f3a15266da6f6fabb917df5c5a_67754_1024x0_resize_box_2.png 1024w"
+width="1229"
+height="951"
+loading="lazy"
+alt="下载GLAD">
+&lt;/a>
+&lt;figcaption>下载GLAD&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>确保 Options 下面勾选上了 &lt;strong>Generate a loader&lt;/strong>，最后点击页面最下面的 &lt;strong>GENERATE&lt;/strong>，此时会打开另一个页面，我们点击下面的 &lt;strong>glad.zip&lt;/strong> ，下载 glad。将其解压在 &lt;strong>OpenGL&lt;/strong> 文件夹下，此时 OpenGL 文件下会多出 &lt;strong>include、src&lt;/strong> 文件夹。&lt;/p>
+&lt;h2 id="5-设置项目">5. 设置项目&lt;/h2>
+&lt;p>这一步我们会重点关注两个文件夹，前面的 &lt;strong>OpenGL&lt;/strong> 和接下来要创建的项目文件夹 &lt;strong>Learn OpenGL&lt;/strong> 。&lt;/p>
+&lt;p>打开 Visual Studio 新建一个空的 project，结果如图：&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 150; flex-basis: 360px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-enpty-opengl-project.png" data-size="1277x849">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-enpty-opengl-project.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-enpty-opengl-project_hud1c1c592a931b72745d67f91fc603d9c_33866_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-enpty-opengl-project_hud1c1c592a931b72745d67f91fc603d9c_33866_1024x0_resize_box_2.png 1024w"
+width="1277"
+height="849"
+loading="lazy"
+alt="创建空项目">
+&lt;/a>
+&lt;figcaption>创建空项目&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>在 LearnOpenGL 项目里新建文件夹 OpenGL_Stuff，并创建子文件夹 includes，lib，当前 LearnOpenGL 项目目录结构&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 94; flex-basis: 225px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-directory-before.png" data-size="237x252">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-directory-before.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-directory-before_hua6b082968871855f8558cacf914793a6_6572_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-directory-before_hua6b082968871855f8558cacf914793a6_6572_1024x0_resize_box_2.png 1024w"
+width="237"
+height="252"
+loading="lazy"
+alt="项目目录">
+&lt;/a>
+&lt;figcaption>项目目录&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>当前的 OpenGL 目录如下：&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 90; flex-basis: 216px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory-after.png" data-size="183x203">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory-after.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory-after_hu0537b940e5ce0bd5a95fe22a00371334_3520_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory-after_hu0537b940e5ce0bd5a95fe22a00371334_3520_1024x0_resize_box_2.png 1024w"
+width="183"
+height="203"
+loading="lazy"
+alt="项目目录">
+&lt;/a>
+&lt;figcaption>项目目录&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>将 &lt;strong>OpenGL -&amp;gt; build -&amp;gt; src -&amp;gt; Debug&lt;/strong> 里生成 &lt;strong>glfw3.lib&lt;/strong> 文件复制到 &lt;strong>LearnOpenGL -&amp;gt; OpenGL_Stuff -&amp;gt; lib&lt;/strong> 文件夹中，将 &lt;strong>OpenGL -&amp;gt; glfw-3.3.2 -&amp;gt; include&lt;/strong> 里的 &lt;strong>GLFW&lt;/strong> 文件夹复制到 &lt;strong>LearnOpenGL -&amp;gt; OpenGL_Stuff -&amp;gt; includes&lt;/strong> 文件夹中，将 **OpenGL -&amp;gt; include ** 里的 &lt;strong>glad，KHR&lt;/strong> 文件夹复制到 &lt;strong>LearnOpenGL -&amp;gt; OpenGL_Stuff -&amp;gt; includes&lt;/strong> 文件夹中。完成后的 &lt;strong>LearnOpenGL&lt;/strong> 项目目录结构：&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 68; flex-basis: 164px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-directory-after.png" data-size="243x354">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-directory-after.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-directory-after_hu15a13880a22a7df9277d197e00ac621b_8518_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-directory-after_hu15a13880a22a7df9277d197e00ac621b_8518_1024x0_resize_box_2.png 1024w"
+width="243"
+height="354"
+loading="lazy"
+alt="项目目录">
+&lt;/a>
+&lt;figcaption>项目目录&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>双击 &lt;strong>LearnOpenGL.sln&lt;/strong> 打开项目，还要将 &lt;strong>OpenGL -&amp;gt; src&lt;/strong> 里的 &lt;strong>glad.c&lt;/strong> 文件添加进 &lt;strong>Learn OpenGL&lt;/strong> 项目里。打开 Visual Studio 后，直接将 glad.c 文件拖拽至 &lt;strong>Source Files&lt;/strong> 目录里。&lt;/p>
+&lt;figure>&lt;img src="../../../img/develop/2020-12-30-add-glad.c-file.png"
+alt="2020-12-30-add-glad.c-file"/>
+&lt;/figure>
+&lt;p>&lt;figure style="flex-grow: 99; flex-basis: 237px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-add-glad-file.png" data-size="317x320">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-add-glad-file.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-add-glad-file_hu41a5803025f1b4689a66e82d7e910f29_18589_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-add-glad-file_hu41a5803025f1b4689a66e82d7e910f29_18589_1024x0_resize_box_2.png 1024w"
+width="317"
+height="320"
+loading="lazy"
+alt="项目目录">
+&lt;/a>
+&lt;figcaption>项目目录&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>接下来就是对 &lt;strong>Learn OpenGL&lt;/strong> 项目属性设置了，打开项目后，&lt;strong>Project -&amp;gt; Properties&lt;/strong> 。&lt;/p>
+&lt;p>左边点击 &lt;strong>VC++ Directories&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>编辑右边的 &lt;strong>General -&amp;gt; Include Directories&lt;/strong>，选择 &lt;strong>includes&lt;/strong> 文件路径，点击一下右下角的 &lt;strong>Apply&lt;/strong> 按钮；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>编辑右边的 &lt;strong>General -&amp;gt; Library Directories&lt;/strong>，选择 &lt;strong>lib&lt;/strong> 文件路径，点击一下右下角的 &lt;strong>Apply&lt;/strong> 按钮；&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 170; flex-basis: 410px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory.png" data-size="1354x792">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory_hu185b8888a615bcb010ded8a961893a72_73341_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory_hu185b8888a615bcb010ded8a961893a72_73341_1024x0_resize_box_2.png 1024w"
+width="1354"
+height="792"
+loading="lazy"
+alt="Visual Studio 添加文件路径">
+&lt;/a>
+&lt;figcaption>Visual Studio 添加文件路径&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>左边点击 &lt;strong>Linker -&amp;gt; Input&lt;/strong>&lt;/p>
+&lt;p>编辑右边的 &lt;strong>Additional Dependencies&lt;/strong>，输入 &lt;strong>opengl32.lib&lt;/strong> 按一下回车继续输入 &lt;strong>glfw3.lib&lt;/strong> ，点击一下右下角的 &lt;strong>Apply&lt;/strong> 按钮；&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 169; flex-basis: 407px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input.png" data-size="1354x797">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input_huaaefca8c85c78540c61faec8ec292904_59942_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input_huaaefca8c85c78540c61faec8ec292904_59942_1024x0_resize_box_2.png 1024w"
+width="1354"
+height="797"
+loading="lazy"
+alt="Visual Studio 添加依赖">
+&lt;/a>
+&lt;figcaption>Visual Studio 添加依赖&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>到这儿，整个配置环境就搭建好了。&lt;/p>
+&lt;h2 id="6-测试用例">6. 测试用例&lt;/h2>
+&lt;p>新建cpp文件并测试，下面的是测试代码&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-c++" data-lang="c++">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;glad/glad.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;GLFW/glfw3.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="cp">&lt;/span>
+&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;iostream&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;span class="cp">&lt;/span>
+&lt;span class="kt">void&lt;/span> &lt;span class="nf">framebuffer_size_callback&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">GLFWwindow&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">window&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">width&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">height&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="kt">void&lt;/span> &lt;span class="nf">processInput&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">GLFWwindow&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">window&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">// settings
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">const&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">SCR_WIDTH&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">800&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">const&lt;/span> &lt;span class="kt">unsigned&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">SCR_HEIGHT&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">600&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kt">int&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="c1">// glfw: initialize and configure
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// ------------------------------
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">glfwInit&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="n">glfwWindowHint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">GLFW_CONTEXT_VERSION_MAJOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">glfwWindowHint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">GLFW_CONTEXT_VERSION_MINOR&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">glfwWindowHint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">GLFW_OPENGL_PROFILE&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">GLFW_OPENGL_CORE_PROFILE&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="cp">#ifdef __APPLE__
+&lt;/span>&lt;span class="cp">&lt;/span> &lt;span class="n">glfwWindowHint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">GLFW_OPENGL_FORWARD_COMPAT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">GL_TRUE&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="cp">#endif
+&lt;/span>&lt;span class="cp">&lt;/span>
+&lt;span class="c1">// glfw window creation
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// --------------------
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">GLFWwindow&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">window&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">glfwCreateWindow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">SCR_WIDTH&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">SCR_HEIGHT&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;LearnOpenGL&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">NULL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">NULL&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nb">NULL&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">cout&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="s">&amp;#34;Failed to create GLFW window&amp;#34;&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">endl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">glfwTerminate&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">glfwMakeContextCurrent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">glfwSetFramebufferSizeCallback&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">framebuffer_size_callback&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">// glad: load all OpenGL function pointers
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// ---------------------------------------
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">gladLoadGLLoader&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">GLADloadproc&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="n">glfwGetProcAddress&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">cout&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="s">&amp;#34;Failed to initialize GLAD&amp;#34;&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="n">std&lt;/span>&lt;span class="o">::&lt;/span>&lt;span class="n">endl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// render loop
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// -----------
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">glfwWindowShouldClose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="c1">// input
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// -----
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">processInput&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">// render
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// ------
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">glClearColor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.2f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.3f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">0.3f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0f&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">glClear&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">GL_COLOR_BUFFER_BIT&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="c1">// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// -------------------------------------------------------------------------------
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">glfwSwapBuffers&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">glfwPollEvents&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// glfw: terminate, clearing all previously allocated GLFW resources.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// ------------------------------------------------------------------
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">glfwTerminate&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
+&lt;/span>&lt;span class="c1">// ---------------------------------------------------------------------------------------------------------
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="nf">processInput&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">GLFWwindow&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">window&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">glfwGetKey&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">GLFW_KEY_ESCAPE&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">GLFW_PRESS&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">glfwSetWindowShouldClose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">window&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">true&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// glfw: whenever the window size changed (by OS or user resize) this callback function executes
+&lt;/span>&lt;span class="c1">// ---------------------------------------------------------------------------------------------
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kt">void&lt;/span> &lt;span class="nf">framebuffer_size_callback&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">GLFWwindow&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="n">window&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">width&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">height&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="c1">// make sure the viewport matches the new window dimensions; note that width and
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// height will be significantly larger than specified on retina displays.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="n">glViewport&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">width&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">height&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果有报错的话，很可能是上一步的 &lt;strong>Project -&amp;gt; Properties&lt;/strong> 的属性设置被复原了，此时查看一下对应的 &lt;strong>Include Directories ，Library Directories，Additional Dependencies&lt;/strong> 的设置，如果被复原了，再重复一遍上一步的项目属性设置的操作。完成后，再编译上面代码就能看到一个窗口了。&lt;/p>
+&lt;figure>&lt;img src="../../../img/develop/"
+alt="2020-12-30-opengl-hello-window"/>
+&lt;/figure>
+&lt;p>&lt;figure style="flex-grow: 177; flex-basis: 426px">
+&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-hello-window.png" data-size="1920x1080">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-hello-window.png"
+srcset="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-hello-window_hu099abefb2fae81d68b9b4545233550d5_147922_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-opengl-hello-window_hu099abefb2fae81d68b9b4545233550d5_147922_1024x0_resize_box_2.png 1024w"
+width="1920"
+height="1080"
+loading="lazy"
+alt="OpenGL 简单窗口">
+&lt;/a>
+&lt;figcaption>OpenGL 简单窗口&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>配置过程中可能会出现的问题在第六步的最下面有提到过，这里的问题产生的原因在于项目创建之后，没有创建一份文件cpp，属性设置为 &lt;strong>Project -&amp;gt; Property&lt;/strong>，在创建一份cpp文件后，属性设置变为 &lt;strong>Project -&amp;gt; [project name] Property&lt;/strong>。不过，没什么大的问题，重新设置一下第5步提到的 directory 就可以了。&lt;/p></description></item><item><title>PBR基础理论</title><link>https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/</link><pubDate>Fri, 27 Nov 2020 09:59:25 +0800</pubDate><guid>https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/</guid><description>&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/topimg.jpg" alt="Featured image of post PBR基础理论" />&lt;h1 id="技美pbr-基础理论">技美——PBR 基础理论&lt;/h1>
+&lt;p>PBR 全称 Physically Based Rendering，这是一个全新的，效果出众的光照模型，是近年来实时渲染领域的趋势。&lt;/p>
+&lt;h2 id="diffusion--reflection">Diffusion &amp;amp; Reflection&lt;/h2>
+&lt;p>Diffusion 和 Reflection 也被叫做 “diffuse” “specular”，分别描述了物体表面和光的最基本的相互作用。绿色箭头部分的光是 specular，产生完美的反射现象，这种行为跟一个球碰撞到地面发生弹射的行为一样。红色箭头部分的光是 diffuse，会进入物体内部，这部分光要不被物体吸收（通常转化为热能），要不在物体内部散射，其中一部分会从物体表面散射出来而被重新看到。这种现象称为 “漫反射” 或更复杂一点的 “次表面散射”。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 185; flex-basis: 444px">
+&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse.jpg" data-size="720x389">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse.jpg"
+srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse_hu7e5f60eded90f739870309f3327160fc_35443_480x0_resize_q75_box.jpg 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse_hu7e5f60eded90f739870309f3327160fc_35443_1024x0_resize_q75_box.jpg 1024w"
+width="720"
+height="389"
+loading="lazy"
+alt="漫反射">
+&lt;/a>
+&lt;figcaption>漫反射&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>吸收或散射根据物体表面颜色不同而不同（比如，如果物体表面呈现蓝色，表示的是物体表面吸收蓝色以外所有的光，散射出蓝色波长的光）。通常散射方向具有相当的随机性，我们可以认为散射的方向是任何方向。通常着色程序用一个颜色变量称为 “albedo” 或 “diffuse color” 来近似描述物体表面散射颜色。&lt;/p>
+&lt;p>&lt;strong>1. 不会进入物体部分的光经物体表面反射会形成高光区域 “specular”，依光源颜色决定，一般为白色。&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>2. 进入物体部分的光会进一步在物体内部发生发射现象，出射方向是随机的，出射光 “diffuse color”，依物体属性决定&lt;/strong>&lt;/p>
+&lt;h2 id="translucency--transparency">Translucency &amp;amp; Transparency&lt;/h2>
+&lt;p>某些材质的漫反射要复杂一些——比如那些具有很长散射距离的材质：皮肤、蜡等的散射，通常一个简单的颜色变量是不够的，着色系统还需要考虑这些被照射物体的形状和厚度，如果物体足够薄，可以看到光从其背后散射出来，物体呈现半透明状；如果漫反射非常的小——比如玻璃，几乎没法注意到散射现象，光线完整的从物体的一边穿透到另一边，物体呈现全透明状。不同物体的次表面散射不尽相同，通常需要专门的“次表面散射”着色模型去模拟它。&lt;/p>
+&lt;p>&lt;strong>当物体漫反射非常的小，diffusion 会穿过物体，呈透明状&lt;/strong>&lt;/p>
+&lt;h2 id="energy-conservation">&lt;strong>Energy Conservation&lt;/strong>&lt;/h2>
+&lt;p>根据上面的描述我们得到一个结论：漫反射和镜面反射是互斥的。这是因为被物体散射的光线必须进入物体表面（那它就不能被镜面反射了）。这个结论符合“能量守恒”，也就是说离开表面的光不可能比原始的入射光要亮。着色系统很容易做到这一点：假设1表示100%光能，用1减去镜面反射的光，剩下的就属于漫反射部分。这意味着强烈高光的物体几乎没有漫反射现象，原因就是没有光进入到物体表面，大部分被镜面反射了。反之亦然。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 338; flex-basis: 811px">
+&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy.jpg" data-size="680x201">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy.jpg"
+srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy_hua5456e4b3a671daf155cb4d5dccedf6c_16280_480x0_resize_q75_box.jpg 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy_hua5456e4b3a671daf155cb4d5dccedf6c_16280_1024x0_resize_q75_box.jpg 1024w"
+width="680"
+height="201"
+loading="lazy"
+alt="能量守恒定律">
+&lt;/a>
+&lt;figcaption>能量守恒定律&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>能量守恒是PBR的一个重要概念。它可以保证美术合适的设置材质的反射率和albedo值，而不破坏物理规则。虽然在着色系统中强制能量守恒的物理限制并不等价于最后好看的着色效果，但起码可以使得渲染效果不至于背离物理规则太远，保证在不同光照条件下物体的光照表现一致性。&lt;/p>
+&lt;h2 id="metals">&lt;strong>Metals&lt;/strong>&lt;/h2>
+&lt;p>金属作为最常见导电材质，有几点特性值得被特殊提及。 首先，金属大多比绝缘体更容易发生镜面反射。导体一般的镜面反射率高达60-90%，而绝缘体一般在0-20%的范围。这种高反射率阻止了大部分光到达其内部产生散射，使得金属看起来很闪亮。 其次，导体的反射率在可见光谱中呈现多样变化，使得它们的反射光具有颜色（白光照射下）。反射光具有颜色很奇怪，但确实在我们日常的材质中出现（比如，金、铜和黄铜）。绝缘体大部分情况下不会呈现出这种效果，它们的反射光的颜色是一般跟光源颜色一致。 最后，导体通常对进入其表面的光是吸收而不是散射。这意味着理论上导体不会表现出任何的漫反射，但实际中由于金属表面氧化等原因，还是会表现出部分散射效果。根据金属的这些特性呢，PBR着色系统用“metalness”作为输入来表示材料的金属程度，而不是albedo &amp;amp; reflectivity。&lt;/p>
+&lt;p>&lt;strong>Metals 属性，其反射光具有颜色&lt;/strong>&lt;/p>
+&lt;h2 id="fresnel">&lt;strong>Fresnel&lt;/strong>&lt;/h2>
+&lt;p>Fresnel 现象是光照反射现象中不可或缺的部分。计算机图形学中 Fresnel 用来定义不同角度下的不同反射率——入射光方向越平行于物体表面，反射率越高。这意味着物体表面在 Fresnel 效果作用下，物体的边缘会更亮。大部分人可能已经对 Fresnel 效果已经有所了解，并且 Fresnel 效果在计算机图形中也不是新东西，然而，PBR 对 Fresnel 估算公式做了一些重要的纠正。 首先，入射光方向接近平行于物体表面时，一切光滑物体边缘表现为完美镜面反射，只要它足够光滑并且在合适的观察角度（也接近平行于物体表面）下，任何材质物体都表现为完美镜面反射。这有点违反直觉，但物理现象就是如此。 其次对 Fresnel 属性的观察发现不同材质的随入射光角度变化得到的 Fresnel 变化曲线和梯度差异并不大。对我们来讲意味着：如果我们期望渲染更加真实，美术对 Fresnel 行为的控制应该被降低，而不是被放大，或者说，没必要暴露多余的 Fresnel 参数让美术去调节。少了参数控制，就简化了美术内容生成，这是个利好。PBR 光照模型根据光泽度和反射率就可以自动去计算合适的 Fresnel 效果。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 197; flex-basis: 474px">
+&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel.jpg" data-size="720x364">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel.jpg"
+srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel_huae0484ae7e41b0a8d64ecc879f27d9d3_25992_480x0_resize_q75_box.jpg 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel_huae0484ae7e41b0a8d64ecc879f27d9d3_25992_1024x0_resize_q75_box.jpg 1024w"
+width="720"
+height="364"
+loading="lazy"
+alt="菲涅尔效应">
+&lt;/a>
+&lt;figcaption>菲涅尔效应&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>Fresnel 效果会随着物体表面的光滑度变低快速的变弱，接下来的内容会介绍到这些。&lt;/p>
+&lt;p>&lt;strong>入射光方向越平行于物体表面，反射率越高，越亮。&lt;/strong>&lt;/p>
+&lt;h2 id="microsurface">Microsurface&lt;/h2>
+&lt;p>散射和反射都依赖物体表面的朝向。宏观上来看，物体表面朝向由物体的网格形状决定，或者是网格的法线贴图决定。渲染系统根据法线信息已经可以很好的渲染散射和反射。但是真实世界的表面在微观世界是不完美的：小坑，小裂缝和小块，这些不容易被肉眼看到的微观世界下的表面特性对散射和反射仍产生巨大影响。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 162; flex-basis: 389px">
+&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry.png" data-size="778x480">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry.png"
+srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry_hu7afda07a60b3515b2f6b659df7ef43ae_35123_480x0_resize_box_2.png 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry_hu7afda07a60b3515b2f6b659df7ef43ae_35123_1024x0_resize_box_2.png 1024w"
+width="778"
+height="480"
+loading="lazy"
+alt="模糊效果">
+&lt;/a>
+&lt;figcaption>模糊效果&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>上图中，平行的入射光线被粗糙的表面分散反射。因为光线发生碰撞的微表面的朝向各不相同，就像把球扔向凹凸不平的地面一样，球的弹射方向是不可预测的。简短的说，表面越粗糙，放射的光线越分散，呈现出“模糊”状。不过对每一个微表面进行反射估值在实时渲染计算中是不现实的，所以我们不直接描述微表面细节，而是通过一个粗糙度的概念和一个相当精确的光照模型得到接近的结果，这个通用的粗糙度叫做是 “Gloss”, “Smoothness” 或 “Roughness”。在材质中可以是一张贴图或一个固定值。材质中的微表面细节是非常重要的属性，它用来模拟真实世界中的各种微表面特征。光泽度贴图不是一个新概念，但是它在基于物理的着色中占有关键的地位，因为它对光的反射效果有决定性的影响。接下来我们将会看到。&lt;/p>
+&lt;p>&lt;strong>粗糙度，物体表面的凹凸程度&lt;/strong>&lt;/p>
+&lt;h2 id="energy-conservation-again">Energy Conservation (Again)&lt;/h2>
+&lt;p>假设我们的着色系统已经考虑了微表面细节,反射多少入射光才是合适的是个值得研究的课题。光滑的表面会比粗糙的表面得到更加清楚的高光，这是符合能量守恒物理定律的：不同的材质反射了相同量级的入射光，但粗糙的表面反射的光线更加分散，看起来更模糊更暗，而光滑的表面反射更加集中，看起来更清晰更亮。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 338; flex-basis: 811px">
+&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity.jpg" data-size="680x201">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity.jpg"
+srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity_hu7c5b75146d993fd32fd41f2b0c309d4d_17175_480x0_resize_q75_box.jpg 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity_hu7c5b75146d993fd32fd41f2b0c309d4d_17175_1024x0_resize_q75_box.jpg 1024w"
+width="680"
+height="201"
+loading="lazy"
+alt="反射率">
+&lt;/a>
+&lt;figcaption>反射率&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;h2 id="all-hail-microsurface">All Hail Microsurface&lt;/h2>
+&lt;p>基于上面的认识我们得到一个结论：物体微表面光泽度(粗糙度)直接影响了表面的光照表现。这意味着美术人员只用通过调整光泽贴图的形状和强度就可得到物体表面的划痕、凹痕、磨损或抛光等效果，而不额外需要高光遮罩贴图或反射率这些参数设置。&lt;/p>
+&lt;p>微表面细节和反射率在物理上是相互联系的，就像之前描述的散射和反射一样，抛开它们之间的联系而单独分离的去设置它们有可能违背背后的光学物理规则。&lt;/p>
+&lt;p>还有，对真实世界观察发现，材质之间的反射率的差异并不明显，比如水坑和泥巴，它们有非常相近的反射率，但泥巴非常粗糙，而水坑非常光滑，它们呈现出截然不同的反射表现。美术人员在创建这样的场景应该选择光泽度(粗糙度)而不是反射率来做为主要的材质差异设置项，见下图：&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 170; flex-basis: 410px">
+&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface.jpg" data-size="675x395">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface.jpg"
+srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface_hu3db3e5a95a4d0615da06353d1c0c1939_38107_480x0_resize_q75_box.jpg 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface_hu3db3e5a95a4d0615da06353d1c0c1939_38107_1024x0_resize_q75_box.jpg 1024w"
+width="675"
+height="395"
+loading="lazy"
+alt="微表面细节">
+&lt;/a>
+&lt;figcaption>微表面细节&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>微表面属性对其他一些效果也有略微影响。比如，Fresnel效果在粗糙表面上会变弱，还有，大或凹微表面会“捕获”更多的光线，导致光在表面出线多次反射，从而被吸收的光量增加，亮度降低。不同的PBR系统处理这些细节的方式可能有些不同，最后呈现的结果也可能有些许不同，但总体还是遵守能量守恒的。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;ol>
+&lt;li>Reflection，反射光颜色为光源颜色。&lt;/li>
+&lt;li>Diffuse Color，散射光部分里，物体吸收除开 Diffuse Color 颜色之外的所有光，散射出 Diffuse Color 颜色的光。&lt;/li>
+&lt;li>Translucency &amp;amp; Transparency，考虑到物体的形状和厚度，如果物体足够薄，可以看到光从其背后散射出来，物体呈现半透明状；如果漫反射非常的小——比如玻璃，几乎没法注意到散射现象，光线完整的从物体的一边穿透到另一边，物体呈现全透明状。&lt;/li>
+&lt;li>Metals，反射光具有颜色，不受光源颜色左右，材料的金属程度。&lt;/li>
+&lt;li>Fresnel，入射光方向越平行于物体表面，反射率越高，越亮。&lt;/li>
+&lt;li>Microsurface，物体的光泽度。&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>原文连接：&lt;/p>
+&lt;p>外文：https://marmoset.co/posts/basic-theory-of-physically-based-rendering/&lt;/p>
+&lt;p>翻译：https://zhuanlan.zhihu.com/p/49564527&lt;/p>
+&lt;/blockquote></description></item><item><title>Doom Emacs</title><link>https://example.com/p/doom-emacs/</link><pubDate>Fri, 06 Nov 2020 14:17:09 +0800</pubDate><guid>https://example.com/p/doom-emacs/</guid><description>&lt;img src="https://example.com/p/doom-emacs/topimg.png" alt="Featured image of post Doom Emacs" />&lt;h1 id="doom-emacs--win10">Doom Emacs &amp;amp; Win10&lt;/h1>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;strong>Table of Contents&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#doom-emacs--win10" >Doom Emacs &amp;amp; Win10&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c" >准备工作&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#%e7%bc%96%e8%be%91%e7%b3%bb%e7%bb%9f%e7%8e%af%e5%a2%83%e5%8f%98%e9%87%8f" >编辑系统环境变量&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#%e5%ae%89%e8%a3%85doom" >安装Doom&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#all-the-icons" >All the icons&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;a class="link" href="https://github.com/hlissner/doom-emacs" target="_blank" rel="noopener"
+>Doom Emacs&lt;/a>，是一份成熟的 Emacs 配置文件，相较于自己一点一滴的积攒 Emacs 配置，Doom Emacs 能让你立即开始你的工作，把更多精力放在编码或者工作上而不是折腾配置文件。&lt;/p>
+&lt;h2 id="准备工作">准备工作&lt;/h2>
+&lt;p>以下方式是不通过第三方包管理器的安装配置过程，使用第三方包管理器会方便很多。&lt;/p>
+&lt;ul>
+&lt;li>下载 &lt;a class="link" href="https://git-scm.com/download/win" target="_blank" rel="noopener"
+>Git&lt;/a>&lt;/li>
+&lt;li>下载 &lt;a class="link" href="https://github.com/BurntSushi/ripgrep/releases" target="_blank" rel="noopener"
+>Ripgrep&lt;/a> 和 &lt;a class="link" href="https://github.com/sharkdp/fd/releases" target="_blank" rel="noopener"
+>fd&lt;/a>。确保你下载的是 &lt;code>Windows-gnu&lt;/code> 版本。&lt;/li>
+&lt;li>下载主角 &lt;a class="link" href="http://ftp.wayne.edu/gnu/emacs/windows/" target="_blank" rel="noopener"
+>Emacs&lt;/a>。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>Git&lt;/code> 是 .exe 文件，双击安装；解压缩 &lt;code>Ripgrep&lt;/code> 和 &lt;code>fd&lt;/code>，最好重命名一下文件夹分别叫 &lt;code>Ripgrep&lt;/code> 和&lt;code>fd&lt;/code> ，你可以把这两个文件夹放在你喜欢的位置。(后面会用到) &lt;code>Emacs&lt;/code> 有 .exe 文件，可以直接安装，也有免安装版，不管使用什么方式，同上面 Ripgrep 和 fd 的使用一样，记住 Emacs 放在了哪儿。&lt;/p>
+&lt;h2 id="编辑系统环境变量">编辑系统环境变量&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>文件浏览器 -&amp;gt; 此电脑 -&amp;gt; 属性(左上角，第二个中间画 √ 的图标) -&amp;gt; 高级系统设置 -&amp;gt; 环境变量 -&amp;gt; 用户变量下面&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>新建&lt;/strong>，设置变量名为 &lt;code>HOME&lt;/code> ，变量值为 &lt;code>C:\Users\USERNAME&lt;/code> 点击 &lt;strong>确认&lt;/strong>。&lt;/li>
+&lt;li>选中名为 &lt;code>Path&lt;/code> 的变量，&lt;strong>编辑&lt;/strong> 并添加 &lt;code>C:\path\to\the\emacs\bin&lt;/code> 文件路径，点击 &lt;strong>确认&lt;/strong>。&lt;/li>
+&lt;li>选中名为 &lt;code>Path&lt;/code> 的变量，&lt;strong>编辑&lt;/strong> 并添加 &lt;code>C:\path\to\the\ripgrep&lt;/code> 文件路径，点击 &lt;strong>确认&lt;/strong>。&lt;/li>
+&lt;li>选中名为 &lt;code>Path&lt;/code> 的变量，&lt;strong>编辑&lt;/strong> 并添加 &lt;code>C:\path\to\the\fd&lt;/code> 文件路径，点击 &lt;strong>确认&lt;/strong>。&lt;/li>
+&lt;li>点击 &lt;strong>确认&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;p>所以要记住上面三个软件的安装目录，不要有遗漏的地方。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="安装doom">安装Doom&lt;/h2>
+&lt;ul>
+&lt;li>打开 &lt;code>git-bash.exe&lt;/code>。&lt;/li>
+&lt;li>输入 &lt;code>cd ~&lt;/code>，中间有个空格。&lt;/li>
+&lt;li>输入 &lt;code>git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d&lt;/code>。&lt;/li>
+&lt;li>等下载完成后输入 &lt;code>cd .emacs.d/bin&lt;/code>，执行 &lt;code>doom install&lt;/code>，过程中，单击&lt;code>y&lt;/code> 继续。&lt;/li>
+&lt;li>重复上面的操作 文件浏览器 -&amp;gt; 此电脑 -&amp;gt; 属性(左上角，第二个中间画 √ 的图标) -&amp;gt; 高级系统设置 -&amp;gt; 环境变量 -&amp;gt; 用户变量下面
+&lt;ul>
+&lt;li>选中名为 &lt;code>Path&lt;/code> 的变量，&lt;strong>编辑&lt;/strong> 并添加 &lt;code>C:\Users\USERNAME\.emacs.d\bin&lt;/code> 文件路径，点击 &lt;strong>确认&lt;/strong>。&lt;/li>
+&lt;li>点击 &lt;strong>确认&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>现在才安装完成，可以打开 &lt;strong>Emacs&lt;/strong> 了。&lt;/p>
+&lt;h2 id="all-the-icons">All the icons&lt;/h2>
+&lt;p>默认状态下，Windows 上没法自动安装字体，但 &lt;strong>all the icons&lt;/strong> 这款插件有依赖于一些特殊的字体，所以我们要手动安装。&lt;/p>
+&lt;ul>
+&lt;li>打开 Emacs ，&lt;code>M-x package-install RET all-the-icons RET&lt;/code> 确保安装了 &lt;strong>all the icons&lt;/strong>。&lt;/li>
+&lt;li>&lt;code>M-x all-the-icons-install-fonts&lt;/code> ，完成后，找到字体下载的位置，双击安装。&lt;/li>
+&lt;/ul>
+&lt;p>现在你就可以使用 &lt;strong>Doom Emacs&lt;/strong>。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 171; flex-basis: 411px">
+&lt;a href="https://example.com/p/doom-emacs/2020-11-06-doom-emacs.png" data-size="288x168">&lt;img src="https://example.com/p/doom-emacs/2020-11-06-doom-emacs.png"
+srcset="https://example.com/p/doom-emacs/2020-11-06-doom-emacs_huc098e4ec69f01d8623178fcaf63a89c4_47684_480x0_resize_box_2.png 480w, https://example.com/p/doom-emacs/2020-11-06-doom-emacs_huc098e4ec69f01d8623178fcaf63a89c4_47684_1024x0_resize_box_2.png 1024w"
+width="288"
+height="168"
+loading="lazy"
+alt="Happy Hacking! ">
+&lt;/a>
+&lt;figcaption>Happy Hacking!&lt;/figcaption>
+&lt;/figure>&lt;/p></description></item><item><title>Emacs Magit✨插件</title><link>https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/</link><pubDate>Sun, 21 Jun 2020 09:14:22 +0800</pubDate><guid>https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/</guid><description>&lt;img src="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/topimg.png" alt="Featured image of post Emacs Magit✨插件" />&lt;h1 id="magit">Magit&lt;/h1>
+&lt;blockquote>
+&lt;p>A Git Porcelain inside Emacs。&lt;a class="link" href="https://magit.vc/" target="_blank" rel="noopener"
+>Magit&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>Magit&lt;/strong> 可以看作是一个嵌在 Emacs 里的一个客户端，但它同时也提供了命令行的操作（废话）。在 Emacs 里打开一个 &lt;strong>Git&lt;/strong> 项目，&lt;strong>M-x: magit-status&lt;/strong> 这样就启动了 magit 了，之后下面提到的操作就非常简单了。&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;strong>Table of Contents&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#magit" >Magit&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#1-branch" >1. Branch&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#2-stageall--unstageall" >2. Stage(all) / Unstage(all)&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#3-commit" >3. Commit&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#4-log" >4. Log&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#5-push" >5. Push&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#6-reset" >6. Reset&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#%e6%80%bb%e7%bb%93" >总结&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="1-branch">1. Branch&lt;/h2>
+&lt;p>&lt;strong>b&lt;/strong>&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 282; flex-basis: 677px">
+&lt;a href="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch.png" data-size="810x287">&lt;img src="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch.png"
+srcset="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch_hucf011515ea09214008f0bfa669273b3c_26623_480x0_resize_box_2.png 480w, https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch_hucf011515ea09214008f0bfa669273b3c_26623_1024x0_resize_box_2.png 1024w"
+width="810"
+height="287"
+loading="lazy"
+alt="magit-branch">
+&lt;/a>
+&lt;figcaption>magit-branch&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>会弹出以上菜单，和你平时看到的完全不同（毕竟是在 Emacs）。&lt;/p>
+&lt;p>其中&lt;strong>紫色&lt;/strong>对应的是 &lt;code>按键&lt;/code> 后面的白色字体就是具体功能的描述了。例如：再单击 &lt;strong>c&lt;/strong> 我们就进入了创建新分支的命令。&lt;strong>&lt;a class="link" href="https://magit.vc/manual/magit/Branch-Commands.html#Branch-Commands" target="_blank" rel="noopener"
+>Branch&lt;/a>&lt;/strong>&lt;/p>
+&lt;h2 id="2-stageall--unstageall">2. Stage(all) / Unstage(all)&lt;/h2>
+&lt;p>这里我们可以 &lt;strong>Stage&lt;/strong> 单个文件，也可以 &lt;strong>Stage&lt;/strong> 全部缓冲区的文件，相反，&lt;strong>Unstage&lt;/strong> 也是这样的。&lt;/p>
+&lt;p>&lt;strong>s&lt;/strong> &lt;strong>S&lt;/strong> 全选 , &lt;strong>u&lt;/strong> &lt;strong>U&lt;/strong> 全选 小写对应是单个缓冲区文件，大写对应的是全部缓冲区文件。&lt;strong>&lt;a class="link" href="https://magit.vc/manual/magit/Staging-and-Unstaging.html" target="_blank" rel="noopener"
+>Stage/Unstage&lt;/a>&lt;/strong>&lt;/p>
+&lt;h2 id="3-commit">3. Commit&lt;/h2>
+&lt;p>&lt;strong>c&lt;/strong>&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 214; flex-basis: 514px">
+&lt;a href="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit.png" data-size="675x315">&lt;img src="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit.png"
+srcset="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit_hubab236a4f6deecbffe0e6a35dd4ca58e_33491_480x0_resize_box_2.png 480w, https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit_hubab236a4f6deecbffe0e6a35dd4ca58e_33491_1024x0_resize_box_2.png 1024w"
+width="675"
+height="315"
+loading="lazy"
+alt="magit-commit">
+&lt;/a>
+&lt;figcaption>magit-commit&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>再单击一次 &lt;strong>c&lt;/strong> 就会进入编辑 &lt;strong>commit&lt;/strong> 的界面了，根据界面提示，&lt;strong>C-c C-c&lt;/strong> 提交 &lt;code>commit&lt;/code> ，&lt;strong>C-c C-k&lt;/strong> 取消 &lt;code>commit&lt;/code> 。&lt;strong>&lt;a class="link" href="https://magit.vc/manual/magit/Initiating-a-Commit.html#Initiating-a-Commit" target="_blank" rel="noopener"
+>Commit&lt;/a>&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>上面 &amp;lsquo;-a&amp;rsquo;, &amp;lsquo;-e&amp;rsquo;&amp;hellip;的意思也是一样的，按 &lt;strong>-&lt;/strong> &lt;strong>a&lt;/strong>，不同的是带 &lt;strong>-&lt;/strong> 前缀的功能只会在当前的操作上暂时启用，而且后面灰色的注释会暂时高亮，代表着暂时启用对应的。当你再一次按 &lt;strong>c&lt;/strong> 时，后面的注释还是灰色，代表着没开启对应的功能。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="4-log">4. Log&lt;/h2>
+&lt;p>&lt;strong>l&lt;/strong>&lt;/p>
+&lt;p>还是弹出一个与上面类似的菜单，这里就不展示图片了。再次单击，我们就能看到当前分支的所有 &lt;code>commit&lt;/code> 记录。最常用的就是这个功能了，当然里面还有很多我还没使用过的功能。&lt;strong>但是&lt;/strong> 在这个显示 &lt;code>LOG&lt;/code> 记录的页面里，我们还可以轻松的完成 &lt;strong>RESET&lt;/strong>， &lt;strong>REVERT&lt;/strong> 这两个常用的操作。&lt;strong>&lt;a class="link" href="https://magit.vc/manual/magit/Log-Buffer.html" target="_blank" rel="noopener"
+>Log&lt;/a>&lt;/strong>&lt;/p>
+&lt;h2 id="5-push">5. Push&lt;/h2>
+&lt;p>&lt;strong>p&lt;/strong>&lt;/p>
+&lt;p>在弹出菜单后，再按一次 &lt;strong>p&lt;/strong>，就触发了 &lt;strong>push&lt;/strong> 。&lt;strong>&lt;a class="link" href="https://magit.vc/manual/magit/Pushing.html" target="_blank" rel="noopener"
+>Push&lt;/a>&lt;/strong>&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 188; flex-basis: 453px">
+&lt;a href="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease.png" data-size="748x396">&lt;img src="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease.png"
+srcset="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease_huf9810b2da72fe0d8106be0f93f5eb247_26953_480x0_resize_box_2.png 480w, https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease_huf9810b2da72fe0d8106be0f93f5eb247_26953_1024x0_resize_box_2.png 1024w"
+width="748"
+height="396"
+loading="lazy"
+alt="magit-push-force-lease">
+&lt;/a>
+&lt;figcaption>magit-push-force-lease&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>&lt;strong>❗ 当我们执行回滚操作后，要将回滚后的仓库提交到远程仓库时，执行以上 push 的方法是行不通的，无法提交到远程仓库&lt;/strong>&lt;/p>
+&lt;p>先按 &lt;strong>p&lt;/strong>，进入 &lt;strong>push&lt;/strong> 菜单；再按 &lt;strong>-&lt;/strong> &lt;strong>f&lt;/strong>，暂时开启 &lt;strong>force with lease&lt;/strong>；然后再按 &lt;strong>p&lt;/strong> 执行 &lt;strong>push&lt;/strong> 操作，就能提交成功！&lt;/p>
+&lt;blockquote>
+&lt;p>想要具体了解 &lt;strong>force with lease&lt;/strong> 与 &lt;strong>force&lt;/strong> 之间的区别，自己百度一下就明白了。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="6-reset">6. Reset&lt;/h2>
+&lt;p>&lt;strong>X&lt;/strong>&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 274; flex-basis: 659px">
+&lt;a href="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset.png" data-size="1066x388">&lt;img src="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset.png"
+srcset="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset_huca4ed04787ce00355a458a8d1710e9ce_42826_480x0_resize_box_2.png 480w, https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset_huca4ed04787ce00355a458a8d1710e9ce_42826_1024x0_resize_box_2.png 1024w"
+width="1066"
+height="388"
+loading="lazy"
+alt="magit-reset">
+&lt;/a>
+&lt;figcaption>magit-reset&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;p>上面的说明够直白清楚的了，在我们一般惯性思维里，会选择 &lt;strong>X&lt;/strong> h，这种方式——一切都回到原来的那个状态。&lt;strong>&lt;a class="link" href="https://magit.vc/manual/magit/Resetting.html" target="_blank" rel="noopener"
+>Reset&lt;/a>&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>先按 &lt;strong>l&lt;/strong> &lt;strong>l&lt;/strong> 进入 Log，选择 &lt;strong>Reset&lt;/strong> 的点之后，再进行上面的操作。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;ul>
+&lt;li>直接在 Github 单击下载按钮下载的仓库是没有 &lt;strong>.git&lt;/strong> 文件夹的，也就是说这样下载下来的不是一个仓库&amp;hellip;&amp;hellip;问题很大，所以还是使用 &lt;code>git clone ......&lt;/code> 的方式更稳妥，除非你不想要 &lt;strong>.git&lt;/strong> 文件，也就是仓库提交记录。&lt;/li>
+&lt;li>在本地仓库新建 &lt;strong>dev&lt;/strong> branch 时，先 &lt;strong>p&lt;/strong> &lt;strong>u&lt;/strong>，目的是在远程仓库创建也新建一个 &lt;strong>dev&lt;/strong> branch，然后再 &lt;strong>p&lt;/strong> &lt;strong>p&lt;/strong>，不然会报错，你还不知道怎么弄。&lt;/li>
+&lt;/ul></description></item><item><title>Github Actions 推送 Github Page</title><link>https://example.com/p/github-actions-%E6%8E%A8%E9%80%81-github-page/</link><pubDate>Sat, 20 Jun 2020 19:56:17 +0800</pubDate><guid>https://example.com/p/github-actions-%E6%8E%A8%E9%80%81-github-page/</guid><description>&lt;img src="https://example.com/p/github-actions-%E6%8E%A8%E9%80%81-github-page/topimg.svg" alt="Featured image of post Github Actions 推送 Github Page" />&lt;h1 id="hugogithub-actionsgithub-pages">HUGO|Github Actions|Github Pages&lt;/h1>
+&lt;p>使用方法主要参考了这篇 &lt;a class="link" href="https://zhuanlan.zhihu.com/p/109057290" target="_blank" rel="noopener"
+>文章&lt;/a> 。在这里我只是提炼一些关键点和遇到的坑。&lt;/p>
+&lt;h2 id="1-绑定-ssh-key">1. 绑定 SSH Key&lt;/h2>
+&lt;p>如果是两个独立的仓库的，将 &lt;strong>Public Key&lt;/strong> 添加到 &lt;code>&amp;lt;YourName&amp;gt;.github.io&lt;/code> 仓库，打开 &lt;strong>setting&lt;/strong> 面板，找到 &lt;strong>Deploy keys&lt;/strong> 选项，&lt;strong>Title： Deploy Github Page&lt;/strong>（看你个人喜好）。&lt;strong>Key：&lt;/strong> &lt;strong>Public Key&lt;/strong> ；将 &lt;strong>Private Key&lt;/strong> 添加到 &lt;code>another repository&lt;/code> 仓库，打开 &lt;strong>setting&lt;/strong> 面板，找到 &lt;strong>Secrets&lt;/strong> 选项，&lt;strong>Name：&lt;/strong> &lt;code>ACTIONS_DEPLOY_KEY&lt;/code>（后面会用到）。&lt;strong>Value：&lt;/strong> &lt;strong>Private Key&lt;/strong> 。这里有一个坑，要复制整个 Private Key 的值作为 &lt;strong>Value&lt;/strong> ，不然后面会报错。这是具体的&lt;a class="link" href="https://forums.fast.ai/t/fastpages-ssh-issues-solved/65948" target="_blank" rel="noopener"
+>issues&lt;/a>&lt;/p>
+&lt;h2 id="2-配置-yml">2. 配置 yml&lt;/h2>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Github Pages&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">push&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">branches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">master&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">deploy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">runs-on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ubuntu-18.04&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/checkout@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c">#with:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c">#submodules: true # Fetch Hugo themes (true OR recursive)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c">#fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Setup Hugo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">peaceiris/actions-hugo@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">hugo-version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;0.71.1&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># extended: true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Build&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hugo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">peaceiris/actions-gh-pages@v3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="hl">&lt;span class="w"> &lt;/span>&lt;span class="nt">deploy_key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.ACTIONS_DEPLOY_KEY }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;span class="hl">&lt;span class="w"> &lt;/span>&lt;span class="nt">external_repository&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">YanTree/YanTree.github.io&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;span class="hl">&lt;span class="w"> &lt;/span>&lt;span class="nt">publish_branch&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">master &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c">#推送的分支&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;span class="hl">&lt;span class="w"> &lt;/span>&lt;span class="nt">publish_dir&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./public &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c">#要推送的文件夹&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">commit_message&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ github.event.head_commit.message }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意调整上面 &lt;strong>29-32&lt;/strong> 高亮行的值，ACTIONS_DEPLOY_KEY 对应的是上面 &lt;code>Secret&lt;/code> 的 &lt;strong>Name&lt;/strong> ，&lt;code>external_repository&lt;/code> 改成你对应的仓库名 &lt;code>&amp;lt;YourName&amp;gt;/&amp;lt;YourName&amp;gt;.github.io&lt;/code>&lt;/p>
+&lt;h2 id="反思">反思&lt;/h2>
+&lt;p>如果是使用 &lt;strong>SSH&lt;/strong> 作为 &lt;code>Token&lt;/code> ，在电脑重装系统或者更换电脑的情况下，我们每一次都要重新更新 &lt;strong>Deploy keys&lt;/strong> ， &lt;strong>Secrets&lt;/strong> 的值，对于我这种动不动就重装系统的人不太友好😁。所以我新建了一个 &lt;strong>&lt;a class="link" href="https://github.com/settings/tokens" target="_blank" rel="noopener"
+>Personal access tokens&lt;/a>&lt;/strong> 专门干这件事儿，目前看来是避免了上诉的痛点。本来是打算使用 &lt;strong>GITHUB_TOKEN&lt;/strong> 的，都不要额外配置，但是这个 &lt;code>TOKEN&lt;/code> 只适用于同一个仓库，这是具体的 &lt;a class="link" href="https://github.com/peaceiris/actions-gh-pages/issues/318" target="_blank" rel="noopener"
+>issues&lt;/a>，如果你是使用的同一个仓库的话，就可以使用这个功能了。&lt;/p></description></item><item><title>Git 命令行版本学习</title><link>https://example.com/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/</link><pubDate>Wed, 15 Apr 2020 18:30:30 +0800</pubDate><guid>https://example.com/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/</guid><description>&lt;img src="https://example.com/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/topimg.png" alt="Featured image of post Git 命令行版本学习" />&lt;h1 id="leaning-git-and-github">Leaning Git and Github!&lt;/h1>
+&lt;p>这是我自己学习使用 &lt;code>Git&lt;/code> &lt;code>Github&lt;/code> 时整理出的笔记，当时 &lt;code>Github&lt;/code> 还没有出 &lt;a class="link" href="https://lab.github.com/" target="_blank" rel="noopener"
+>官方教程&lt;/a>，没有 &lt;a class="link" href="https://github.community/t5/GitHub-Learning-Lab/bd-p/learn" target="_blank" rel="noopener"
+>论坛&lt;/a>，现在都有了，这都是很好的学习资源，强烈推荐:+1:。这份文章列出了我学习时遇到的问题和解决方法，刚好趁这次疫情期间再整理一下，主要是将 &lt;a class="link" href="https://orgmode.org/" target="_blank" rel="noopener"
+>ORG&lt;/a> 文件转成 &lt;code>Markdown&lt;/code> 文件的工作，因为 Github 对 org 文件格式并不友好，真的非常遗憾 :disappointed:！&lt;/p>
+&lt;!-- raw HTML omitted -->
+&lt;p>&lt;strong>Table of Contents&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#leaning-git-and-github" >Leaning Git and Github!&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#config-global-users-imformation" >config global user&amp;rsquo;s imformation&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#git-clone" >git clone&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#1-%e5%88%a9%e7%94%a8-gitee-%e5%81%9a%e5%b7%a5%e5%85%b7%e4%ba%ba" >1. 利用 Gitee 做工具人&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#2-%e4%bd%bf%e7%94%a8-cnpmjs%e9%95%9c%e5%83%8f" >2. 使用 cnpmjs镜像&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a class="link" href="#%e8%a7%a3%e5%86%b3git-push%e4%bb%a3%e7%a0%81%e5%88%b0github%e4%b8%8a%e4%b8%80%e7%9b%b4%e6%8f%90%e7%a4%ba%e8%be%93%e5%85%a5%e7%94%a8%e6%88%b7%e5%90%8d%e5%8f%8a%e5%af%86%e7%a0%81%e7%9a%84%e9%97%ae%e9%a2%98" >解决git push代码到github上一直提示输入用户名及密码的问题&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#%e5%8e%9f%e5%9b%a0%e5%88%86%e6%9e%90" >原因分析&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#%e8%a7%a3%e5%86%b3%e5%8a%9e%e6%b3%95" >解决办法&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a class="link" href="#%e5%b7%a5%e4%bd%9c%e5%8c%ba%e7%9a%84%e6%96%87%e4%bb%b6%e6%93%8d%e4%bd%9c" >工作区的文件操作&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#%e6%92%a4%e9%94%80%e6%93%8d%e4%bd%9c" >撤销操作&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#%e6%b7%bb%e5%8a%a0%e5%92%8c%e5%88%a0%e9%99%a4%e6%93%8d%e4%bd%9c" >添加和删除操作&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#%e7%a7%bb%e9%99%a4%e7%89%88%e6%9c%ac%e6%8e%a7%e5%88%b6" >移除版本控制&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a class="link" href="#branch%e6%93%8d%e4%bd%9c" >branch操作&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#%e5%88%9b%e5%bb%ba%e6%93%8d%e4%bd%9c" >创建操作&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#%e6%9f%a5%e7%9c%8b%e5%b9%b6%e5%88%87%e6%8d%a2" >查看并切换&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#%e5%90%88%e5%b9%b6merge" >合并(merge)&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#%e5%88%a0%e9%99%a4%e5%88%86%e6%94%afdelete" >删除分支(delete)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a class="link" href="#%e8%ae%be%e7%bd%ae%e8%bf%9c%e7%a8%8b%e4%bb%93%e5%ba%93" >设置远程仓库&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#push-an-existing-repository-from-the-command-line" >push an existing repository from the command line&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#create-a-new-repository-on-the-command-line" >create a new repository on the command line&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#%e5%9b%9e%e6%bb%9a" >回滚&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#pull-requests-and-merge" >pull requests and merge&lt;/a>
+&lt;ul>
+&lt;li>&lt;a class="link" href="#pull-requests" >pull requests&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="#merge" >merge&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;a class="link" href="#%e6%80%bb%e7%bb%93" >总结&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;!-- raw HTML omitted -->
+&lt;h2 id="config-global-users-imformation">config global user&amp;rsquo;s imformation&lt;/h2>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git config --global user.name &lt;span class="s2">&amp;#34;YourName&amp;#34;&lt;/span>
+git config --global user.email &lt;span class="s2">&amp;#34;YourEmail@example.com&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="git-clone">git clone&lt;/h2>
+&lt;p>因为一些原因，国内克隆 &lt;strong>GitHub&lt;/strong> 仓库的下载速度非常非常慢，这里提供两种解决办法。&lt;/p>
+&lt;h3 id="1-利用-gitee-做工具人">1. 利用 Gitee 做工具人&lt;/h3>
+&lt;p>注册一个 &lt;strong>&lt;a class="link" href="https://gitee.com/signup" target="_blank" rel="noopener"
+>Gitee&lt;/a>&lt;/strong> 账号。点击右上角的 ➕ ，选择 &lt;strong>从 Github/GitLab 导入仓库&lt;/strong>，导入完成后使用 Github 同样的方式克隆仓库就行了。&lt;code>git clone git@gitee.com:[YourName]/[YourRepository] &lt;/code> ，将 github 换成 gitee。这个方法有点繁琐，不过效果好。&lt;/p>
+&lt;h3 id="2-使用-cnpmjs镜像">2. 使用 cnpmjs镜像&lt;/h3>
+&lt;p>这个方法非常简单，只要修改地址后面的 &lt;code>github.com&lt;/code> 为 &lt;code>github.com.cnpmjs.org&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git clone https://github.com/&lt;span class="o">[&lt;/span>YourName&lt;span class="o">]&lt;/span>/&lt;span class="o">[&lt;/span>YourRepository&lt;span class="o">]&lt;/span>
+&lt;span class="c1"># 使用cnpmjs&lt;/span>
+git clone https://github.com.cnpmjs.org/&lt;span class="o">[&lt;/span>YourName&lt;span class="o">]&lt;/span>/&lt;span class="o">[&lt;/span>YourRepository&lt;span class="o">]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="解决git-push代码到github上一直提示输入用户名及密码的问题">解决git push代码到github上一直提示输入用户名及密码的问题&lt;/h2>
+&lt;h3 id="原因分析">原因分析&lt;/h3>
+&lt;p>出现这种情况的原因是我们使用了 &lt;code>http&lt;/code> 的方式 &lt;code>clone&lt;/code> 代码到本地,相应的,也是使用 &lt;code>http&lt;/code> 的方式将代码 &lt;code>push&lt;/code> 到服务器.&lt;/p>
+&lt;h3 id="解决办法">解决办法&lt;/h3>
+&lt;p>解决办法很简单,将http方式改为ssh方式即可.
+步骤：&lt;/p>
+&lt;ol>
+&lt;li>先查看当前方式&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git remote -v
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>把&lt;code>http&lt;/code>方式改为&lt;code>ssh&lt;/code>方式。先移除旧的&lt;code>http&lt;/code>的&lt;code>origin&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git remote rm origin
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>再添加新的&lt;code>ssh&lt;/code>方式的&lt;code>origin&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git remote add origin git@github.com:userName/repositoryName.git
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="4">
+&lt;li>改动完之后直接执行git push是无法推送代码的，需要设置一下上游要跟踪的分支,与此同时会自动执行一次git push命令,此时已经不用要求输入用户名及密码啦！​⚠​ 注意自己当前的分支，下面是推送到 &lt;code>master&lt;/code> 分支。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git push --set-upstream origin master
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="工作区的文件操作">工作区的文件操作&lt;/h2>
+&lt;h3 id="撤销操作">撤销操作&lt;/h3>
+&lt;p>假设有文件 &lt;code>test01.txt&lt;/code>和&lt;code>/test/test02.txt&lt;/code>&lt;/p>
+&lt;p>代码分别是：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git checkout -- test01.txt
+git checkout -- /test/test02.txt
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="添加和删除操作">添加和删除操作&lt;/h3>
+&lt;p>添加&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git add filename
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>删除&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git rm filename
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="移除版本控制">移除版本控制&lt;/h3>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git rm -r --cached file
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在 &lt;code>.gitignore&lt;/code> 中添加要移除的文件，最后：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git commit -m &lt;span class="s1">&amp;#39;modified .gitignore&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="branch操作">branch操作&lt;/h2>
+&lt;h3 id="创建操作">创建操作&lt;/h3>
+&lt;p>我们创建&lt;code>dev&lt;/code>分支，然后切换到&lt;code>dev&lt;/code>分支&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git checkout -b dev
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>:exclamation: 解释上一条命令。&lt;/p>
+&lt;p>git checkout命令加上 &lt;code>-b&lt;/code> 参数表示创建并切换，相当于以下两条命令：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git branch devgit checkout dev
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="查看并切换">查看并切换&lt;/h3>
+&lt;ol>
+&lt;li>查看
+紧接着上面创建 &lt;code>dev&lt;/code> 分支后，继续讲。带 &lt;code>*&lt;/code> 号的就是当前分支。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git branch* dev master
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>切换至 &lt;code>master&lt;/code> 分支&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git checkout &lt;span class="o">{&lt;/span>master&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="合并merge">合并(merge)&lt;/h3>
+&lt;p>&lt;code>master&lt;/code> ➡ &lt;code>dev&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git merge dev
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="删除分支delete">删除分支(delete)&lt;/h3>
+&lt;p>删除 &lt;code>dev&lt;/code> 分支&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git branch -d devDeleted branch dev &lt;span class="o">(&lt;/span>was b17d20e&lt;span class="o">)&lt;/span>.
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="设置远程仓库">设置远程仓库&lt;/h2>
+&lt;ol>
+&lt;li>创建SSH key&lt;/li>
+&lt;/ol>
+&lt;p>打开Shell，输入以下代码&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">ssh-keygen -t rsa -C &lt;span class="s2">&amp;#34;youremail@example.com&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>之后不用管直接按两次 &lt;code>Enter&lt;/code> 就创建完毕了。&lt;/p>
+&lt;ol start="2">
+&lt;li>添加SSH密匙
+创建完毕后用户目录下应该有个 &lt;code>.ssh&lt;/code> 的文件夹。（:exclamation: 没有的话，可能是你没有显示隐藏文件）复制 &lt;code>id_rsa.pub&lt;/code> 文件里的所有内容。
+&lt;ul>
+&lt;li>登录自己的 Github 账户，点击右上角头像图标。&lt;/li>
+&lt;li>点击 &lt;code>Settings&lt;/code> 。&lt;/li>
+&lt;li>找到并点击新页面下的 &lt;code>SSH and GPG keys&lt;/code> 。&lt;/li>
+&lt;li>右边的页面刷新后，点击 &lt;code>SSH keys&lt;/code> 右边的 &lt;code>New SSH key&lt;/code> 。&lt;/li>
+&lt;li>自己起一个 &lt;code>title&lt;/code>，例如当前的设备 &lt;code>win10-work&lt;/code>，在 &lt;code>Key&lt;/code> 这里粘贴刚刚从 &lt;code>id_rsa.pub&lt;/code> 文件里复制的所有内容。&lt;/li>
+&lt;li>最后点击 &lt;code>Add SSH key&lt;/code> 大功告成。:tada:&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="push-an-existing-repository-from-the-command-line">push an existing repository from the command line&lt;/h2>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git remote add origin git@github.com:userName/repositoryName.gitgit push -u origin master
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="create-a-new-repository-on-the-command-line">create a new repository on the command line&lt;/h2>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;# .emacs.d(your repository name)&amp;#34;&lt;/span> &amp;gt;&amp;gt; README.mdgit initgit add README.mdgit commit -m &lt;span class="s2">&amp;#34;first commit&amp;#34;&lt;/span>git remote add origin git@github.com:userName/repositoryName.gitgit push -u origin master
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="回滚">回滚&lt;/h2>
+&lt;ol>
+&lt;li>查看当前版本库的状态&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git log
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git log --pretty&lt;span class="o">=&lt;/span>oneline
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>回滚到上一次提交&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git reset --hard HEAD^
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>or&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">git reset --hard &lt;span class="o">[&lt;/span>commit id&lt;span class="o">(&lt;/span>前五到六位数就够了&lt;span class="o">)]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>⚠ 注意&lt;/p>
+&lt;ul>
+&lt;li>参数 &lt;code>hard&lt;/code> 的作用&lt;/li>
+&lt;li>&lt;code>HEAD^^=HEAD~2&lt;/code> 意思就是回滚到前两次提交的状态&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>如果想恢复到新版本
+&lt;ul>
+&lt;li>&lt;code>&amp;gt; git reflog&lt;/code> 查看commit记录&lt;/li>
+&lt;li>根据commit id 进行回滚(见步骤2)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="pull-requests-and-merge">pull requests and merge&lt;/h2>
+&lt;h3 id="pull-requests">pull requests&lt;/h3>
+&lt;p>就是向一个分支提出合并请求，合并前弄清楚谁是被合并的分支&lt;/p>
+&lt;h3 id="merge">merge&lt;/h3>
+&lt;p>在提出一个pull requests 请求后，我们可以合并分支，也可以不合并，这就是这一步要做的事情。在合并时也可能出现问题，到时候自行Google，目前的经历的一个问题，是通过删除或保留一些“问题”文件解决的。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>除了一直提示输入用户名及密码的问题外，其他所有的问题都是比较容易解决的。当然我现在并没有使用官网命令行的 &lt;code>Git&lt;/code> ，在接触了 &lt;a class="link" href="https://www.gnu.org/software/emacs/" target="_blank" rel="noopener"
+>Emacs&lt;/a> 后，有一个叫 &lt;a class="link" href="https://magit.vc/" target="_blank" rel="noopener"
+>Magit&lt;/a> 的 &lt;code>Emacs&lt;/code> 杀手锏，类似于图形化界面的操作，我基本上就没用过命令行了。哈哈，having a nice day！&lt;/p></description></item></channel></rss>
