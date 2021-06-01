@@ -1,4 +1,491 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YanTree</title><link>https://example.com/</link><description>Recent content on YanTree</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 28 May 2021 22:34:22 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml"/><item><title>Shader常用的几种光照模型</title><link>https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Fri, 28 May 2021 22:34:22 +0800</pubDate><guid>https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/</guid><description>&lt;img src="https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/topimg.webp" alt="Featured image of post Shader常用的几种光照模型" />&lt;h1 id="技美光照模型">技美——光照模型&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YanTree</title><link>https://yantree.github.io/</link><description>Recent content on YanTree</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 31 May 2021 16:00:26 +0800</lastBuildDate><atom:link href="https://yantree.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Shader入门精要-基础纹理</title><link>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/</link><pubDate>Mon, 31 May 2021 16:00:26 +0800</pubDate><guid>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/</guid><description>&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/topimg.png" alt="Featured image of post Shader入门精要-基础纹理" />&lt;h1 id="技术美术基础纹理">技术美术——基础纹理&lt;/h1>
+&lt;h2 id="常规纹理">常规纹理&lt;/h2>
+&lt;p>纹理的一种使用方式就是作为常规纹理，可以理解为一张照片。在这里纹理的作用是代替 &lt;strong>物体的漫反射系数&lt;/strong> ，这里我们会再之前的 Blinn-Phong 高光反射 shader 的基础上实现一个基础的纹理 shader。这里可以知道常规纹理会参与 &lt;strong>环境光&lt;/strong> ，物体 &lt;strong>漫反射&lt;/strong> 的计算。在基本光照模型中，由于没有相关材质贴图，所以在计算公式中&lt;/p>
+&lt;blockquote>
+&lt;p>C = (c * m) * max(0 , n * l )&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>m&lt;/strong> 的值取为 1，不会影响到漫反射光的计算。当 &lt;strong>m&lt;/strong> 值存在时，也就是有常规纹理的时候，光照计算中的 &lt;strong>m&lt;/strong> 就要从常规纹理图中读取，读取方法见下面 albedo 的计算方法。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Shader&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Unlit&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">MainTex0&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Properties&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">_MainTex&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Texture&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_Color&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Color&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_SpecularCol&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span> &lt;span class="n">Col&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_SpecularStrength&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span> &lt;span class="n">Strength&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">8.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">256&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">10&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">SubShader&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Opaque&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">LightMode&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">ForwardBase&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="n">LOD&lt;/span> &lt;span class="mi">100&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">CGPROGRAM&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UnityCG&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_MainTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">_SpecularCol&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_SpecularStrength&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">appdata&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">texcoord&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">posWorld&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">uv&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldPos&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">appdata&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToClipPos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点位置从模型空间转到裁剪空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点法线从模型空间转到世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点从模型空间转到世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 使用纹理属性的_ST对顶点纹理坐标进行变换&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">fixed4&lt;/span> &lt;span class="n">frag&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点法线方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_WorldSpaceLightPos0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 主光源放方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">viewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_WorldSpaceCameraPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 视角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">viewDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 半角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// Lambert&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">NdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// BlinnPhong&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_MainTex&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 漫反射系数，从纹理采样漫反射颜色作为其值&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 环境光&lt;/span>
+&lt;span class="c1">// 漫反射光 = 入射光线强度 * 材质的漫反射系数 * 取值为正数(表面法线方向 · 光源方向)&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mf">0.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">2.0&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// half lambert&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">specular&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_SpecularCol&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotV&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_SpecularStrength&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// blinn phong&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">fixed4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diffuse&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">specular&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">ambient&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDCG&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="凹凸映射">凹凸映射&lt;/h2>
+&lt;p>凹凸映射的作用就是使用一张纹理来修改模型表面的法线，提供更多的细节效果。主要有两种方法：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>高度映射&lt;/p>
+&lt;p>一张高度纹理来模拟表面位移，然后得到一个修改后的法线值。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>法线映射&lt;/p>
+&lt;p>一张法线纹理来直接存储表面法线。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>通常我们将高度映射和法线映射当成一种技术，但是两者的本质是有所区别的。&lt;/p>
+&lt;h3 id="法线纹理">法线纹理&lt;/h3>
+&lt;p>法线纹理中存储的是表面的法线方向，由于发现分量的取值范围在 [-1, 1] 之间，而像素的分量范围在 [0, 1] ，因此两者的转换还需要做一个映射：&lt;/p>
+&lt;blockquote>
+&lt;p>pixel = (normal + 1) / 2&lt;/p>
+&lt;/blockquote>
+&lt;p>反映射后就能得到原先的法线方向&lt;/p>
+&lt;blockquote>
+&lt;p>normal = pixel * 2 - 1&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="法线的坐标空间">法线的坐标空间&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>模型空间的法线纹理&lt;/p>
+&lt;p>模型顶点的法线定义在模型空间中，一种直接的想法就是将修改后的模型空间中的表面法线存储在一张纹理中，这种纹理被称之为 &lt;strong>模型空间的法线纹理&lt;/strong>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>切线空间的法线纹理&lt;/p>
+&lt;p>实际应用中，我们常用模型顶点的 &lt;strong>切线空间&lt;/strong> 存储法线。对于模型的每个顶点，都有属于自己的切线空间，模型的顶点就是切线空间的原点，顶点的法线作切线空间的 z 轴 (n)，顶点的切线方向作 x 轴 (t)，顶点的 y 轴可由 x、z 叉乘求得，也被称为 &lt;strong>副切线&lt;/strong> 或 &lt;strong>副法线&lt;/strong> (b)，这就是 &lt;strong>切线空间的法线纹理&lt;/strong>。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h4 id="计算方式">计算方式&lt;/h4>
+&lt;p>由于法线纹理中存储的是切线空间下的方向，因此我们通常有两种选择：&lt;/p>
+&lt;ol>
+&lt;li>在切线空间下进行光照计算，需要将光照方向、视角方向变换到切线空间下。&lt;/li>
+&lt;li>在世界空间下进行光照计算，需要把采样得到的法线方向变换到世界空间下，再和世界空间下的光照方向和视角方向进行计算。&lt;/li>
+&lt;/ol>
+&lt;p>效率上考虑，第一种优于第二种，因为整个空间的变换过程在顶点着色器中完成。&lt;/p>
+&lt;p>通用性考虑，第二种优于第一种，因为有时需要在世界空间进行一次矩阵操作。&lt;/p>
+&lt;h5 id="切线空间计算">切线空间计算&lt;/h5>
+&lt;p>思路：1. 在顶点着色器里将模型空间下的光源方向、视角方向转到切线空间；2. 在片元着色器里直接对法线纹理进行采样，得到切线空间下的法线数值；3. 进行光照计算。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Shader&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Unlit&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">MainBumpT&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Properties&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">_MainTex&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">MainTex&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_BumpTex&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">BumpTex&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_BumpStrength&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Bump&lt;/span> &lt;span class="n">Strength&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Float&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">1.0&lt;/span>
+&lt;span class="n">_Color&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Color&lt;/span> &lt;span class="n">Tint&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_Specular&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_SpecularStrength&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span> &lt;span class="n">Strength&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">8.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">256&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">20&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">SubShader&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Opaque&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">LightModel&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">ForwardBase&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="n">LOD&lt;/span> &lt;span class="mi">100&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">CGPROGRAM&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="c1">//#include &amp;#34;UnityCG.cginc&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_MainTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_BumpTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_BumpTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">_BumpStrength&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">_SpecularStrength&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">appdata&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">texcoord&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">tangent&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TANGENT&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">uv&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// flaot4 因为使用了两张纹理贴图，所以成 flaot4 了&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">posWorld&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">lightDir&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">viewDir&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">appdata&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToClipPos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点坐标从模型空间转到裁剪空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// MainTex 的 Tiling 和 Offset&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_BumpTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_BumpTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// BumpTex 的 Tiling 和 offset&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">binnormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">cross&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tangent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tangent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">w&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 得到模型空间下的副切线(.w 是取一个方向作为切线方向)&lt;/span>
+&lt;span class="n">float3x3&lt;/span> &lt;span class="n">rotation&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">float3x3&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tangent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">binnormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 一个切线空间 (顶点切线方向作为 x,叉乘值作为 y, 顶点法线作为 z)&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">lightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rotation&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ObjSpaceLightDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 模型空间下的光照方向转到切线空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">viewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rotation&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ObjSpaceViewDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 模型空间下的视角方向转到切线空间&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">fixed4&lt;/span> &lt;span class="n">frag&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">tangentLightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">lightDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 归一化光照方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">tangentViewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">viewDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 归一化视角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tangentLightDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">tangentViewDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 归一化半角方向&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">packNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_BumpTex&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 对法线贴图进行采样&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">tangentNormal&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">UnpackNormal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">packNormal&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span>&lt;span class="o">*=&lt;/span>&lt;span class="n">_BumpStrength&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 调整法线缩放，控制凹凸强度&lt;/span>
+&lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">z&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sqrt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">1.0&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span>&lt;span class="p">)));&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tangentLightDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// lambert&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">RdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// blinn phong&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_MainTex&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 漫反射系数(从贴图中读取)&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 环境光&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="mf">0.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">2.0&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// half lambert&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">specular&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RdotL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_SpecularStrength&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ambient&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">specular&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDCG&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="世界空间计算">世界空间计算&lt;/h5>
+&lt;p>思路：1. 在顶点着色器里将模型空间下的顶点位置、顶点法线、顶点切线、顶点副切线转到世界空间，并创建法线从切线空间转世界空间的 &lt;strong>矩阵&lt;/strong>，用于后面采样法线纹理将法线从切线空间转到世界空间；2. 计算世界空间下的光照方向、视角方向，对法线纹理进行采样，并且将其从切线空间转到世界空间；3. 进行光照计算。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Shader&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Unlit&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">MainBumpW&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Properties&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">_MainTex&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">MainTex&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_BumpTex&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">BumpTex&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_BumpScale&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Bump&lt;/span> &lt;span class="n">Scale&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Float&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">1.0&lt;/span>
+&lt;span class="n">_Color&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Color&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_Specular&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_SpecularPower&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span> &lt;span class="n">Power&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">8.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">256&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">20&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">SubShader&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Opaque&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">LightMode&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">ForwardBase&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">CGPROGRAM&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UnityCG&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_MainTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_BumpTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_BumpTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_BumpScale&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_SpecularPower&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">appdata&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">tangent&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TANGENT&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">texcoord&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">uv&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">posWorld&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">TtoW0&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">TtoW1&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="n">TEXCOORD2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">TtoW2&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="n">TEXCOORD3&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">appdata&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToClipPos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点坐标从模型空间转到裁剪空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// _MainTex 缩放平移属性&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_BumpTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_BumpTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// _BumpTex 缩放平移属性&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldPos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">unity_ObjectToWorld&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 顶点位置从模型空间转到世界空间&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldNormal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点法线从模型空间转到世界空间&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldTangent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tangent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点切线从模型空间转到世界空间&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldBinormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">cross&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldTangent&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tangent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">w&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 计算世界空间下的副切线&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TtoW0&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">float4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldTangent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldBinormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TtoW1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">float4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldTangent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldBinormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TtoW2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">float4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldTangent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">z&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldBinormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">z&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">z&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">z&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">fixed4&lt;/span> &lt;span class="n">frag&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldPos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">half3&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TtoW0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">w&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TtoW1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">w&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TtoW2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">w&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">lightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityWorldSpaceLightDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">viewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityWorldSpaceViewDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">lightDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">viewDir&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">bump&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnpackNormal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_BumpTex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 从法线贴出中读取法线信息&lt;/span>
+&lt;span class="n">bump&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span>&lt;span class="o">*=&lt;/span>&lt;span class="n">_BumpScale&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 缩放法线贴图&lt;/span>
+&lt;span class="n">bump&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">z&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sqrt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">1.0&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bump&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bump&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">bump&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">half3&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TtoW0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bump&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TtoW1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bump&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TtoW2&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">bump&lt;/span>&lt;span class="p">)));&lt;/span>&lt;span class="c1">// 切线空间转世界空间&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bump&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">lightDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// lambert&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">NdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bump&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// blinn phong&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_MainTex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 读取漫反射系数&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 环境光&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mf">0.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">2.0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">specular&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotV&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_SpecularPower&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">diffuse&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">specular&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">ambient&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDCG&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="渐变纹理">渐变纹理&lt;/h2>
+&lt;p>如常规纹理一样，我们在渲染中使用纹理是为了定义一个物体的颜色。&lt;strong>纹理其实可以用于存储任何表面属性&lt;/strong>，一种常见的作法就是使用纹理渐变来控制漫反射光照结果。其核心部分是纹理采样计算部分，使用了 &lt;strong>Half Lambert&lt;/strong> 作为采样UV。&lt;/p>
+&lt;blockquote>
+&lt;p>注意将纹理的 Wrap mode 设为 Clamp&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;figure style="flex-grow: 177; flex-basis: 426px">
+&lt;a href="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/gradient.png" data-size="1541x867">&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/gradient.png"
+srcset="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/gradient_hu553dc67d125d0461a42a74d531399e0e_372717_480x0_resize_box_2.png 480w, https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/gradient_hu553dc67d125d0461a42a74d531399e0e_372717_1024x0_resize_box_2.png 1024w"
+width="1541"
+height="867"
+loading="lazy"
+alt="渐变纹理">
+&lt;/a>
+&lt;figcaption>渐变纹理&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Shader&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Unlit&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">gradient&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Properties&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">_RampTex&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Ramp&lt;/span> &lt;span class="n">Texture&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_Color&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Color&lt;/span> &lt;span class="n">Tint&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_Specular&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_SpecularPower&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span> &lt;span class="n">Power&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">8.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">256&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">20&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">SubShader&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Opaque&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">LightModel&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">ForwardBase&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">CGPROGRAM&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UnityCG&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_RampTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_RampTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">Float&lt;/span> &lt;span class="n">_SpecularPower&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">appdata&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">texcoord&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">posWorld&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldPos&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">uv&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">appdata&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToClipPos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点坐标从模型空间转到世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldNormal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 法线从模型空间转到世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">unity_ObjectToWorld&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 位置从模型空间转到世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_RampTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_RampTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// UV 的缩放和平移属性&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">fixed4&lt;/span> &lt;span class="n">frag&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 归一化法线方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityWorldSpaceLightDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 归一化主光源方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldViewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityWorldSpaceViewDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 归一化视角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">worldViewDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 归一化半角方向&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mf">0.5&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// lambert&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">NdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDir&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 环境光&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuseColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_RampTex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">half2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">NdotL&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 反射颜色 = 使用渐变纹理来采样半兰伯特光照生成的纹理&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">diffuseColor&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">specular&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotV&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_SpecularPower&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ambient&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">specular&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDCG&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">FallBack&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="遮罩纹理">遮罩纹理&lt;/h2>
+&lt;p>遮罩纹理可以让我们更加自由的控制模型表面的性质。遮罩纹理的使用一般是：通过采样得到遮罩纹理的纹素值，然后使用其中某个（或某几个）通道的值来与某种表面属性进行相乘，这样，当该通道的值为0时，可以保护表面不受该属性的影响。这里样例使用的高光的 &lt;strong>mask&lt;/strong> ，并且是纹理的 &lt;strong>r&lt;/strong> 通道。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 177; flex-basis: 425px">
+&lt;a href="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/mask.png" data-size="1537x867">&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/mask.png"
+srcset="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/mask_hu6ab1f5e7d148a1d5886edf48c8120b93_314054_480x0_resize_box_2.png 480w, https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/mask_hu6ab1f5e7d148a1d5886edf48c8120b93_314054_1024x0_resize_box_2.png 1024w"
+width="1537"
+height="867"
+loading="lazy"
+alt="MainBump &amp;#43; MainBumpMask">
+&lt;/a>
+&lt;figcaption>MainBump + MainBumpMask&lt;/figcaption>
+&lt;/figure>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Shader&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Unlit&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">mask&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Properties&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">_MainTex&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">MainTex&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_Color&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Color&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_BumpTex&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">BumpTex&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">whire&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_BumpScale&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">BumptScale&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">Float&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">1.0&lt;/span>
+&lt;span class="n">_SpecularMask&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span> &lt;span class="n">Mask&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_SpecularScale&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span> &lt;span class="n">Scale&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Float&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">1.0&lt;/span>
+&lt;span class="n">_Specular&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specualr&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_SpecularPower&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Specular&lt;/span> &lt;span class="n">Power&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">8.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">256&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">20&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">SubShader&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Opaque&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">LightModel&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">ForwardBase&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="n">LOD&lt;/span> &lt;span class="mi">100&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">CGPROGRAM&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UnityCG&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_MainTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_BumpTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_BumpTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_BumpScale&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_SpecularMask&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_SpecularScale&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_SpecularPower&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">appdata&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">texcoord&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">tangent&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TANGENT&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">posWorld&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">uv&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">lightDir&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">viewDir&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">appdata&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToClipPos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点坐标从模型空间转世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// _MainTex 的缩放和平移&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_BumpTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_BumpTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// _BumpTex 的缩放和平移&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">binormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">cross&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tangent&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tangent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">w&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 副切线&lt;/span>
+&lt;span class="n">float3x3&lt;/span> &lt;span class="n">rotation&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">float3x3&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">tangent&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">binormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 变换矩阵&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">lightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rotation&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ObjSpaceLightDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 主光源方向从模型空间转到切线空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">viewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">rotation&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ObjSpaceViewDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 视角方向从模型空间转到切线空间&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">fixed4&lt;/span> &lt;span class="n">frag&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">tangentLightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">lightDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 切线空间下主光源方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">tangentViewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">viewDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 切线空间下的视角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tangentLightDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">tangentViewDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 半角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">tangentNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnpackNormal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_BumpTex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 从法线贴图读取法线信息&lt;/span>
+&lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*=&lt;/span> &lt;span class="n">_BumpScale&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 缩放法线&lt;/span>
+&lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">z&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sqrt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">1.0&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span>&lt;span class="p">)));&lt;/span> &lt;span class="c1">// 计算法线的 z 值&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">tangentLightDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// lambert&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">NdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">tangentNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// blinn-phong&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_MainTex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 从材质贴图计算漫反射率&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 环境光&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="mf">0.5&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 计算漫反射光&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">specularMask&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_SpecularMask&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">r&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 从高光贴图中读取高光反射值&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">specular&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Specular&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">specularMask&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">pow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">NdotV&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_SpecularPower&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ambient&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">specular&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDCG&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>拓展&lt;/strong> ：Mask 的应用还有很大的空间，可以试着举例出来：UV 顶点动画。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;/th>
+&lt;th>漫反射系数&lt;/th>
+&lt;th>法线系数&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>无纹理&lt;/td>
+&lt;td>1&lt;/td>
+&lt;td>模型法线&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>常规纹理&lt;/td>
+&lt;td>tex2D(_MainTex,i.uv).rgb * _Color.rgb&lt;/td>
+&lt;td>模型法线&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>法线纹理&lt;/td>
+&lt;td>tex2D(_MainTex,i.uv) * _Color.rgb&lt;/td>
+&lt;td>tex2D(_BumpTex,i.uv.zw)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>渐变纹理&lt;/td>
+&lt;td>tex2D(_RampTex, &lt;em>half2&lt;/em>(NdotL, NdotL)).rgb * _Color.rgb&lt;/td>
+&lt;td>模型法线&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>遮罩纹理&lt;/td>
+&lt;td>tex2D(_MainTex, i.uv.xy).rgb * _Color.rgb&lt;/td>
+&lt;td>(tex2D(_BumpTex, i.uv.zw)&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>Shader入门精要-简单光照模型</title><link>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Fri, 28 May 2021 22:34:22 +0800</pubDate><guid>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/</guid><description>&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/topimg.webp" alt="Featured image of post Shader入门精要-简单光照模型" />&lt;h1 id="技术美术基础光照模型">技术美术——基础光照模型&lt;/h1>
 &lt;h2 id="lambert">Lambert&lt;/h2>
 &lt;p>Lambert 光照模型的光照计算简单粗暴，是光源方向点成法线方向，其值在 [-1, 1] 之间，基本计算公式如下：&lt;/p>
 &lt;blockquote>
@@ -38,7 +525,7 @@
 &lt;p>不同于 &lt;code>Phong&lt;/code> 模型，这里不使用视线方向 v 和反射方向 r，取而代之的是引入新的矢量 h，通过视角方向 v 和光照方向 i 相加归一化处理后得到。&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="c1">// 视线方向，摄像机坐标 - 顶点坐标得到视线方向，向量从顶点指向摄像机，就是视线方向 &lt;/span>
 &lt;span class="n">float3&lt;/span> &lt;span class="n">viewDirection&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_WorldSpaceCameraPos&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;span class="c1">// 根据经验取得的模型，让视线方向+光源方向作为光反射的方向&lt;/span>
+&lt;span class="c1">// 半角方向，根据经验取得的模型，让视线方向+光源方向作为光反射的方向&lt;/span>
 &lt;span class="n">float3&lt;/span> &lt;span class="n">halfDirection&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">viewDirection&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">lightDirection&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;span class="k">float&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mo">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">normalDirection&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">lightDirection&lt;/span> &lt;span class="p">));&lt;/span>
 &lt;span class="k">float&lt;/span> &lt;span class="n">NdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mo">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span> &lt;span class="n">normalDirection&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDirection&lt;/span> &lt;span class="p">));&lt;/span>
@@ -49,8 +536,8 @@
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
 &lt;p>在实际应用中，我们还是大量使用 &lt;code>Half Lambert&lt;/code> 和 &lt;code>Blinn-Phong&lt;/code> 光照模型，需要注意的是，这两个模型都是 &lt;strong>经验&lt;/strong> 模型，我们从物理的角度看，这两个模型都是不正确的，但是，在实际的渲染中，这两个模型的结果更让人满意。最后给出适用的代码，可以根据需要自行注释掉关于光照部分计算的代码来观察不同光照模型之间的区别&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 177; flex-basis: 425px">
-&lt;a href="https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel.png" data-size="1547x872">&lt;img src="https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel.png"
-srcset="https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel_huf926d0fb8ea00f04d34bca55eaa16dd7_262933_480x0_resize_box_2.png 480w, https://example.com/p/shader%E5%B8%B8%E7%94%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel_huf926d0fb8ea00f04d34bca55eaa16dd7_262933_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel.png" data-size="1547x872">&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel.png"
+srcset="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel_huf926d0fb8ea00f04d34bca55eaa16dd7_262933_480x0_resize_box_2.png 480w, https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/lightingmodel_huf926d0fb8ea00f04d34bca55eaa16dd7_262933_1024x0_resize_box_2.png 1024w"
 width="1547"
 height="872"
 loading="lazy"
@@ -208,7 +695,8 @@ alt="四种不同光照模型的结果">
 &lt;span class="p">}&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;span class="p">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>ShaderCode常用函数解释</title><link>https://example.com/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</link><pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate><guid>https://example.com/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</guid><description>&lt;h1 id="技美函数方法解释">技美——函数方法解释&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>相关链接 &lt;a class="link" href="https://www.jordanstevenstechart.com/lighting-models" target="_blank" rel="noopener"
+> Lighting Models In Unity - Jordan Stevens &lt;/a>&lt;/p></description></item><item><title>ShaderCode常用函数解释</title><link>https://yantree.github.io/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</link><pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate><guid>https://yantree.github.io/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</guid><description>&lt;h1 id="技美函数方法解释">技美——函数方法解释&lt;/h1>
 &lt;p>&lt;strong>[TextureName]_ST&lt;/strong>&lt;/p>
 &lt;p>举例来说一个纹理贴图：&lt;code>_Main_ST&lt;/code> ，其中 ST 代表的是纹理的缩放属性 (Scale) 和平移 (Translation) 的缩写。&lt;code>_Main_ST.xy&lt;/code> 存储缩放值，&lt;code>_Main_ST.zw&lt;/code> 存储偏移值。不知道什么是纹理的缩放和偏移，建议补一下计算机图形学，里面有详细的介绍。&lt;/p>
 &lt;p>&lt;strong>POSITION vs SV_POSITION&lt;/strong>&lt;/p>
@@ -258,7 +746,7 @@ name## ST.xy 就是 Tiling 的 xy 值；&lt;/p>
 &lt;span class="k">float&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">angle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">delta&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">cos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">angle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">delta&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;span class="n">Out&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">float2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">Center&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">Offset&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">Center&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">Offset&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">);&lt;/span>
 &lt;span class="p">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>将类似于黑洞的旋转扭曲效果应用于输入UV的值。 变形效果的中心参考点由输入Center定义，效果的整体强度由输入Strength的值定义。 输入偏移量可用于偏移结果的各个通道。&lt;/p></description></item><item><title>Visual Studio &amp; OpenGL</title><link>https://example.com/p/visual-studio-opengl/</link><pubDate>Tue, 29 Dec 2020 23:09:27 +0800</pubDate><guid>https://example.com/p/visual-studio-opengl/</guid><description>&lt;img src="https://example.com/p/visual-studio-opengl/topimg.png" alt="Featured image of post Visual Studio &amp; OpenGL" />&lt;h1 id="visual-studio--opengl">Visual Studio &amp;amp; OpenGL&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将类似于黑洞的旋转扭曲效果应用于输入UV的值。 变形效果的中心参考点由输入Center定义，效果的整体强度由输入Strength的值定义。 输入偏移量可用于偏移结果的各个通道。&lt;/p></description></item><item><title>Visual Studio &amp; OpenGL</title><link>https://yantree.github.io/p/visual-studio-opengl/</link><pubDate>Tue, 29 Dec 2020 23:09:27 +0800</pubDate><guid>https://yantree.github.io/p/visual-studio-opengl/</guid><description>&lt;img src="https://yantree.github.io/p/visual-studio-opengl/topimg.png" alt="Featured image of post Visual Studio &amp; OpenGL" />&lt;h1 id="visual-studio--opengl">Visual Studio &amp;amp; OpenGL&lt;/h1>
 &lt;p>这里采用的方案与 &lt;strong>&lt;a class="link" href="https://learnopengl.com/Getting-started/Creating-a-window" target="_blank" rel="noopener"
 >LearnOpenGL&lt;/a>&lt;/strong> 一样，使用 &lt;strong>glfw&lt;/strong> 和 &lt;strong>glad&lt;/strong>。❗ 个人使用 &lt;strong>win10&lt;/strong> 环境。&lt;/p>
 &lt;!-- raw HTML omitted -->
@@ -279,8 +767,8 @@ name## ST.xy 就是 Tiling 的 xy 值；&lt;/p>
 &lt;h2 id="1-配置-visual-studio">1. 配置 Visual Studio&lt;/h2>
 &lt;p>安装基本的开发包，有两个必装的包。这里我使用了英文，在语言包里，我还选择了 &lt;strong>English&lt;/strong> 安装包。&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 200; flex-basis: 480px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize.png" data-size="1570x785">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize_huda128796a8620fd8d1a2f0c57a1fdcea_123716_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize_huda128796a8620fd8d1a2f0c57a1fdcea_123716_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize.png" data-size="1570x785">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize_huda128796a8620fd8d1a2f0c57a1fdcea_123716_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-29-visual-studio-opengl-inistalize_huda128796a8620fd8d1a2f0c57a1fdcea_123716_1024x0_resize_box_2.png 1024w"
 width="1570"
 height="785"
 loading="lazy"
@@ -305,8 +793,8 @@ alt="安装模块">
 &lt;li>
 &lt;p>当前文件目录如下：&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 141; flex-basis: 338px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory.png" data-size="1128x799">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory_hufbc7154665c30cd809f8d85de53662fe_52871_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory_hufbc7154665c30cd809f8d85de53662fe_52871_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-directory.png" data-size="1128x799">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-directory.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-directory_hufbc7154665c30cd809f8d85de53662fe_52871_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-directory_hufbc7154665c30cd809f8d85de53662fe_52871_1024x0_resize_box_2.png 1024w"
 width="1128"
 height="799"
 loading="lazy"
@@ -320,8 +808,8 @@ alt="项目目录">
 &lt;p>双击 CMake-gui 程序，进行编译。&lt;/p>
 &lt;p>先设置好对应文件夹，如下图所示：&lt;strong>source code&lt;/strong> 是解压后的 glfw-3.3.2 文件目录，&lt;strong>build binaries&lt;/strong> 是我们新建的 build 文件夹，对应关系如上图所示。&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 229; flex-basis: 550px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019.png" data-size="1271x554">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019_hu8428fd3068b8e6fbca41ef419ab8ae22_93086_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019_hu8428fd3068b8e6fbca41ef419ab8ae22_93086_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019.png" data-size="1271x554">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019_hu8428fd3068b8e6fbca41ef419ab8ae22_93086_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-vs-2019_hu8428fd3068b8e6fbca41ef419ab8ae22_93086_1024x0_resize_box_2.png 1024w"
 width="1271"
 height="554"
 loading="lazy"
@@ -333,8 +821,8 @@ alt="Cmake build glfw">
 &lt;li>
 &lt;p>接下来点击下面的 Configure 按钮。&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 218; flex-basis: 524px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure.png" data-size="1297x593">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure_hu065d9883e451eafff5e12cd16c4ab913_126425_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure_hu065d9883e451eafff5e12cd16c4ab913_126425_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure.png" data-size="1297x593">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure_hu065d9883e451eafff5e12cd16c4ab913_126425_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-configure_hu065d9883e451eafff5e12cd16c4ab913_126425_1024x0_resize_box_2.png 1024w"
 width="1297"
 height="593"
 loading="lazy"
@@ -348,8 +836,8 @@ alt="Cmake 配置">
 &lt;p>真正开始编译&lt;/p>
 &lt;p>上面点击完 Finish 后等一会会出现如下图左边的红色页面，此时我们点击左边的 &lt;strong>Generate&lt;/strong> 开始编译。&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 233; flex-basis: 560px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate.png" data-size="1277x547">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate_hu4a0fab0c16c2489634929aa5061bfdb3_223580_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate_hu4a0fab0c16c2489634929aa5061bfdb3_223580_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate.png" data-size="1277x547">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate_hu4a0fab0c16c2489634929aa5061bfdb3_223580_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-CMake-glfw-generate_hu4a0fab0c16c2489634929aa5061bfdb3_223580_1024x0_resize_box_2.png 1024w"
 width="1277"
 height="547"
 loading="lazy"
@@ -368,8 +856,8 @@ alt="Cmake 编译">
 &lt;p>点击 &lt;strong>&lt;a class="link" href="https://glad.dav1d.de/" target="_blank" rel="noopener"
 >这里&lt;/a>&lt;/strong> 打开 GLAD 在线服务，设置如下：&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 129; flex-basis: 310px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-glad-online.png" data-size="1229x951">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-glad-online.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-glad-online_hube4b39f3a15266da6f6fabb917df5c5a_67754_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-glad-online_hube4b39f3a15266da6f6fabb917df5c5a_67754_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-glad-online.png" data-size="1229x951">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-glad-online.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-glad-online_hube4b39f3a15266da6f6fabb917df5c5a_67754_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-glad-online_hube4b39f3a15266da6f6fabb917df5c5a_67754_1024x0_resize_box_2.png 1024w"
 width="1229"
 height="951"
 loading="lazy"
@@ -382,8 +870,8 @@ alt="下载GLAD">
 &lt;p>这一步我们会重点关注两个文件夹，前面的 &lt;strong>OpenGL&lt;/strong> 和接下来要创建的项目文件夹 &lt;strong>Learn OpenGL&lt;/strong> 。&lt;/p>
 &lt;p>打开 Visual Studio 新建一个空的 project，结果如图：&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 150; flex-basis: 360px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-enpty-opengl-project.png" data-size="1277x849">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-enpty-opengl-project.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-enpty-opengl-project_hud1c1c592a931b72745d67f91fc603d9c_33866_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-enpty-opengl-project_hud1c1c592a931b72745d67f91fc603d9c_33866_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-enpty-opengl-project.png" data-size="1277x849">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-enpty-opengl-project.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-enpty-opengl-project_hud1c1c592a931b72745d67f91fc603d9c_33866_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-enpty-opengl-project_hud1c1c592a931b72745d67f91fc603d9c_33866_1024x0_resize_box_2.png 1024w"
 width="1277"
 height="849"
 loading="lazy"
@@ -393,8 +881,8 @@ alt="创建空项目">
 &lt;/figure>&lt;/p>
 &lt;p>在 LearnOpenGL 项目里新建文件夹 OpenGL_Stuff，并创建子文件夹 includes，lib，当前 LearnOpenGL 项目目录结构&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 94; flex-basis: 225px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-directory-before.png" data-size="237x252">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-directory-before.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-directory-before_hua6b082968871855f8558cacf914793a6_6572_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-directory-before_hua6b082968871855f8558cacf914793a6_6572_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-directory-before.png" data-size="237x252">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-directory-before.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-directory-before_hua6b082968871855f8558cacf914793a6_6572_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-directory-before_hua6b082968871855f8558cacf914793a6_6572_1024x0_resize_box_2.png 1024w"
 width="237"
 height="252"
 loading="lazy"
@@ -404,8 +892,8 @@ alt="项目目录">
 &lt;/figure>&lt;/p>
 &lt;p>当前的 OpenGL 目录如下：&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 90; flex-basis: 216px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory-after.png" data-size="183x203">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory-after.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory-after_hu0537b940e5ce0bd5a95fe22a00371334_3520_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-opengl-directory-after_hu0537b940e5ce0bd5a95fe22a00371334_3520_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-directory-after.png" data-size="183x203">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-directory-after.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-directory-after_hu0537b940e5ce0bd5a95fe22a00371334_3520_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-directory-after_hu0537b940e5ce0bd5a95fe22a00371334_3520_1024x0_resize_box_2.png 1024w"
 width="183"
 height="203"
 loading="lazy"
@@ -415,8 +903,8 @@ alt="项目目录">
 &lt;/figure>&lt;/p>
 &lt;p>将 &lt;strong>OpenGL -&amp;gt; build -&amp;gt; src -&amp;gt; Debug&lt;/strong> 里生成 &lt;strong>glfw3.lib&lt;/strong> 文件复制到 &lt;strong>LearnOpenGL -&amp;gt; OpenGL_Stuff -&amp;gt; lib&lt;/strong> 文件夹中，将 &lt;strong>OpenGL -&amp;gt; glfw-3.3.2 -&amp;gt; include&lt;/strong> 里的 &lt;strong>GLFW&lt;/strong> 文件夹复制到 &lt;strong>LearnOpenGL -&amp;gt; OpenGL_Stuff -&amp;gt; includes&lt;/strong> 文件夹中，将 **OpenGL -&amp;gt; include ** 里的 &lt;strong>glad，KHR&lt;/strong> 文件夹复制到 &lt;strong>LearnOpenGL -&amp;gt; OpenGL_Stuff -&amp;gt; includes&lt;/strong> 文件夹中。完成后的 &lt;strong>LearnOpenGL&lt;/strong> 项目目录结构：&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 68; flex-basis: 164px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-directory-after.png" data-size="243x354">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-directory-after.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-directory-after_hu15a13880a22a7df9277d197e00ac621b_8518_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-directory-after_hu15a13880a22a7df9277d197e00ac621b_8518_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-directory-after.png" data-size="243x354">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-directory-after.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-directory-after_hu15a13880a22a7df9277d197e00ac621b_8518_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-directory-after_hu15a13880a22a7df9277d197e00ac621b_8518_1024x0_resize_box_2.png 1024w"
 width="243"
 height="354"
 loading="lazy"
@@ -429,8 +917,8 @@ alt="项目目录">
 alt="2020-12-30-add-glad.c-file"/>
 &lt;/figure>
 &lt;p>&lt;figure style="flex-grow: 99; flex-basis: 237px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-add-glad-file.png" data-size="317x320">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-add-glad-file.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-add-glad-file_hu41a5803025f1b4689a66e82d7e910f29_18589_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-add-glad-file_hu41a5803025f1b4689a66e82d7e910f29_18589_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-add-glad-file.png" data-size="317x320">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-add-glad-file.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-add-glad-file_hu41a5803025f1b4689a66e82d7e910f29_18589_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-add-glad-file_hu41a5803025f1b4689a66e82d7e910f29_18589_1024x0_resize_box_2.png 1024w"
 width="317"
 height="320"
 loading="lazy"
@@ -447,8 +935,8 @@ alt="项目目录">
 &lt;li>
 &lt;p>编辑右边的 &lt;strong>General -&amp;gt; Library Directories&lt;/strong>，选择 &lt;strong>lib&lt;/strong> 文件路径，点击一下右下角的 &lt;strong>Apply&lt;/strong> 按钮；&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 170; flex-basis: 410px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory.png" data-size="1354x792">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory_hu185b8888a615bcb010ded8a961893a72_73341_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory_hu185b8888a615bcb010ded8a961893a72_73341_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory.png" data-size="1354x792">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory_hu185b8888a615bcb010ded8a961893a72_73341_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-vs-vc&amp;#43;&amp;#43;directory_hu185b8888a615bcb010ded8a961893a72_73341_1024x0_resize_box_2.png 1024w"
 width="1354"
 height="792"
 loading="lazy"
@@ -461,8 +949,8 @@ alt="Visual Studio 添加文件路径">
 &lt;p>左边点击 &lt;strong>Linker -&amp;gt; Input&lt;/strong>&lt;/p>
 &lt;p>编辑右边的 &lt;strong>Additional Dependencies&lt;/strong>，输入 &lt;strong>opengl32.lib&lt;/strong> 按一下回车继续输入 &lt;strong>glfw3.lib&lt;/strong> ，点击一下右下角的 &lt;strong>Apply&lt;/strong> 按钮；&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 169; flex-basis: 407px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input.png" data-size="1354x797">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input_huaaefca8c85c78540c61faec8ec292904_59942_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input_huaaefca8c85c78540c61faec8ec292904_59942_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input.png" data-size="1354x797">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input_huaaefca8c85c78540c61faec8ec292904_59942_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-vs-linker-input_huaaefca8c85c78540c61faec8ec292904_59942_1024x0_resize_box_2.png 1024w"
 width="1354"
 height="797"
 loading="lazy"
@@ -554,8 +1042,8 @@ alt="Visual Studio 添加依赖">
 alt="2020-12-30-opengl-hello-window"/>
 &lt;/figure>
 &lt;p>&lt;figure style="flex-grow: 177; flex-basis: 426px">
-&lt;a href="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-hello-window.png" data-size="1920x1080">&lt;img src="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-hello-window.png"
-srcset="https://example.com/p/visual-studio-opengl/2020-12-30-opengl-hello-window_hu099abefb2fae81d68b9b4545233550d5_147922_480x0_resize_box_2.png 480w, https://example.com/p/visual-studio-opengl/2020-12-30-opengl-hello-window_hu099abefb2fae81d68b9b4545233550d5_147922_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-hello-window.png" data-size="1920x1080">&lt;img src="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-hello-window.png"
+srcset="https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-hello-window_hu099abefb2fae81d68b9b4545233550d5_147922_480x0_resize_box_2.png 480w, https://yantree.github.io/p/visual-studio-opengl/2020-12-30-opengl-hello-window_hu099abefb2fae81d68b9b4545233550d5_147922_1024x0_resize_box_2.png 1024w"
 width="1920"
 height="1080"
 loading="lazy"
@@ -564,13 +1052,13 @@ alt="OpenGL 简单窗口">
 &lt;figcaption>OpenGL 简单窗口&lt;/figcaption>
 &lt;/figure>&lt;/p>
 &lt;h2 id="总结">总结&lt;/h2>
-&lt;p>配置过程中可能会出现的问题在第六步的最下面有提到过，这里的问题产生的原因在于项目创建之后，没有创建一份文件cpp，属性设置为 &lt;strong>Project -&amp;gt; Property&lt;/strong>，在创建一份cpp文件后，属性设置变为 &lt;strong>Project -&amp;gt; [project name] Property&lt;/strong>。不过，没什么大的问题，重新设置一下第5步提到的 directory 就可以了。&lt;/p></description></item><item><title>PBR基础理论</title><link>https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/</link><pubDate>Fri, 27 Nov 2020 09:59:25 +0800</pubDate><guid>https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/</guid><description>&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/topimg.jpg" alt="Featured image of post PBR基础理论" />&lt;h1 id="技美pbr-基础理论">技美——PBR 基础理论&lt;/h1>
+&lt;p>配置过程中可能会出现的问题在第六步的最下面有提到过，这里的问题产生的原因在于项目创建之后，没有创建一份文件cpp，属性设置为 &lt;strong>Project -&amp;gt; Property&lt;/strong>，在创建一份cpp文件后，属性设置变为 &lt;strong>Project -&amp;gt; [project name] Property&lt;/strong>。不过，没什么大的问题，重新设置一下第5步提到的 directory 就可以了。&lt;/p></description></item><item><title>PBR基础理论</title><link>https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/</link><pubDate>Fri, 27 Nov 2020 09:59:25 +0800</pubDate><guid>https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/</guid><description>&lt;img src="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/topimg.jpg" alt="Featured image of post PBR基础理论" />&lt;h1 id="技美pbr-基础理论">技美——PBR 基础理论&lt;/h1>
 &lt;p>PBR 全称 Physically Based Rendering，这是一个全新的，效果出众的光照模型，是近年来实时渲染领域的趋势。&lt;/p>
 &lt;h2 id="diffusion--reflection">Diffusion &amp;amp; Reflection&lt;/h2>
 &lt;p>Diffusion 和 Reflection 也被叫做 “diffuse” “specular”，分别描述了物体表面和光的最基本的相互作用。绿色箭头部分的光是 specular，产生完美的反射现象，这种行为跟一个球碰撞到地面发生弹射的行为一样。红色箭头部分的光是 diffuse，会进入物体内部，这部分光要不被物体吸收（通常转化为热能），要不在物体内部散射，其中一部分会从物体表面散射出来而被重新看到。这种现象称为 “漫反射” 或更复杂一点的 “次表面散射”。&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 185; flex-basis: 444px">
-&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse.jpg" data-size="720x389">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse.jpg"
-srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse_hu7e5f60eded90f739870309f3327160fc_35443_480x0_resize_q75_box.jpg 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse_hu7e5f60eded90f739870309f3327160fc_35443_1024x0_resize_q75_box.jpg 1024w"
+&lt;a href="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse.jpg" data-size="720x389">&lt;img src="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse.jpg"
+srcset="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse_hu7e5f60eded90f739870309f3327160fc_35443_480x0_resize_q75_box.jpg 480w, https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_diffuse_hu7e5f60eded90f739870309f3327160fc_35443_1024x0_resize_q75_box.jpg 1024w"
 width="720"
 height="389"
 loading="lazy"
@@ -587,8 +1075,8 @@ alt="漫反射">
 &lt;h2 id="energy-conservation">&lt;strong>Energy Conservation&lt;/strong>&lt;/h2>
 &lt;p>根据上面的描述我们得到一个结论：漫反射和镜面反射是互斥的。这是因为被物体散射的光线必须进入物体表面（那它就不能被镜面反射了）。这个结论符合“能量守恒”，也就是说离开表面的光不可能比原始的入射光要亮。着色系统很容易做到这一点：假设1表示100%光能，用1减去镜面反射的光，剩下的就属于漫反射部分。这意味着强烈高光的物体几乎没有漫反射现象，原因就是没有光进入到物体表面，大部分被镜面反射了。反之亦然。&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 338; flex-basis: 811px">
-&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy.jpg" data-size="680x201">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy.jpg"
-srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy_hua5456e4b3a671daf155cb4d5dccedf6c_16280_480x0_resize_q75_box.jpg 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy_hua5456e4b3a671daf155cb4d5dccedf6c_16280_1024x0_resize_q75_box.jpg 1024w"
+&lt;a href="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy.jpg" data-size="680x201">&lt;img src="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy.jpg"
+srcset="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy_hua5456e4b3a671daf155cb4d5dccedf6c_16280_480x0_resize_q75_box.jpg 480w, https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_energy_hua5456e4b3a671daf155cb4d5dccedf6c_16280_1024x0_resize_q75_box.jpg 1024w"
 width="680"
 height="201"
 loading="lazy"
@@ -603,8 +1091,8 @@ alt="能量守恒定律">
 &lt;h2 id="fresnel">&lt;strong>Fresnel&lt;/strong>&lt;/h2>
 &lt;p>Fresnel 现象是光照反射现象中不可或缺的部分。计算机图形学中 Fresnel 用来定义不同角度下的不同反射率——入射光方向越平行于物体表面，反射率越高。这意味着物体表面在 Fresnel 效果作用下，物体的边缘会更亮。大部分人可能已经对 Fresnel 效果已经有所了解，并且 Fresnel 效果在计算机图形中也不是新东西，然而，PBR 对 Fresnel 估算公式做了一些重要的纠正。 首先，入射光方向接近平行于物体表面时，一切光滑物体边缘表现为完美镜面反射，只要它足够光滑并且在合适的观察角度（也接近平行于物体表面）下，任何材质物体都表现为完美镜面反射。这有点违反直觉，但物理现象就是如此。 其次对 Fresnel 属性的观察发现不同材质的随入射光角度变化得到的 Fresnel 变化曲线和梯度差异并不大。对我们来讲意味着：如果我们期望渲染更加真实，美术对 Fresnel 行为的控制应该被降低，而不是被放大，或者说，没必要暴露多余的 Fresnel 参数让美术去调节。少了参数控制，就简化了美术内容生成，这是个利好。PBR 光照模型根据光泽度和反射率就可以自动去计算合适的 Fresnel 效果。&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 197; flex-basis: 474px">
-&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel.jpg" data-size="720x364">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel.jpg"
-srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel_huae0484ae7e41b0a8d64ecc879f27d9d3_25992_480x0_resize_q75_box.jpg 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel_huae0484ae7e41b0a8d64ecc879f27d9d3_25992_1024x0_resize_q75_box.jpg 1024w"
+&lt;a href="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel.jpg" data-size="720x364">&lt;img src="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel.jpg"
+srcset="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel_huae0484ae7e41b0a8d64ecc879f27d9d3_25992_480x0_resize_q75_box.jpg 480w, https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_fresnel_huae0484ae7e41b0a8d64ecc879f27d9d3_25992_1024x0_resize_q75_box.jpg 1024w"
 width="720"
 height="364"
 loading="lazy"
@@ -617,8 +1105,8 @@ alt="菲涅尔效应">
 &lt;h2 id="microsurface">Microsurface&lt;/h2>
 &lt;p>散射和反射都依赖物体表面的朝向。宏观上来看，物体表面朝向由物体的网格形状决定，或者是网格的法线贴图决定。渲染系统根据法线信息已经可以很好的渲染散射和反射。但是真实世界的表面在微观世界是不完美的：小坑，小裂缝和小块，这些不容易被肉眼看到的微观世界下的表面特性对散射和反射仍产生巨大影响。&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 162; flex-basis: 389px">
-&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry.png" data-size="778x480">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry.png"
-srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry_hu7afda07a60b3515b2f6b659df7ef43ae_35123_480x0_resize_box_2.png 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry_hu7afda07a60b3515b2f6b659df7ef43ae_35123_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry.png" data-size="778x480">&lt;img src="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry.png"
+srcset="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry_hu7afda07a60b3515b2f6b659df7ef43ae_35123_480x0_resize_box_2.png 480w, https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_blurry_hu7afda07a60b3515b2f6b659df7ef43ae_35123_1024x0_resize_box_2.png 1024w"
 width="778"
 height="480"
 loading="lazy"
@@ -631,8 +1119,8 @@ alt="模糊效果">
 &lt;h2 id="energy-conservation-again">Energy Conservation (Again)&lt;/h2>
 &lt;p>假设我们的着色系统已经考虑了微表面细节,反射多少入射光才是合适的是个值得研究的课题。光滑的表面会比粗糙的表面得到更加清楚的高光，这是符合能量守恒物理定律的：不同的材质反射了相同量级的入射光，但粗糙的表面反射的光线更加分散，看起来更模糊更暗，而光滑的表面反射更加集中，看起来更清晰更亮。&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 338; flex-basis: 811px">
-&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity.jpg" data-size="680x201">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity.jpg"
-srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity_hu7c5b75146d993fd32fd41f2b0c309d4d_17175_480x0_resize_q75_box.jpg 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity_hu7c5b75146d993fd32fd41f2b0c309d4d_17175_1024x0_resize_q75_box.jpg 1024w"
+&lt;a href="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity.jpg" data-size="680x201">&lt;img src="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity.jpg"
+srcset="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity_hu7c5b75146d993fd32fd41f2b0c309d4d_17175_480x0_resize_q75_box.jpg 480w, https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_reflectivity_hu7c5b75146d993fd32fd41f2b0c309d4d_17175_1024x0_resize_q75_box.jpg 1024w"
 width="680"
 height="201"
 loading="lazy"
@@ -645,8 +1133,8 @@ alt="反射率">
 &lt;p>微表面细节和反射率在物理上是相互联系的，就像之前描述的散射和反射一样，抛开它们之间的联系而单独分离的去设置它们有可能违背背后的光学物理规则。&lt;/p>
 &lt;p>还有，对真实世界观察发现，材质之间的反射率的差异并不明显，比如水坑和泥巴，它们有非常相近的反射率，但泥巴非常粗糙，而水坑非常光滑，它们呈现出截然不同的反射表现。美术人员在创建这样的场景应该选择光泽度(粗糙度)而不是反射率来做为主要的材质差异设置项，见下图：&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 170; flex-basis: 410px">
-&lt;a href="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface.jpg" data-size="675x395">&lt;img src="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface.jpg"
-srcset="https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface_hu3db3e5a95a4d0615da06353d1c0c1939_38107_480x0_resize_q75_box.jpg 480w, https://example.com/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface_hu3db3e5a95a4d0615da06353d1c0c1939_38107_1024x0_resize_q75_box.jpg 1024w"
+&lt;a href="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface.jpg" data-size="675x395">&lt;img src="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface.jpg"
+srcset="https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface_hu3db3e5a95a4d0615da06353d1c0c1939_38107_480x0_resize_q75_box.jpg 480w, https://yantree.github.io/p/pbr%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/PBR_hail_microsurface_hu3db3e5a95a4d0615da06353d1c0c1939_38107_1024x0_resize_q75_box.jpg 1024w"
 width="675"
 height="395"
 loading="lazy"
@@ -668,7 +1156,7 @@ alt="微表面细节">
 &lt;p>原文连接：&lt;/p>
 &lt;p>外文：https://marmoset.co/posts/basic-theory-of-physically-based-rendering/&lt;/p>
 &lt;p>翻译：https://zhuanlan.zhihu.com/p/49564527&lt;/p>
-&lt;/blockquote></description></item><item><title>Doom Emacs</title><link>https://example.com/p/doom-emacs/</link><pubDate>Fri, 06 Nov 2020 14:17:09 +0800</pubDate><guid>https://example.com/p/doom-emacs/</guid><description>&lt;img src="https://example.com/p/doom-emacs/topimg.png" alt="Featured image of post Doom Emacs" />&lt;h1 id="doom-emacs--win10">Doom Emacs &amp;amp; Win10&lt;/h1>
+&lt;/blockquote></description></item><item><title>Doom Emacs</title><link>https://yantree.github.io/p/doom-emacs/</link><pubDate>Fri, 06 Nov 2020 14:17:09 +0800</pubDate><guid>https://yantree.github.io/p/doom-emacs/</guid><description>&lt;img src="https://yantree.github.io/p/doom-emacs/topimg.png" alt="Featured image of post Doom Emacs" />&lt;h1 id="doom-emacs--win10">Doom Emacs &amp;amp; Win10&lt;/h1>
 &lt;!-- raw HTML omitted -->
 &lt;p>&lt;strong>Table of Contents&lt;/strong>&lt;/p>
 &lt;ul>
@@ -732,15 +1220,15 @@ alt="微表面细节">
 &lt;/ul>
 &lt;p>现在你就可以使用 &lt;strong>Doom Emacs&lt;/strong>。&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 171; flex-basis: 411px">
-&lt;a href="https://example.com/p/doom-emacs/2020-11-06-doom-emacs.png" data-size="288x168">&lt;img src="https://example.com/p/doom-emacs/2020-11-06-doom-emacs.png"
-srcset="https://example.com/p/doom-emacs/2020-11-06-doom-emacs_huc098e4ec69f01d8623178fcaf63a89c4_47684_480x0_resize_box_2.png 480w, https://example.com/p/doom-emacs/2020-11-06-doom-emacs_huc098e4ec69f01d8623178fcaf63a89c4_47684_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/doom-emacs/2020-11-06-doom-emacs.png" data-size="288x168">&lt;img src="https://yantree.github.io/p/doom-emacs/2020-11-06-doom-emacs.png"
+srcset="https://yantree.github.io/p/doom-emacs/2020-11-06-doom-emacs_huc098e4ec69f01d8623178fcaf63a89c4_47684_480x0_resize_box_2.png 480w, https://yantree.github.io/p/doom-emacs/2020-11-06-doom-emacs_huc098e4ec69f01d8623178fcaf63a89c4_47684_1024x0_resize_box_2.png 1024w"
 width="288"
 height="168"
 loading="lazy"
 alt="Happy Hacking! ">
 &lt;/a>
 &lt;figcaption>Happy Hacking!&lt;/figcaption>
-&lt;/figure>&lt;/p></description></item><item><title>Emacs Magit✨插件</title><link>https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/</link><pubDate>Sun, 21 Jun 2020 09:14:22 +0800</pubDate><guid>https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/</guid><description>&lt;img src="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/topimg.png" alt="Featured image of post Emacs Magit✨插件" />&lt;h1 id="magit">Magit&lt;/h1>
+&lt;/figure>&lt;/p></description></item><item><title>Emacs Magit✨插件</title><link>https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/</link><pubDate>Sun, 21 Jun 2020 09:14:22 +0800</pubDate><guid>https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/</guid><description>&lt;img src="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/topimg.png" alt="Featured image of post Emacs Magit✨插件" />&lt;h1 id="magit">Magit&lt;/h1>
 &lt;blockquote>
 &lt;p>A Git Porcelain inside Emacs。&lt;a class="link" href="https://magit.vc/" target="_blank" rel="noopener"
 >Magit&lt;/a>&lt;/p>
@@ -765,8 +1253,8 @@ alt="Happy Hacking! ">
 &lt;h2 id="1-branch">1. Branch&lt;/h2>
 &lt;p>&lt;strong>b&lt;/strong>&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 282; flex-basis: 677px">
-&lt;a href="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch.png" data-size="810x287">&lt;img src="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch.png"
-srcset="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch_hucf011515ea09214008f0bfa669273b3c_26623_480x0_resize_box_2.png 480w, https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch_hucf011515ea09214008f0bfa669273b3c_26623_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch.png" data-size="810x287">&lt;img src="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch.png"
+srcset="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch_hucf011515ea09214008f0bfa669273b3c_26623_480x0_resize_box_2.png 480w, https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-branch_hucf011515ea09214008f0bfa669273b3c_26623_1024x0_resize_box_2.png 1024w"
 width="810"
 height="287"
 loading="lazy"
@@ -784,8 +1272,8 @@ alt="magit-branch">
 &lt;h2 id="3-commit">3. Commit&lt;/h2>
 &lt;p>&lt;strong>c&lt;/strong>&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 214; flex-basis: 514px">
-&lt;a href="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit.png" data-size="675x315">&lt;img src="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit.png"
-srcset="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit_hubab236a4f6deecbffe0e6a35dd4ca58e_33491_480x0_resize_box_2.png 480w, https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit_hubab236a4f6deecbffe0e6a35dd4ca58e_33491_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit.png" data-size="675x315">&lt;img src="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit.png"
+srcset="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit_hubab236a4f6deecbffe0e6a35dd4ca58e_33491_480x0_resize_box_2.png 480w, https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-21-magit-commit_hubab236a4f6deecbffe0e6a35dd4ca58e_33491_1024x0_resize_box_2.png 1024w"
 width="675"
 height="315"
 loading="lazy"
@@ -807,8 +1295,8 @@ alt="magit-commit">
 &lt;p>在弹出菜单后，再按一次 &lt;strong>p&lt;/strong>，就触发了 &lt;strong>push&lt;/strong> 。&lt;strong>&lt;a class="link" href="https://magit.vc/manual/magit/Pushing.html" target="_blank" rel="noopener"
 >Push&lt;/a>&lt;/strong>&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 188; flex-basis: 453px">
-&lt;a href="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease.png" data-size="748x396">&lt;img src="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease.png"
-srcset="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease_huf9810b2da72fe0d8106be0f93f5eb247_26953_480x0_resize_box_2.png 480w, https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease_huf9810b2da72fe0d8106be0f93f5eb247_26953_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease.png" data-size="748x396">&lt;img src="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease.png"
+srcset="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease_huf9810b2da72fe0d8106be0f93f5eb247_26953_480x0_resize_box_2.png 480w, https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-push-force-lease_huf9810b2da72fe0d8106be0f93f5eb247_26953_1024x0_resize_box_2.png 1024w"
 width="748"
 height="396"
 loading="lazy"
@@ -824,8 +1312,8 @@ alt="magit-push-force-lease">
 &lt;h2 id="6-reset">6. Reset&lt;/h2>
 &lt;p>&lt;strong>X&lt;/strong>&lt;/p>
 &lt;p>&lt;figure style="flex-grow: 274; flex-basis: 659px">
-&lt;a href="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset.png" data-size="1066x388">&lt;img src="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset.png"
-srcset="https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset_huca4ed04787ce00355a458a8d1710e9ce_42826_480x0_resize_box_2.png 480w, https://example.com/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset_huca4ed04787ce00355a458a8d1710e9ce_42826_1024x0_resize_box_2.png 1024w"
+&lt;a href="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset.png" data-size="1066x388">&lt;img src="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset.png"
+srcset="https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset_huca4ed04787ce00355a458a8d1710e9ce_42826_480x0_resize_box_2.png 480w, https://yantree.github.io/p/emacs-magit%E6%8F%92%E4%BB%B6/2020-06-22-magit-reset_huca4ed04787ce00355a458a8d1710e9ce_42826_1024x0_resize_box_2.png 1024w"
 width="1066"
 height="388"
 loading="lazy"
@@ -842,7 +1330,7 @@ alt="magit-reset">
 &lt;ul>
 &lt;li>直接在 Github 单击下载按钮下载的仓库是没有 &lt;strong>.git&lt;/strong> 文件夹的，也就是说这样下载下来的不是一个仓库&amp;hellip;&amp;hellip;问题很大，所以还是使用 &lt;code>git clone ......&lt;/code> 的方式更稳妥，除非你不想要 &lt;strong>.git&lt;/strong> 文件，也就是仓库提交记录。&lt;/li>
 &lt;li>在本地仓库新建 &lt;strong>dev&lt;/strong> branch 时，先 &lt;strong>p&lt;/strong> &lt;strong>u&lt;/strong>，目的是在远程仓库创建也新建一个 &lt;strong>dev&lt;/strong> branch，然后再 &lt;strong>p&lt;/strong> &lt;strong>p&lt;/strong>，不然会报错，你还不知道怎么弄。&lt;/li>
-&lt;/ul></description></item><item><title>Github Actions 推送 Github Page</title><link>https://example.com/p/github-actions-%E6%8E%A8%E9%80%81-github-page/</link><pubDate>Sat, 20 Jun 2020 19:56:17 +0800</pubDate><guid>https://example.com/p/github-actions-%E6%8E%A8%E9%80%81-github-page/</guid><description>&lt;img src="https://example.com/p/github-actions-%E6%8E%A8%E9%80%81-github-page/topimg.svg" alt="Featured image of post Github Actions 推送 Github Page" />&lt;h1 id="hugogithub-actionsgithub-pages">HUGO|Github Actions|Github Pages&lt;/h1>
+&lt;/ul></description></item><item><title>Github Actions 推送 Github Page</title><link>https://yantree.github.io/p/github-actions-%E6%8E%A8%E9%80%81-github-page/</link><pubDate>Sat, 20 Jun 2020 19:56:17 +0800</pubDate><guid>https://yantree.github.io/p/github-actions-%E6%8E%A8%E9%80%81-github-page/</guid><description>&lt;img src="https://yantree.github.io/p/github-actions-%E6%8E%A8%E9%80%81-github-page/topimg.svg" alt="Featured image of post Github Actions 推送 Github Page" />&lt;h1 id="hugogithub-actionsgithub-pages">HUGO|Github Actions|Github Pages&lt;/h1>
 &lt;p>使用方法主要参考了这篇 &lt;a class="link" href="https://zhuanlan.zhihu.com/p/109057290" target="_blank" rel="noopener"
 >文章&lt;/a> 。在这里我只是提炼一些关键点和遇到的坑。&lt;/p>
 &lt;h2 id="1-绑定-ssh-key">1. 绑定 SSH Key&lt;/h2>
@@ -886,7 +1374,7 @@ alt="magit-reset">
 &lt;h2 id="反思">反思&lt;/h2>
 &lt;p>如果是使用 &lt;strong>SSH&lt;/strong> 作为 &lt;code>Token&lt;/code> ，在电脑重装系统或者更换电脑的情况下，我们每一次都要重新更新 &lt;strong>Deploy keys&lt;/strong> ， &lt;strong>Secrets&lt;/strong> 的值，对于我这种动不动就重装系统的人不太友好😁。所以我新建了一个 &lt;strong>&lt;a class="link" href="https://github.com/settings/tokens" target="_blank" rel="noopener"
 >Personal access tokens&lt;/a>&lt;/strong> 专门干这件事儿，目前看来是避免了上诉的痛点。本来是打算使用 &lt;strong>GITHUB_TOKEN&lt;/strong> 的，都不要额外配置，但是这个 &lt;code>TOKEN&lt;/code> 只适用于同一个仓库，这是具体的 &lt;a class="link" href="https://github.com/peaceiris/actions-gh-pages/issues/318" target="_blank" rel="noopener"
->issues&lt;/a>，如果你是使用的同一个仓库的话，就可以使用这个功能了。&lt;/p></description></item><item><title>Git 命令行版本学习</title><link>https://example.com/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/</link><pubDate>Wed, 15 Apr 2020 18:30:30 +0800</pubDate><guid>https://example.com/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/</guid><description>&lt;img src="https://example.com/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/topimg.png" alt="Featured image of post Git 命令行版本学习" />&lt;h1 id="leaning-git-and-github">Leaning Git and Github!&lt;/h1>
+>issues&lt;/a>，如果你是使用的同一个仓库的话，就可以使用这个功能了。&lt;/p></description></item><item><title>Git 命令行版本学习</title><link>https://yantree.github.io/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/</link><pubDate>Wed, 15 Apr 2020 18:30:30 +0800</pubDate><guid>https://yantree.github.io/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/</guid><description>&lt;img src="https://yantree.github.io/p/git-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%89%88%E6%9C%AC%E5%AD%A6%E4%B9%A0/topimg.png" alt="Featured image of post Git 命令行版本学习" />&lt;h1 id="leaning-git-and-github">Leaning Git and Github!&lt;/h1>
 &lt;p>这是我自己学习使用 &lt;code>Git&lt;/code> &lt;code>Github&lt;/code> 时整理出的笔记，当时 &lt;code>Github&lt;/code> 还没有出 &lt;a class="link" href="https://lab.github.com/" target="_blank" rel="noopener"
 >官方教程&lt;/a>，没有 &lt;a class="link" href="https://github.community/t5/GitHub-Learning-Lab/bd-p/learn" target="_blank" rel="noopener"
 >论坛&lt;/a>，现在都有了，这都是很好的学习资源，强烈推荐:+1:。这份文章列出了我学习时遇到的问题和解决方法，刚好趁这次疫情期间再整理一下，主要是将 &lt;a class="link" href="https://orgmode.org/" target="_blank" rel="noopener"
