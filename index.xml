@@ -1,4 +1,433 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YanTree</title><link>https://yantree.github.io/</link><description>Recent content on YanTree</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 31 May 2021 16:00:26 +0800</lastBuildDate><atom:link href="https://yantree.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Shader入门精要-基础纹理</title><link>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/</link><pubDate>Mon, 31 May 2021 16:00:26 +0800</pubDate><guid>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/</guid><description>&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/topimg.png" alt="Featured image of post Shader入门精要-基础纹理" />&lt;h1 id="技术美术基础纹理">技术美术——基础纹理&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YanTree</title><link>https://yantree.github.io/</link><description>Recent content on YanTree</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 01 Jun 2021 14:24:53 +0800</lastBuildDate><atom:link href="https://yantree.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Shader入门精要-透明效果</title><link>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/</link><pubDate>Tue, 01 Jun 2021 14:24:53 +0800</pubDate><guid>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/</guid><description>&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/topimg.png" alt="Featured image of post Shader入门精要-透明效果" />&lt;h1 id="技术美术透明效果">技术美术——透明效果&lt;/h1>
+&lt;p>Unity 中通常使用两种方法来实现透明：&lt;strong>透明度测试 (AlphaTest)&lt;/strong> 和 &lt;strong>透明度混合 (AlphaBlend)&lt;/strong> 。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>透明度测试&lt;/strong>：一个片元透明度不满足条件(小于某个阈值)，那么它对应的片元就会被舍弃。被舍弃的片元将不再进行任何处理，不如写入颜色信息到 color buffer；否则，按照普通的不透明物体的处理方式来处理它，即进行 &lt;strong>深度测试&lt;/strong>、&lt;strong>深度写入&lt;/strong> 等。透明度测试不需要关闭深度写入，它与其他不透明物体最大的不同就是它会根据透明度来舍弃一些片元，所以它产生的效果很极端，要么完全透明，要么完全不透明，不能实现半透明效果。&lt;/li>
+&lt;li>&lt;strong>透明度混合&lt;/strong>：使用当前片元的透明度作为混合因子，与已经存储在 color buffer 中的颜色值进行混合，得到新的颜色。透明度混合需要 &lt;strong>关闭深度写入&lt;/strong>，也就是当前物体的深度信息不会被记录，但是 &lt;strong>深度测试是开启的&lt;/strong>，也就是说当使用透明度混合渲染一个片元时，还是会比较当前物体的深度值与 depth buffer 中的深度值，如果当前物体的深度值距离摄像机更远，那么就不再进行混合操作。这一点决定了，一个不透明物体出现在一个透明物体的前面，先渲染了不透明物体，它可以正常的遮挡住透明物体。归根结底，&lt;strong>对于透明度混合，depth buffer 是只可读的&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;h2 id="渲染顺序">渲染顺序&lt;/h2>
+&lt;p>对于透明度混合技术，我们需要关闭深度写入，但是关闭深度写入，那我们就需要小心处理透明物体的渲染顺序。&lt;/p>
+&lt;p>&lt;strong>为什么需要关闭深度写入？&lt;/strong>&lt;/p>
+&lt;p>如果不关闭深度写入，半透明物体表面背后的面本来可以透过表面看到背后的面，由于深度测试判断半透明物体表面距离摄像机更近，就会导致表面背后的面被剔除，也就无法透过表面看到背后的面。&lt;/p>
+&lt;p>&lt;strong>关闭深度写入会发生什么？&lt;/strong>&lt;/p>
+&lt;p>假设我们要渲染两个物体，一个是半透明物体 A，一个是不透明物体 B，A 在 b 前面 ( A 离摄像机更近)&lt;/p>
+&lt;ul>
+&lt;li>一，先渲染 B，再渲染 A。因为不透明物体开启了深度测试和深度写入，所以 B 的数据会写进深度缓存里，当我们渲染 A 的时候，先提取深度缓存中的数据，然后和 A 进行透明度混合，显示结果正确。&lt;/li>
+&lt;li>二，先渲染 A，再渲染 B。由于半透明物体关闭了深度吸入，A 的深度信息不会写入深度缓存里；当渲染 B 的时候，B 的深度信息直接覆盖写入深度缓存里。实际上 B 应该再 A 的后面，但是从视角来看，B 出现在了 A 前面，显示结果错误。&lt;/li>
+&lt;/ul>
+&lt;p>又假设两个物体都是半透明物体呢？假设我们有两个物体 A 和 B，A 在 B 的前面（离摄像机更近），并且两者都是半透明物体。&lt;/p>
+&lt;ul>
+&lt;li>一，先渲染 B，再渲染 A，B 的颜色会被写入颜色缓冲（和深度缓冲很像，可以理解为当前颜色），这样 A 会正确的获得颜色缓冲中的 B 的颜色数据，然后正确的混合。&lt;/li>
+&lt;li>二，先渲染 A，再渲染 B，A 的数据会被先写入颜色缓冲，然后渲染 B 的时候，会提取 A 的数据，和 B 进行混合。这样最终结果看起来像是 B 在 A 的前面。这就是错误的结果。&lt;/li>
+&lt;/ul>
+&lt;h2 id="引擎如何处理透明度混合技术">引擎如何处理透明度混合技术&lt;/h2>
+&lt;ol>
+&lt;li>先渲染所有的不透明物体，并开启他们的深度写入和深度测试。&lt;/li>
+&lt;li>把半透明物体按他们距离摄像机的远近进行排序，然后按照从后往前的顺序渲染这些半透明物体，并开启他们的深度测试，但关闭深度写入。&lt;/li>
+&lt;/ol>
+&lt;h3 id="引擎无法处理的问题">引擎无法处理的问题&lt;/h3>
+&lt;p>&lt;figure style="flex-grow: 114; flex-basis: 274px">
+&lt;a href="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/loop-halftransparent-object.png" data-size="1024x895">&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/loop-halftransparent-object.png"
+srcset="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/loop-halftransparent-object_hu0db74e15e313c6ae7f279217c18728b8_42973_480x0_resize_box_2.png 480w, https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/loop-halftransparent-object_hu0db74e15e313c6ae7f279217c18728b8_42973_1024x0_resize_box_2.png 1024w"
+width="1024"
+height="895"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;p>在上图中，由于3个物体相互重叠，我们不可能的得到一个正确的排序顺序。这时候，我们可以选择把物体拆分成两个部分，然后再进行正确的排序。&lt;/p>
+&lt;p>但即便我们通过分割的方法解决了循环覆盖的问题，还是会有其他的情况来捣乱。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 156; flex-basis: 374px">
+&lt;a href="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/camrea-depth.png" data-size="1024x656">&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/camrea-depth.png"
+srcset="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/camrea-depth_hu7ad251c1d3ea249d926109d5bbf0ad7a_67649_480x0_resize_box_2.png 480w, https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/camrea-depth_hu7ad251c1d3ea249d926109d5bbf0ad7a_67649_1024x0_resize_box_2.png 1024w"
+width="1024"
+height="656"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;p>一个物体的网格结构往往占据了空间中的某一块区域，也就是说，这个网格上每一个点的深度值可能都不一样，我们选择哪个深度值来作物整个物体的深度值和其他物体进行排序呢？不幸的是基于上图的情况，无论我们选择哪个点，排序的结果都是A物体在B物体前面。这种问题解决方案通常也是分割网格。&lt;/p>
+&lt;h2 id="unityshader-渲染顺序">UnityShader 渲染顺序&lt;/h2>
+&lt;p>Unity 通过一组 &lt;strong>Queue&lt;/strong> 标签来决定模型属于哪个 &lt;strong>渲染队列&lt;/strong>，队列由整数索引表示，值越小越先渲染。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>名称&lt;/th>
+&lt;th>队列索引号&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Background&lt;/td>
+&lt;td>1000&lt;/td>
+&lt;td>最开始渲染的队列，通常使用该队列来渲染那些需要绘制再背景上的物体&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Geometry&lt;/td>
+&lt;td>2000&lt;/td>
+&lt;td>默认的渲染队列，大多数物体使用这个队列。不透明物体使用该队列&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>AlphaTest&lt;/td>
+&lt;td>2450&lt;/td>
+&lt;td>需要透明度测试的物体使用这个队列。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Transparent&lt;/td>
+&lt;td>3000&lt;/td>
+&lt;td>在所有 Geometry 和 AlphaTest 物体渲染后，再按从后往前的顺序进行渲染，任何使用了透明度混合（例如关闭深度写入的 Shader）的物体都应该使用该队列&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Overlay&lt;/td>
+&lt;td>4000&lt;/td>
+&lt;td>用于实现一些叠加效果，任何需要再最后渲染的物体都应该使用该队列&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>如果我们要控制物体的渲染顺序，需要在着色器中指出。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">SubShader&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Queue&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Transparent&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="c1">// Tansparent 渲染队列&lt;/span>
+&lt;span class="n">Pass&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="c1">// 变比深度写入&lt;/span>
+&lt;span class="n">ZWrite&lt;/span> &lt;span class="n">Off&lt;/span>
+&lt;span class="c1">//...other code&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="透明度测试">透明度测试&lt;/h2>
+&lt;p>透明度测试简单粗暴，片元透明度不满足条件则被舍弃，且被舍弃的片元不会参与后面的计算，深度写入，颜色写入。再片元着色器中使用 &lt;code>clip&lt;/code> 函数来进行透明度测试，定义如下。&lt;/p>
+&lt;ul>
+&lt;li>函数：void clip(float4 x); void clip(float3 x); void clip(float2 x); void clip(float x);&lt;/li>
+&lt;li>参数：裁剪时使用的标量或矢量条件；&lt;/li>
+&lt;li>描述：如果给定参数任何一个分量是负数，就会舍弃当前像素的输出颜色。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Shader&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Unlit&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">AlphaTestOff&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Properties&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">_MainTex&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Texture&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_AlphaClip&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">AlphaClip&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">Range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">0.5&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">SubShader&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">TransparentCutout&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Queue&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">AlphaTest&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">IgnoreProjector&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="k">true&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="c1">// 关闭剔除效果&lt;/span>
+&lt;span class="n">Cull&lt;/span> &lt;span class="n">Off&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">CGPROGRAM&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UnityCG&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_MainTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_AlphaClip&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">appdata&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">texcoord&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">posWorld&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">uv&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldPos&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">appdata&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToClipPos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldNormal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">unity_ObjectToWorld&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">fixed4&lt;/span> &lt;span class="n">frag&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityWorldSpaceLightDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldViewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityWorldSpaceViewDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">worldViewDir&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">NdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDir&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_MainTex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="mf">0.5&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">clip&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">albedo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">_AlphaClip&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 简单粗暴裁剪掉片元，被裁减片元不再参与之后的计算&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ambient&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">diffuse&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDCG&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="透明度混合">透明度混合&lt;/h2>
+&lt;p>可以实现真正的半透明效果。使用当前片元的透明度作为混合因子，与已经存储在颜色缓存中的颜色值进行混合，得到新的颜色。但是，需要关闭深度写入，要非常小心物体的渲染顺序。为了进行混合，还需要使用 Unity 提供的混合命令 - &lt;strong>Blend&lt;/strong>，&lt;strong>Blend&lt;/strong> 是 Unity 提供的设置混合模式的命令。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>语义&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Blend Off&lt;/td>
+&lt;td>关闭混合&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Blend SrcFactor DstFactor&lt;/td>
+&lt;td>开启混合，设置混合因子。源颜色 (片元颜色) 乘以 SrcFactor，而目标颜色 (color buffer的颜色)乘以 DstFactor，然后把两者相加后再存入颜色缓冲中&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Blend SrcFactor DstFactor, SrcFactorA DstFactorA&lt;/td>
+&lt;td>和上面几乎一样，只是使用不同的因子来混合透明通道&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>BlendOp BlendOperation&lt;/td>
+&lt;td>并非把源颜色与目标颜色简单相加后混合，而是使用 BlendOperation 对他们进行其他操作&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>这里使用第二种语义，即 &lt;strong>Blend SrcFactor DsFactor&lt;/strong> 来进行混合。我们需要把源颜色的混合因子 &lt;strong>SrcFactor&lt;/strong> 设置为 SrcAlpha，而目标颜色的混合因子 &lt;strong>DstFactor&lt;/strong> 设为 &lt;strong>OneMinusSrcAlpha&lt;/strong> 。这样意味着经过混合后新的颜色是：&lt;/p>
+&lt;blockquote>
+&lt;p>DstColornew = SrcAlpha * SrcColor + ( 1 - SrcAlpha ) * DstColorold&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="开启深度写入的半透明效果">开启深度写入的半透明效果&lt;/h3>
+&lt;p>关闭深度写入会带来各种问题，下图给出了由于排序错误而产生的错误的透明效果，这是由于我们关闭了深度写入造成的。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 112; flex-basis: 270px">
+&lt;a href="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/alpha-blend-one-slide.png" data-size="616x546">&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/alpha-blend-one-slide.png"
+srcset="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/alpha-blend-one-slide_huab81494e3fbb45b2fc522ca14c003199_192547_480x0_resize_box_2.png 480w, https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/alpha-blend-one-slide_huab81494e3fbb45b2fc522ca14c003199_192547_1024x0_resize_box_2.png 1024w"
+width="616"
+height="546"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;p>为了解决这一问题，我们给出了一种解决办法，使用两个 &lt;strong>Pass&lt;/strong> 来渲染模型：&lt;/p>
+&lt;ul>
+&lt;li>第一个 Pass 开启深度写入，但不输出任何颜色信息，它的目的仅仅是为了把该模型的深度值写入深度缓冲区中；&lt;/li>
+&lt;li>第二个 Pass 进行正常的透明度混合，由于上一个 Pass 已经得到了逐像素的正确的深度信息，该 Pass 就可以按照像素级别的深度排序结果进行透明渲染。&lt;/li>
+&lt;/ul>
+&lt;p>这样做的缺陷在于，多使用一个 &lt;strong>Pass&lt;/strong> 会对性能造成一定的影响。&lt;/p>
+&lt;p>&lt;figure style="flex-grow: 110; flex-basis: 266px">
+&lt;a href="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/alpha-blend-one-slide-true.png" data-size="616x555">&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/alpha-blend-one-slide-true.png"
+srcset="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/alpha-blend-one-slide-true_hu3e27bfec6ce75d13a8bd649b68bc9dd9_139077_480x0_resize_box_2.png 480w, https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/alpha-blend-one-slide-true_hu3e27bfec6ce75d13a8bd649b68bc9dd9_139077_1024x0_resize_box_2.png 1024w"
+width="616"
+height="555"
+loading="lazy"
+>
+&lt;/a>
+&lt;/figure>&lt;/p>
+&lt;p>我们使用同上面透明度混合同样的代码，仅仅增加一个 Pass 用于深度写入。在该 Pass 的第一行，我们开起了深度写入；第二行我们使用了一个新的渲染命令—— &lt;strong>ColorMask&lt;/strong>，在 ShaderLab 中，ColorMask 用于设置颜色通道的掩码。语义如下：&lt;/p>
+&lt;blockquote>
+&lt;p>ColorMask RGB | A | 0 | 其他任何R、G、B、A的组合&lt;/p>
+&lt;/blockquote>
+&lt;p>当ColorMask设置为0时，意味着该Pass不写入仍和颜色通道，即不会输出任何颜色。这正是我们所需要的——该Pass只需要写入深度缓存即可。这是 &lt;strong>单面渲染&lt;/strong> 详细代码：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Shader&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Unlit&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">AlphaBlendOneSlide&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Properties&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">_MainTex&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">MainTex&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_Color&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Color&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_AlphaBlend&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">AlphaBlend&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">0.5&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">SubShader&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Transparent&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Queue&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Transparent&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">IngoreProjector&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">True&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="c1">// 开启深度写入&lt;/span>
+&lt;span class="n">ZWrite&lt;/span> &lt;span class="n">On&lt;/span>
+&lt;span class="c1">// 不写入任何颜色信息到 color buffer&lt;/span>
+&lt;span class="n">ColorMask&lt;/span> &lt;span class="mo">0&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">LightModel&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">ForwardBase&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// 关闭深度写入，也就是不将深度值存入深度buffer中&lt;/span>
+&lt;span class="n">ZWrite&lt;/span> &lt;span class="n">Off&lt;/span>
+&lt;span class="c1">// 混合方式&lt;/span>
+&lt;span class="n">Blend&lt;/span> &lt;span class="n">SrcAlpha&lt;/span> &lt;span class="n">OneMinusSrcAlpha&lt;/span>
+&lt;span class="n">CGPROGRAM&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UnityCG&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_MainTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_AlphaBlend&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">appdata&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">texcoord&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">posWorld&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">uv&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldPos&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">appdata&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToClipPos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 顶点从模型空间转到裁剪空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// _MainTex 的缩放和平移&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldNormal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 法线从模型空间转到世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">unity_ObjectToWorld&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 顶点位置从模型空间转到世界空间&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">fixed4&lt;/span> &lt;span class="n">frag&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 归一化世界法线&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityWorldSpaceLightDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 归一化主光源方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldViewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityWorldSpaceViewDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 归一化视角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">worldViewDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 半角方向&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// lambert&lt;/span>
+&lt;span class="k">half&lt;/span> &lt;span class="n">NdotV&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">halfDir&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">texColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_MainTex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 从纹理读取漫反射系数&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">texColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 环境光&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mf">0.5&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">// half lambert&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ambient&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">diffuse&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">texColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_AlphaBlend&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDCG&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>双面渲染&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Shader&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Unlit&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">AlphaBlendTwoSlide&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Properties&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">_MainTex&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">MainTex&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">white&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">{}&lt;/span>
+&lt;span class="n">_Color&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Color&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="n">_Alpha&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Alpha&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mf">0.5&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">SubShader&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Transparent&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Queue&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Transparent&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">IgnoreProjector&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">True&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">LightModel&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">ForwardBase&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="n">Cull&lt;/span> &lt;span class="n">Front&lt;/span> &lt;span class="c1">// 剔除正面&lt;/span>
+&lt;span class="n">ZWrite&lt;/span> &lt;span class="n">off&lt;/span> &lt;span class="c1">// 关闭深度写入&lt;/span>
+&lt;span class="n">Blend&lt;/span> &lt;span class="n">SrcAlpha&lt;/span> &lt;span class="n">OneMinusSrcAlpha&lt;/span> &lt;span class="c1">// 混合方式&lt;/span>
+&lt;span class="n">CGPROGRAM&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UnityCG&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_MainTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_Alpha&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">appdata&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">texcoord&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">posWorld&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">uv&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldPos&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">appdata&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToClipPos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// _MainTex 的缩放和平移&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldNormal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 法线从模型空间转世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">unity_ObjectToWorld&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 顶点位置从模型空间转世界空间&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">fixed4&lt;/span> &lt;span class="n">frag&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 归一化法线方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityWorldSpaceLightDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 归一化主光源方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldViewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityWorldSpaceViewDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 归一化视角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">worldViewDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 半角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">texColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_MainTex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">texColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="mf">0.5&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ambient&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">diffuse&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">texColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Alpha&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDCG&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">Pass&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">LightModel&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">ForwardBase&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;span class="n">Cull&lt;/span> &lt;span class="n">Back&lt;/span> &lt;span class="c1">// 剔除背面&lt;/span>
+&lt;span class="n">ZWrite&lt;/span> &lt;span class="n">off&lt;/span> &lt;span class="c1">// 关闭深度写入&lt;/span>
+&lt;span class="n">Blend&lt;/span> &lt;span class="n">SrcAlpha&lt;/span> &lt;span class="n">OneMinusSrcAlpha&lt;/span>
+&lt;span class="n">CGPROGRAM&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="n">vert&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">pragma&lt;/span> &lt;span class="n">fragment&lt;/span> &lt;span class="n">frag&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">UnityCG&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="err">#&lt;/span>&lt;span class="n">include&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Lighting&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">cginc&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="k">sampler2D&lt;/span> &lt;span class="n">_MainTex&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">float&lt;/span> &lt;span class="n">_Alpha&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">appdata&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">vertex&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">texcoord&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">normal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">NORMAL&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="k">struct&lt;/span> &lt;span class="n">v2f&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">float4&lt;/span> &lt;span class="n">posWorld&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_POSITION&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float2&lt;/span> &lt;span class="n">uv&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">float3&lt;/span> &lt;span class="n">worldPos&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">TEXCOORD2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">};&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">vert&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">appdata&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">v2f&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">posWorld&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToClipPos&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">texcoord&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xy&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">_MainTex_ST&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">zw&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// _MainTex 的缩放和平移&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UnityObjectToWorldNormal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">normal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 法线从模型空间转世界空间&lt;/span>
+&lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mul&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">unity_ObjectToWorld&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">v&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">vertex&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">xyz&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 顶点位置从模型空间转世界空间&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">o&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">fixed4&lt;/span> &lt;span class="n">frag&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">v2f&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="n">SV_Target&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldNormal&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 归一化法线方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityWorldSpaceLightDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 归一化主光源方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">worldViewDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">UnityWorldSpaceViewDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">worldPos&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 归一化视角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">halfDir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">normalize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldLightDir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">worldViewDir&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 半角方向&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">NdotL&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">max&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">dot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">worldNormal&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">worldLightDir&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;span class="n">half4&lt;/span> &lt;span class="n">texColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_MainTex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">texColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="mf">0.5&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ambient&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">diffuse&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">texColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Alpha&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="n">ENDCG&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>关于半透明物体的渲染解决方法，&lt;strong>多添加一个 Pass&lt;/strong>；&lt;/p>
+&lt;p>单面渲染，第一个 Pass 开启深度写入 &lt;code>ZWrite On&lt;/code> 且不要写入任何信息(颜色、透明度) &lt;code>ColorMask 0&lt;/code>；第二个 Pass 关闭深度写入 &lt;code>ZWrite Off&lt;/code> ，设置好混合方式 &lt;code>Blend SrcAlpha OneMinusSrcAlpha&lt;/code> 。&lt;/p>
+&lt;p>双面渲染，两个 Pass 同时关闭深度写入 &lt;code>ZWrite On&lt;/code>，设置好混合方式 &lt;code>Blend SraAlpha OneMinusSrcAlpha&lt;/code>，第一个 Pass 剔除正面 &lt;code>Cull Front&lt;/code>，第二个 Pass 剔除背面 &lt;code>Cull Back&lt;/code>。&lt;/p>
+&lt;p>调整透明度，从常规纹理那儿读取纹理的 Alpha 值&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">half4&lt;/span> &lt;span class="n">texColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">tex2D&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">_MainTex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">uv&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 纹理采样 &lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">texColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_Color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">ambient&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">UNITY_LIGHTMODEL_AMBIENT&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">xyz&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 环境光&lt;/span>
+&lt;span class="n">half3&lt;/span> &lt;span class="n">diffuse&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">_LightColor0&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">rgb&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">albedo&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">NdotL&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mf">0.5&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mf">0.5&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="c1">// half lambert&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="n">half4&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ambient&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">diffuse&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">texColor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">_AlphaBlend&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Shader入门精要-基础纹理</title><link>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/</link><pubDate>Mon, 31 May 2021 16:00:26 +0800</pubDate><guid>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/</guid><description>&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/topimg.png" alt="Featured image of post Shader入门精要-基础纹理" />&lt;h1 id="技术美术基础纹理">技术美术——基础纹理&lt;/h1>
 &lt;h2 id="常规纹理">常规纹理&lt;/h2>
 &lt;p>纹理的一种使用方式就是作为常规纹理，可以理解为一张照片。在这里纹理的作用是代替 &lt;strong>物体的漫反射系数&lt;/strong> ，这里我们会再之前的 Blinn-Phong 高光反射 shader 的基础上实现一个基础的纹理 shader。这里可以知道常规纹理会参与 &lt;strong>环境光&lt;/strong> ，物体 &lt;strong>漫反射&lt;/strong> 的计算。在基本光照模型中，由于没有相关材质贴图，所以在计算公式中&lt;/p>
 &lt;blockquote>
