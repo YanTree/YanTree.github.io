@@ -2297,7 +2297,64 @@ alt="四种不同光照模型的结果">
 &lt;span class="p">}&lt;/span>
 &lt;span class="p">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>相关链接 &lt;a class="link" href="https://www.jordanstevenstechart.com/lighting-models" target="_blank" rel="noopener"
-> Lighting Models In Unity - Jordan Stevens &lt;/a>&lt;/p></description></item><item><title>ShaderCode常用函数解释</title><link>https://yantree.github.io/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</link><pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate><guid>https://yantree.github.io/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</guid><description>&lt;h1 id="技美函数方法解释">技美——函数方法解释&lt;/h1>
+> Lighting Models In Unity - Jordan Stevens &lt;/a>&lt;/p></description></item><item><title>Shader入门精要-渲染流水线</title><link>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4%E7%BA%BF/</link><pubDate>Sun, 23 May 2021 22:20:04 +0800</pubDate><guid>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4%E7%BA%BF/</guid><description>&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4%E7%BA%BF/topimg.png" alt="Featured image of post Shader入门精要-渲染流水线" />&lt;h1 id="技术美术渲染流水线">技术美术——渲染流水线&lt;/h1>
+&lt;h2 id="应用阶段cpu">应用阶段(CPU)&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>将场景数据加载到显存&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>设置渲染状态&lt;/p>
+&lt;p>这一步可配置的有 &lt;strong>渲染状态&lt;/strong>，类似如下设置&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-glsl" data-lang="glsl">&lt;span class="n">Tags&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">RenderType&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Transparent&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Queue&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">Transparent&lt;/span>&lt;span class="err">&amp;#34;&lt;/span> &lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">IngoreProjector&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="n">True&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>
+&lt;span class="n">Cull&lt;/span> &lt;span class="n">Front&lt;/span> &lt;span class="c1">// 剔除正面&lt;/span>
+&lt;span class="n">ZWrite&lt;/span> &lt;span class="n">off&lt;/span> &lt;span class="c1">// 关闭深度写入&lt;/span>
+&lt;span class="n">Blend&lt;/span> &lt;span class="n">SrcAlpha&lt;/span> &lt;span class="n">OneMinusSrcAlpha&lt;/span> &lt;span class="c1">// 混合方式&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>调用 DrawCall&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>输出：&lt;/strong> 几何体数据（顶点坐标、法向量、 纹理坐标、纹理等）通过数据总线传送到图形硬件（时间瓶颈）。&lt;/p>
+&lt;h2 id="几何阶段gpu">几何阶段(GPU)&lt;/h2>
+&lt;p>&lt;strong>输入：&lt;/strong> 上个阶段的输出。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>顶点着色器&lt;/strong>&lt;/p>
+&lt;p>根据应用阶段传进来的顶点位置做坐标变换（MVP变换矩阵）和逐顶点光照。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>曲面细分着色器、几何着色器&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>裁剪、屏幕映射&lt;/p>
+&lt;p>用透视变换矩阵把顶点从视锥体变换到裁剪空间的 &lt;strong>CVV&lt;/strong> 中，这一步叫 &lt;strong>投影&lt;/strong> ； &lt;strong>CVV&lt;/strong> 中进行图元裁剪，这一步叫 &lt;strong>裁剪&lt;/strong>；将前述过程得到的坐标映射到 &lt;strong>屏幕空间坐标系&lt;/strong> 上，这一步叫屏幕映射。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>顶点着色器&lt;/strong>&lt;/p>
+&lt;p>在顶点着色器中，我们经常要进行的操作是坐标空间的转换，根据光照计算的需要，我们可能会将顶点位置、法线、切线转到切线空间或者世界空间。&lt;/p>
+&lt;p>&lt;strong>结果：&lt;/strong> 得到经过变换与投影之后的顶点坐标、颜色、以及纹理坐标。&lt;/p>
+&lt;blockquote>
+&lt;p>顶点着色器中计算光照叫逐顶点光照，还有一种实在片元着色器中计算光照叫逐像素光照。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="光栅化阶段gpu">光栅化阶段(GPU)&lt;/h2>
+&lt;p>&lt;strong>输入：&lt;/strong> 上个阶段的输出&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>三角形设置、遍历&lt;/p>
+&lt;p>根据上一步输出的三角形顶点位置，计算三角形网格表示数据的过程叫做三角形设置；检查每个像素是否被一个三角网格覆盖，若被覆盖，则生成一个片元，且根据三个顶点的顶点信息对整个覆盖区域的像素进行插值，这个过程叫做三角形遍历。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>片元着色器&lt;/strong>&lt;/p>
+&lt;p>在这里最重要的技术之一就是纹理采样，通常会在顶点着色阶段输出每个顶点对应的纹理坐标，然后经过光栅化阶段对三角网格的三个顶点对应的纹理坐标进行插值后，就可以得到覆盖的片元的纹理坐标了。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>逐片元操作&lt;/p>
+&lt;p>决定每个片元的可见性，例如深度测试、模板测试等；&lt;/p>
+&lt;p>混合操作，通过测试的片元需要把这个片元的颜色值和已经存储在颜色缓冲区中的颜色进行混合。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>结果：&lt;/strong> 为像素（Pixel）正确配色，以便绘制 完整图像，该阶段进行的都是单个像素的操作，每个像素的信息存储在颜色缓冲 器（color buffer 或者 frame buffer）中。&lt;/p></description></item><item><title>ShaderCode常用函数解释</title><link>https://yantree.github.io/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</link><pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate><guid>https://yantree.github.io/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</guid><description>&lt;h1 id="技美函数方法解释">技美——函数方法解释&lt;/h1>
 &lt;p>&lt;strong>[TextureName]_ST&lt;/strong>&lt;/p>
 &lt;p>举例来说一个纹理贴图：&lt;code>_Main_ST&lt;/code> ，其中 ST 代表的是纹理的缩放属性 (Scale) 和平移 (Translation) 的缩写。&lt;code>_Main_ST.xy&lt;/code> 存储缩放值，&lt;code>_Main_ST.zw&lt;/code> 存储偏移值。不知道什么是纹理的缩放和偏移，建议补一下计算机图形学，里面有详细的介绍。&lt;/p>
 &lt;p>&lt;strong>POSITION vs SV_POSITION&lt;/strong>&lt;/p>

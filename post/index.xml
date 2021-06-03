@@ -14,7 +14,22 @@ C = (c * m) * max(0 , n * l )
 m 的值取为 1，不会影响到漫反射光的计算。当 m 值存在时，也就是有常规纹理的时候，光照计算中的 m 就要从常规纹理图中读取，读取方法见下面 albedo 的计算方法。
 Shader &amp;#34;Unlit/MainTex0&amp;#34; { Properties { _MainTex (&amp;#34;Texture&amp;#34;, 2D) = &amp;#34;white&amp;#34; {} _Color(&amp;#34;Color&amp;#34;, Color) = (1,1,1,1) _SpecularCol(&amp;#34;Specular Col&amp;#34;, Color) = (1,1,1,1) _SpecularStrength(&amp;#34;Specular Strength&amp;#34;, Range(8.0, 256))=10 } SubShader { Tags { &amp;#34;RenderType&amp;#34;=&amp;#34;Opaque&amp;#34; &amp;#34;LightMode&amp;#34;=&amp;#34;ForwardBase&amp;#34; } LOD 100 Pass { CGPROGRAM #pragma vertex vert #pragma fragment frag #include &amp;#34;UnityCG.</description></item><item><title>Shader入门精要-简单光照模型</title><link>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/</link><pubDate>Fri, 28 May 2021 22:34:22 +0800</pubDate><guid>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/</guid><description>技术美术——基础光照模型 Lambert Lambert 光照模型的光照计算简单粗暴，是光源方向点成法线方向，其值在 [-1, 1] 之间，基本计算公式如下：
 C = (c * m) * max(0 , n * l )
-// 法线方向点乘光源方向 float NdotL = max(0.0,dot(normalDirection,lightDirection)); float LambertDiffuse = NdotL * SurfaceColor; float3 finalColor = LambertDiffuse * LightColor; Half Lambert Lambert 光照模型是一个简单方便的光照计算模型，但是，有一个问题存在。在光照无法照射的区域，模型外观变成了全黑，没有任何明暗的变化，使得模型背光区看起来像一个平面，失去了模型细节表现。可以通过添加环境光来得到非全黑的效果，但即使这样仍然无法解决背光面明暗一样的缺点。为了解决这个问题，有人在 Lambert 光照模型的基础上进行改良，这就是 Half Lambert 光照模型，通过乘以一个系数 a 再加上一个系数 b 的方法，将 Lambert 光照模型的值 [-1, 1] 重新映射至 [-a + b, a + b]，绝大多数情况下 a b 的值都取 0.5 ，这样 Half Lambert 光照模型的值 [0, 1]，在一定程度上改善了 Lambert 光照模型所带来的问题：</description></item><item><title>ShaderCode常用函数解释</title><link>https://yantree.github.io/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</link><pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate><guid>https://yantree.github.io/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</guid><description>技美——函数方法解释 [TextureName]_ST
+// 法线方向点乘光源方向 float NdotL = max(0.0,dot(normalDirection,lightDirection)); float LambertDiffuse = NdotL * SurfaceColor; float3 finalColor = LambertDiffuse * LightColor; Half Lambert Lambert 光照模型是一个简单方便的光照计算模型，但是，有一个问题存在。在光照无法照射的区域，模型外观变成了全黑，没有任何明暗的变化，使得模型背光区看起来像一个平面，失去了模型细节表现。可以通过添加环境光来得到非全黑的效果，但即使这样仍然无法解决背光面明暗一样的缺点。为了解决这个问题，有人在 Lambert 光照模型的基础上进行改良，这就是 Half Lambert 光照模型，通过乘以一个系数 a 再加上一个系数 b 的方法，将 Lambert 光照模型的值 [-1, 1] 重新映射至 [-a + b, a + b]，绝大多数情况下 a b 的值都取 0.5 ，这样 Half Lambert 光照模型的值 [0, 1]，在一定程度上改善了 Lambert 光照模型所带来的问题：</description></item><item><title>Shader入门精要-渲染流水线</title><link>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4%E7%BA%BF/</link><pubDate>Sun, 23 May 2021 22:20:04 +0800</pubDate><guid>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4%E7%BA%BF/</guid><description>技术美术——渲染流水线 应用阶段(CPU) 将场景数据加载到显存
+设置渲染状态
+这一步可配置的有 渲染状态，类似如下设置
+Tags { &amp;#34;RenderType&amp;#34;=&amp;#34;Transparent&amp;#34; &amp;#34;Queue&amp;#34;=&amp;#34;Transparent&amp;#34; &amp;#34;IngoreProjector&amp;#34;=&amp;#34;True&amp;#34; Cull Front // 剔除正面 ZWrite off // 关闭深度写入 Blend SrcAlpha OneMinusSrcAlpha // 混合方式 调用 DrawCall
+输出： 几何体数据（顶点坐标、法向量、 纹理坐标、纹理等）通过数据总线传送到图形硬件（时间瓶颈）。
+几何阶段(GPU) 输入： 上个阶段的输出。
+顶点着色器
+根据应用阶段传进来的顶点位置做坐标变换（MVP变换矩阵）和逐顶点光照。
+曲面细分着色器、几何着色器
+裁剪、屏幕映射
+用透视变换矩阵把顶点从视锥体变换到裁剪空间的 CVV 中，这一步叫 投影 ； CVV 中进行图元裁剪，这一步叫 裁剪；将前述过程得到的坐标映射到 屏幕空间坐标系 上，这一步叫屏幕映射。
+顶点着色器
+在顶点着色器中，我们经常要进行的操作是坐标空间的转换，根据光照计算的需要，我们可能会将顶点位置、法线、切线转到切线空间或者世界空间。
+结果： 得到经过变换与投影之后的顶点坐标、颜色、以及纹理坐标。
+顶点着色器中计算光照叫逐顶点光照，还有一种实在片元着色器中计算光照叫逐像素光照。
+光栅化阶段(GPU) 输入： 上个阶段的输出</description></item><item><title>ShaderCode常用函数解释</title><link>https://yantree.github.io/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</link><pubDate>Sat, 22 May 2021 20:09:54 +0800</pubDate><guid>https://yantree.github.io/p/shadercode%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E9%87%8A/</guid><description>技美——函数方法解释 [TextureName]_ST
 举例来说一个纹理贴图：_Main_ST ，其中 ST 代表的是纹理的缩放属性 (Scale) 和平移 (Translation) 的缩写。_Main_ST.xy 存储缩放值，_Main_ST.zw 存储偏移值。不知道什么是纹理的缩放和偏移，建议补一下计算机图形学，里面有详细的介绍。
 POSITION vs SV_POSITION
 POSITION 被用作 vertex shader 的输入，SV_POSITION 被用作 vertex shader 的输出，fragment shader 的输入。SV 是 Systems Value 的简写，SV_POSITION 用来标识经过 vertex shader 变换后的顶点坐标。
