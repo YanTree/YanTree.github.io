@@ -1,0 +1,452 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="纹理动画，顶点动画"><title>Shader入门精要-画面动起来</title><link rel=canonical href=https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/><link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="Shader入门精要-画面动起来"><meta property="og:description" content="纹理动画，顶点动画"><meta property="og:url" content="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/"><meta property="og:site_name" content="YanTree"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Shader入门精要"><meta property="article:published_time" content="2021-06-05T10:41:12+08:00"><meta property="article:modified_time" content="2021-06-05T10:41:12+08:00"><meta property="og:image" content="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/topimg.png"><meta name=twitter:title content="Shader入门精要-画面动起来"><meta name=twitter:description content="纹理动画，顶点动画"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/topimg.png"><link rel="shortcut icon" href=img/favicon.ico></head><body><script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header class=site-info><figure class=site-avatar><img src=/img/avatar_hud8215445c04336af6f3d5658bab85db7_7222_300x0_resize_box_2.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+<span class=emoji>🍥</span></figure><h1 class=site-name><a href=https://yantree.github.io/>YanTree</a></h1><h2 class=site-description>子非蝶，亦非周</h2></header><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>主页</span></a></li><li><a href=/%E5%85%B3%E4%BA%8E/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>关于</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>归档</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>搜索</span></a></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></ol></aside><main class="main full-width"><div id=article-toolbar><a href=https://yantree.github.io/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg><span>Back</span></a></div><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/topimg_huc02f10a1e3cad6ccefc74d8d773bec3e_154933_800x0_resize_box_2.png srcset="/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/topimg_huc02f10a1e3cad6ccefc74d8d773bec3e_154933_800x0_resize_box_2.png 800w, /p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/topimg_huc02f10a1e3cad6ccefc74d8d773bec3e_154933_1600x0_resize_box_2.png 1600w" width=800 height=466 loading=lazy alt="Featured image of post Shader入门精要-画面动起来"></a></div><div class=article-details><header class=article-category><a href=/categories/%E6%B8%B2%E6%9F%93/>渲染</a></header><h2 class=article-title><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/>Shader入门精要-画面动起来</a></h2><h3 class=article-subtitle>纹理动画，顶点动画</h3><footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--published>Jun 05, 2021</time></footer></div></header><section class=article-content><h1 id=技术美术动画>技术美术——动画</h1><p>Unity Shader 提供了一系列关于时间的内置变量，可以方便地在 Shader 中访问，实现各种动画效果。下表给出了这些内置的时间变量。</p><table><thead><tr><th>名称</th><th>类型</th><th>描述</th></tr></thead><tbody><tr><td>_Time</td><td>float4</td><td>t 是自该场景加载开始所经过的时间，4 个分量的值分别是 ( t/20, t, 1t, 3t)</td></tr><tr><td>_SinTime</td><td>float4</td><td>t 是时间的正弦值，4 个分量的值分别是 ( t/8, t/4, t/2, t)</td></tr><tr><td>_CosTime</td><td>float4</td><td>t 是时间的余弦值，4 个分量的值分别是 ( t/8, t/4, t/2, t)</td></tr><tr><td>unity_DeltaTime</td><td>float4</td><td>dt 是时间增量，4 个分量的值分别是 ( dt, 1/dt, smoothDt, 1/smoothDt)</td></tr></tbody></table><h2 id=纹理动画>纹理动画</h2><p>纹理动画在游戏中应该非常广泛，尤其是在资源比较局限的移动平台上，往往会使用纹理动画来代替复杂的粒子系统等模拟的各种动画</p><h3 id=序列帧动画>序列帧动画</h3><p>做序列帧动画，我们先要提供一张包含了关键帧图像的图像。例如：8 X 8 的关键帧图像，他们的大小相同，而且播放顺序从左到右、从上到下。</p><p>在该着色器的实现上我们需要注意以下几个步骤：</p><ol><li>声明四个属性，<strong>_MainTex</strong> 是包含所有关键帧的纹理，<strong>_HorizontalAmount</strong> 和 <strong>_VerticalAmount</strong> 分别代表了该图像在水平方向和垂直方向上包含的关键帧图像个数，<strong>_Speed</strong> 用于控制序列帧动画的播放速度。</li><li>在顶点着色器中进行基本的顶点变换，并把顶点纹理坐标存储到结构体中。我们通过 <strong>TRANSFORM_TEX</strong> 函数来获取初始纹理坐标。</li><li>在片元着色器中，我们使用 <strong>_Time.y</strong> 函数和速度属性 <strong>_Speed</strong> 进行相乘来模拟时间，然后使用 <strong>floor</strong> 函数对结果取整来得到整数时间。</li><li>使用时间除以 <strong>_HorizontalAmount</strong> 来得到当前时间下对应的 <strong>行索引</strong> ，而 <strong>列索引</strong> 则为余数。</li><li>后面使用行列索引构建采样坐标。在计算竖直的偏移值时需要注意：由于 Unity 中纹理坐标竖直方向的顺序（从下到上逐渐增大）和序列帧纹理中的顺序（播放顺序从上到下）时相反的，所以计算竖直方向偏移量时要使用减法。</li></ol><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>Shader</span> <span class=err>&#34;</span><span class=n>Unlit</span><span class=o>/</span><span class=n>ImgAni</span><span class=err>&#34;</span>
+<span class=p>{</span>
+    <span class=n>Properties</span>
+    <span class=p>{</span>
+        <span class=n>_Color</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Color</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Color</span><span class=p>)</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+        <span class=n>_MainTex</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>MainTex</span><span class=err>&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=n>D</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>white</span><span class=err>&#34;</span> <span class=p>{}</span>
+        <span class=n>_HorizontalCount</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Horizontal</span> <span class=n>Count</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>4</span>
+        <span class=n>_VerticalCount</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Vertical</span> <span class=n>Count</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>4</span>
+        <span class=n>_Speed</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Speed</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mf>1.0</span>
+    <span class=p>}</span>
+    <span class=n>SubShader</span>
+    <span class=p>{</span>
+        <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>RenderType</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Transparent</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>Queue</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Transparent</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>IgnoreProjector</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>True</span><span class=err>&#34;</span> <span class=p>}</span>
+
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=n>Tags</span> <span class=p>{</span><span class=err>&#34;</span><span class=n>LightMode</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>ForwardBase</span><span class=err>&#34;</span><span class=p>}</span>
+
+            <span class=n>ZWrite</span> <span class=n>Off</span>
+
+            <span class=n>Blend</span> <span class=n>SrcAlpha</span> <span class=n>OneMinusSrcAlpha</span>
+
+            <span class=n>CGPROGRAM</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+
+            <span class=k>sampler2D</span> <span class=n>_MainTex</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_MainTex_ST</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_Color</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_HorizontalCount</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_VerticalCount</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Speed</span><span class=p>;</span>
+
+            <span class=k>struct</span> <span class=n>appdata</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>vertex</span> <span class=o>:</span> <span class=n>POSITION</span><span class=p>;</span>
+                <span class=n>float2</span> <span class=n>texcoord</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>pos</span> <span class=o>:</span> <span class=n>SV_POSITION</span><span class=p>;</span>
+                <span class=n>float2</span> <span class=n>uv</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>pos</span> <span class=o>=</span> <span class=n>UnityObjectToClipPos</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span> <span class=o>=</span> <span class=n>TRANSFORM_TEX</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>texcoord</span><span class=p>,</span> <span class=n>_MainTex</span><span class=p>);</span>
+
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+
+            <span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=k>float</span> <span class=n>time</span> <span class=o>=</span> <span class=n>floor</span><span class=p>(</span><span class=n>_Time</span><span class=p>.</span><span class=n>y</span> <span class=o>*</span> <span class=n>_Speed</span><span class=p>);</span>
+                <span class=k>float</span> <span class=n>row</span> <span class=o>=</span> <span class=n>floor</span><span class=p>(</span><span class=n>time</span> <span class=o>/</span> <span class=n>_HorizontalCount</span><span class=p>);</span>
+                <span class=k>float</span> <span class=n>column</span> <span class=o>=</span> <span class=n>time</span> <span class=o>-</span> <span class=n>row</span> <span class=o>*</span> <span class=n>_HorizontalCount</span><span class=p>;</span>
+
+                <span class=n>half2</span> <span class=n>uv</span> <span class=o>=</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span> <span class=o>+</span> <span class=n>half2</span><span class=p>(</span><span class=n>column</span><span class=p>,</span> <span class=o>-</span><span class=n>row</span><span class=p>);</span>
+                <span class=n>uv</span><span class=p>.</span><span class=n>x</span> <span class=o>/=</span> <span class=n>_HorizontalCount</span><span class=p>;</span>
+                <span class=n>uv</span><span class=p>.</span><span class=n>y</span> <span class=o>/=</span> <span class=n>_VerticalCount</span><span class=p>;</span>
+
+                <span class=n>fixed4</span> <span class=n>c</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_MainTex</span><span class=p>,</span> <span class=n>uv</span><span class=p>);</span>
+                <span class=n>c</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*=</span> <span class=n>_Color</span><span class=p>;</span>
+
+                <span class=k>return</span> <span class=n>c</span><span class=p>;</span>
+            <span class=p>}</span>
+            <span class=n>ENDCG</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=n>Fallback</span> <span class=err>&#34;</span><span class=n>Transparent</span><span class=o>/</span><span class=n>VertexLit</span><span class=err>&#34;</span>
+<span class=p>}</span>
+</code></pre></div><h3 id=滚动背景>滚动背景</h3><p>很多 2D 游戏都使用了不断滚动的背景来模拟游戏角色在场景中的穿梭，这些背景往往包含了多个层来模拟一种视觉效果。而这些背景的实现往往就是利用了纹理动画。我们将实现一个包含了两层的无限滚动的2D游戏背景。</p><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>Shader</span> <span class=err>&#34;</span><span class=n>Unlit</span><span class=o>/</span><span class=n>ScrollBackGround</span><span class=err>&#34;</span>
+<span class=p>{</span>
+    <span class=n>Properties</span>
+    <span class=p>{</span>
+        <span class=n>_MainTex</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>MainTex</span><span class=err>&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=n>D</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>white</span><span class=err>&#34;</span> <span class=p>{}</span>
+        <span class=n>_SecTex</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>DetailTex</span><span class=err>&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=n>D</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>white</span><span class=err>&#34;</span> <span class=p>{}</span>
+        <span class=n>_SpeedMain</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Main</span> <span class=n>Speed</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>1</span>
+        <span class=n>_SpeedSec</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Second</span> <span class=n>Speed</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>1</span>
+        <span class=n>_Multiplier</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Layer</span> <span class=n>Multiplier</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>1</span>
+        <span class=n>_Alpha</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Alpha</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Range</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mi>1</span><span class=p>))</span> <span class=o>=</span> <span class=mf>0.5</span>
+    <span class=p>}</span>
+    <span class=n>SubShader</span>
+    <span class=p>{</span>
+        <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>RenderType</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Transparent</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>Queue</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Transparent</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>IgnoreProjector</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>True</span><span class=err>&#34;</span> <span class=p>}</span>
+        
+        <span class=n>ZWrite</span> <span class=n>Off</span>
+        <span class=n>Blend</span> <span class=n>SrcAlpha</span> <span class=n>OneMinusSrcAlpha</span>
+
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=n>CGPROGRAM</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+
+            <span class=k>sampler2D</span> <span class=n>_MainTex</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_MainTex_ST</span><span class=p>;</span>
+            <span class=k>sampler2D</span> <span class=n>_SecTex</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_SecTex_ST</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_SpeedMain</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_SpeedSec</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Multiplier</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Alpha</span><span class=p>;</span>
+
+            <span class=k>struct</span> <span class=n>appdata</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>vertex</span> <span class=o>:</span> <span class=n>POSITION</span><span class=p>;</span>
+                <span class=n>float4</span> <span class=n>texcoord</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>pos</span> <span class=o>:</span> <span class=n>SV_POSITION</span><span class=p>;</span>
+                <span class=n>float4</span> <span class=n>uv</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>pos</span> <span class=o>=</span> <span class=n>UnityObjectToClipPos</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>);</span>
+
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>xy</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>texcoord</span><span class=p>.</span><span class=n>xy</span> <span class=o>*</span> <span class=n>_MainTex_ST</span><span class=p>.</span><span class=n>xy</span> <span class=o>+</span> <span class=n>_MainTex_ST</span><span class=p>.</span><span class=n>zw</span> <span class=o>+</span> <span class=n>frac</span><span class=p>(</span><span class=n>float2</span><span class=p>(</span><span class=n>_SpeedMain</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span> <span class=o>*</span> <span class=n>_Time</span><span class=p>.</span><span class=n>y</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>zw</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>texcoord</span><span class=p>.</span><span class=n>xy</span> <span class=o>*</span> <span class=n>_SecTex_ST</span><span class=p>.</span><span class=n>xy</span> <span class=o>+</span> <span class=n>_SecTex_ST</span><span class=p>.</span><span class=n>zw</span> <span class=o>+</span> <span class=n>frac</span><span class=p>(</span><span class=n>float2</span><span class=p>(</span><span class=n>_SpeedSec</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>)</span> <span class=o>*</span> <span class=n>_Time</span><span class=p>.</span><span class=n>y</span><span class=p>);</span>
+
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+
+            <span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=n>half4</span> <span class=n>firstLayer</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_MainTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>xy</span><span class=p>);</span>
+                <span class=n>half4</span> <span class=n>secondLayer</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_SecTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>zw</span><span class=p>);</span>
+
+                <span class=n>half4</span> <span class=n>c</span> <span class=o>=</span> <span class=n>lerp</span><span class=p>(</span><span class=n>firstLayer</span><span class=p>,</span> <span class=n>secondLayer</span><span class=p>,</span> <span class=n>secondLayer</span><span class=p>.</span><span class=n>a</span><span class=p>);</span>
+                <span class=n>c</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*=</span> <span class=n>_Multiplier</span><span class=p>;</span>
+
+                <span class=k>return</span> <span class=n>c</span><span class=p>;</span>
+            <span class=p>}</span>
+            <span class=n>ENDCG</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=n>Fallback</span> <span class=err>&#34;</span><span class=n>VertexLit</span><span class=err>&#34;</span>
+<span class=p>}</span>
+</code></pre></div><h2 id=顶点动画>顶点动画</h2><h3 id=流动的河流>流动的河流</h3><p>该效果的原理是使用正弦函数来模拟水流的波动效果，在顶点着色器中使用正弦值对顶点坐标进行偏移得到对纹理扭曲效果。</p><blockquote><p>‼ 由于Unity的 <strong>批处理</strong> 会合并所有相关的模型，所以模型各自的 <strong>模型空间</strong> 就会丢失，但我们使用的顶点偏移需要在物体的模型空间下进行偏移。所以我们需要声明一个标签—— <strong>DisableBatching</strong> ，告诉 Unity 需要取消对该 Shader 的批处理操作。</p></blockquote><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>Shader</span> <span class=err>&#34;</span><span class=n>Unlit</span><span class=o>/</span><span class=n>RiverAni</span><span class=err>&#34;</span>
+<span class=p>{</span>
+    <span class=n>Properties</span>
+    <span class=p>{</span>
+        <span class=n>_Color</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Color</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Color</span><span class=p>)</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+        <span class=n>_MainTex</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>MainTex</span><span class=err>&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=n>D</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>white</span><span class=err>&#34;</span> <span class=p>{}</span>
+        <span class=n>_Magnitude</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Magnitude</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>1</span>
+        <span class=n>_Frequency</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Frequency</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>1</span>
+        <span class=n>_InWaveLength</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Wave</span> <span class=n>Length</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>10</span>
+        <span class=n>_Speed</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Speed</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mf>0.5</span>
+
+    <span class=p>}</span>
+    <span class=n>SubShader</span>
+    <span class=p>{</span>
+        <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>RenderType</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Transparent</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>Queue</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Transparent</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>IgnoreProjector</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>True</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>DisableBatching</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>True</span><span class=err>&#34;</span><span class=p>}</span>
+        <span class=n>LOD</span> <span class=mi>100</span>
+
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=n>Tags</span> <span class=p>{</span><span class=err>&#34;</span><span class=n>LightMode</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>ForwardBase</span><span class=err>&#34;</span><span class=p>}</span>
+
+            <span class=n>Cull</span> <span class=n>Off</span>
+            <span class=n>ZWrite</span> <span class=n>Off</span>
+            <span class=n>Blend</span> <span class=n>SrcAlpha</span> <span class=n>OneMinusSrcAlpha</span>
+
+            <span class=n>CGPROGRAM</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+
+            <span class=k>sampler2D</span> <span class=n>_MainTex</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_MainTex_ST</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_Color</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Magnitude</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Frequency</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_InWaveLength</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Speed</span><span class=p>;</span>
+
+            <span class=k>struct</span> <span class=n>appdata</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>vertex</span> <span class=o>:</span> <span class=n>POSITION</span><span class=p>;</span>
+                <span class=n>float2</span> <span class=n>texcoord</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>pos</span> <span class=o>:</span> <span class=n>SV_POSITION</span><span class=p>;</span>
+                <span class=n>float2</span> <span class=n>uv</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+                <span class=n>float4</span> <span class=n>offset</span><span class=p>;</span>
+                <span class=n>offset</span><span class=p>.</span><span class=n>yzw</span> <span class=o>=</span> <span class=n>float3</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>);</span>
+                <span class=n>offset</span><span class=p>.</span><span class=n>x</span> <span class=o>=</span> <span class=n>sin</span><span class=p>(</span><span class=n>_Frequency</span> <span class=o>*</span> <span class=n>_Time</span><span class=p>.</span><span class=n>y</span> <span class=c1>// 波动频率</span>
+                                <span class=o>+</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>.</span><span class=n>x</span> <span class=o>*</span> <span class=n>_InWaveLength</span> <span class=c1>// _InWaveLength 控制波长大小</span>
+                                <span class=o>+</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>.</span><span class=n>y</span> <span class=o>*</span> <span class=n>_InWaveLength</span>
+                                <span class=o>+</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>.</span><span class=n>z</span> <span class=o>*</span> <span class=n>_InWaveLength</span><span class=p>)</span> <span class=o>*</span> <span class=n>_Magnitude</span><span class=p>;</span> <span class=c1>// _Magnitud 控制波动大小</span>
+
+                <span class=n>o</span><span class=p>.</span><span class=n>pos</span> <span class=o>=</span> <span class=n>UnityObjectToClipPos</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>vertex</span> <span class=o>+</span> <span class=n>offset</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span> <span class=o>=</span> <span class=n>TRANSFORM_TEX</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>texcoord</span><span class=p>,</span> <span class=n>_MainTex</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span> <span class=o>+=</span> <span class=n>float2</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=n>_Time</span><span class=p>.</span><span class=n>y</span> <span class=o>*</span> <span class=n>_Speed</span><span class=p>);</span>
+
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+
+            <span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=n>fixed4</span> <span class=n>col</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_MainTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span><span class=p>);</span>
+                <span class=n>col</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*=</span> <span class=n>_Color</span><span class=p>.</span><span class=n>rgb</span><span class=p>;</span>
+                <span class=k>return</span> <span class=n>col</span><span class=p>;</span>
+            <span class=p>}</span>
+            <span class=n>ENDCG</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=n>Fallback</span> <span class=err>&#34;</span><span class=n>Transparent</span><span class=o>/</span><span class=n>vertexLit</span><span class=err>&#34;</span>
+<span class=p>}</span>
+</code></pre></div><h3 id=广告牌技术>广告牌技术</h3><p>另一种常见的顶点动画就是 <strong>广告牌技术</strong> 。广告牌技术会根据视角方向来旋转一个被纹理着色的多边形（通常就是简单的四边形，这个多边形就是广告牌），是的多边形看起来好像总是面对着摄像机。广告牌技术被用于很多应用，比如渲染烟雾、运毒、闪光效果等。</p><h4 id=原理>原理</h4><p>广告牌技术的本质就是构建旋转矩阵，而我们知道一个变换矩阵需要 3 个 <strong>基向量</strong> 。除此之外，我们还需要指定一个 <strong>锚点</strong> 。这个锚点在旋转的过程中是固定不变的，以此来确定多边形在空间中的位置。广告牌技术使用的基向量通常就是：</p><ol><li>表面法线（normal）</li><li>指向上的方向（up）</li><li>指向右的方向（right）</li></ol><p>广告牌技术的难点在于，如何根据需要来构建 3 个相互正交的基向量。计算过程通常是，我们首先会通过初始计算得到目标的表面法线（例如就是视角方向）和指向上的方向，而两者往往是不垂直的。但是，两者其中之一是固定的。例如：</p><ul><li>当模拟草丛时，我们希望广告牌的指向上的方向永远是（0，1，0），而法线方向应该随视角变化。</li><li>当模拟粒子效果时，我们希望广告牌的法线方向是固定的，即总是指向视角方向，指向上的方向则可以发生变化。</li></ul><h4 id=计算-以法线方向固定为视角方向为例>计算 (以法线方向固定为视角方向为例)</h4><p>假设法线方向是固定的，首先，我们根据初始的表面法线和指向上的方向来计算出目标方向的指向右的方向（通过叉积操作）：</p><blockquote><p>right = up × normal</p></blockquote><p>对其归一化后，再由法线方向和指向右的方向计算出正交的指向上的方向即可：</p><blockquote><p>up' = normal × right</p></blockquote><p>至此，我们就可以得到用于旋转的 3 个正交基了。下图给出了上述计算过程的图示。如果指向上的方向是固定的，计算过程也是类似的。</p><p><figure style=flex-grow:250;flex-basis:602px><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/billboard.png data-size=1024x408><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/billboard.png srcset="/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/billboard_hu8babf3f666abb1e889d80e074e4fbae4_82087_480x0_resize_box_2.png 480w, /p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/billboard_hu8babf3f666abb1e889d80e074e4fbae4_82087_1024x0_resize_box_2.png 1024w" width=1024 height=408 loading=lazy></a></figure></p><h4 id=实现>实现</h4><ol><li>首先我们在着色器中定义一个 <strong>_VerticalBillboarding</strong> 标签用于调整是固定法线还是固定指向上的方向</li><li>法线方向：将相机坐标转换到模型空间下后减去物体中心</li><li>向右方向：通过法线方向和指向上的方向（0，1，0）叉乘得到</li><li>向上方向：通过叉乘法线和向右方向后归一化得到</li><li>通过上面三个方向旋转正方形</li></ol><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>Shader</span> <span class=err>&#34;</span><span class=n>Unlit</span><span class=o>/</span><span class=n>Billboard</span><span class=err>&#34;</span>
+<span class=p>{</span>
+    <span class=n>Properties</span>
+    <span class=p>{</span>
+        <span class=n>_Color</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Color</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Color</span><span class=p>)</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+        <span class=n>_MainTex</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>MainTex</span><span class=err>&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=n>D</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>white</span><span class=err>&#34;</span> <span class=p>{}</span>
+        <span class=n>_VeticalBillboarding</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Vertical</span> <span class=n>Billboarding</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Range</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mi>1</span><span class=p>))</span> <span class=o>=</span> <span class=mi>1</span>
+
+    <span class=p>}</span>
+    <span class=n>SubShader</span>
+    <span class=p>{</span>
+        <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>RenderType</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Transparent</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>Queue</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Transparent</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>IgnoreProjector</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>True</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>DisableBatching</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>True</span><span class=err>&#34;</span> <span class=p>}</span>
+
+        <span class=n>Cull</span> <span class=n>Off</span>
+        <span class=n>ZWrite</span> <span class=n>Off</span>
+        <span class=n>Blend</span> <span class=n>SrcAlpha</span> <span class=n>OneMinusSrcAlpha</span>
+
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=n>Tags</span> <span class=p>{</span><span class=err>&#34;</span><span class=n>LightMode</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>ForwardBase</span><span class=err>&#34;</span><span class=p>}</span>
+
+            <span class=n>CGPROGRAM</span>
+
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>multi_compile_fwdbase</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+
+            <span class=k>sampler2D</span> <span class=n>_MainTex</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_MainTex_ST</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_Color</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_VeticalBillboarding</span><span class=p>;</span>
+
+            <span class=k>struct</span> <span class=n>appdata</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>vertex</span> <span class=o>:</span> <span class=n>POSITION</span><span class=p>;</span>
+                <span class=n>float2</span> <span class=n>texcoord</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>pos</span> <span class=o>:</span> <span class=n>SV_POSITION</span><span class=p>;</span>
+                <span class=n>float2</span> <span class=n>uv</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+
+                <span class=n>float3</span> <span class=n>center</span> <span class=o>=</span> <span class=n>float3</span><span class=p>(</span><span class=mo>0</span><span class=p>,</span><span class=mo>0</span><span class=p>,</span><span class=mo>0</span><span class=p>);</span> <span class=c1>// 固定锚点</span>
+                <span class=n>float3</span> <span class=n>viewDir</span> <span class=o>=</span> <span class=n>mul</span><span class=p>(</span><span class=n>unity_WorldToObject</span><span class=p>,</span> <span class=n>float4</span><span class=p>(</span><span class=n>_WorldSpaceCameraPos</span><span class=p>,</span> <span class=mi>1</span><span class=p>));</span>
+                <span class=n>float3</span> <span class=n>normalDir</span> <span class=o>=</span> <span class=n>viewDir</span> <span class=o>-</span> <span class=n>center</span><span class=p>;</span> <span class=c1>// 以视角方向作为法线方向</span>
+
+                <span class=n>normalDir</span><span class=p>.</span><span class=n>y</span> <span class=o>=</span> <span class=n>normalDir</span><span class=p>.</span><span class=n>y</span> <span class=o>*</span> <span class=n>_VeticalBillboarding</span><span class=p>;</span>
+                <span class=n>normalDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>normalDir</span><span class=p>);</span>
+
+                <span class=n>float3</span> <span class=n>upDir</span> <span class=o>=</span> <span class=n>abs</span><span class=p>(</span><span class=n>normalDir</span><span class=p>.</span><span class=n>y</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mf>0.999</span> <span class=o>?</span> <span class=n>float3</span><span class=p>(</span><span class=mo>0</span><span class=p>,</span><span class=mo>0</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span> <span class=o>:</span> <span class=n>float3</span><span class=p>(</span><span class=mo>0</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mo>0</span><span class=p>);</span> <span class=c1>// 暂取一个 upDir 方向</span>
+                <span class=n>float3</span> <span class=n>rightDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>cross</span><span class=p>(</span><span class=n>normalDir</span><span class=p>,</span> <span class=n>upDir</span><span class=p>));</span> <span class=c1>// 计算向右的方向</span>
+                <span class=n>upDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>cross</span><span class=p>(</span><span class=n>normalDir</span><span class=p>,</span> <span class=n>rightDir</span><span class=p>));</span>        <span class=c1>// 计算向上的方向</span>
+
+                <span class=c1>// 以锚点位置和新的基向量重新计算顶点位置</span>
+                <span class=n>float3</span> <span class=n>centerOff</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>.</span><span class=n>xyz</span> <span class=o>-</span> <span class=n>center</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>localPos</span> <span class=o>=</span> <span class=n>center</span> <span class=o>+</span> <span class=n>rightDir</span> <span class=o>*</span> <span class=n>centerOff</span><span class=p>.</span><span class=n>x</span> <span class=o>+</span> <span class=n>upDir</span> <span class=o>*</span> <span class=n>centerOff</span><span class=p>.</span><span class=n>y</span> <span class=o>+</span> <span class=n>normalDir</span> <span class=o>*</span> <span class=n>centerOff</span><span class=p>.</span><span class=n>z</span><span class=p>;</span>
+
+                <span class=n>o</span><span class=p>.</span><span class=n>pos</span> <span class=o>=</span> <span class=n>UnityObjectToClipPos</span><span class=p>(</span><span class=n>float4</span><span class=p>(</span><span class=n>localPos</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>));</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>texcoord</span><span class=p>.</span><span class=n>xy</span> <span class=o>*</span> <span class=n>_MainTex_ST</span><span class=p>.</span><span class=n>xy</span> <span class=o>+</span> <span class=n>_MainTex_ST</span><span class=p>.</span><span class=n>zw</span><span class=p>;</span>
+
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+
+            <span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=n>fixed4</span> <span class=n>col</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_MainTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span><span class=p>);</span>
+                <span class=n>col</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*=</span> <span class=n>_Color</span><span class=p>.</span><span class=n>rgb</span><span class=p>;</span>
+
+                <span class=k>return</span> <span class=n>col</span><span class=p>;</span>
+            <span class=p>}</span>
+            <span class=n>ENDCG</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=n>Fallback</span> <span class=err>&#34;</span><span class=n>Transparent</span><span class=o>/</span><span class=n>VertexLit</span><span class=err>&#34;</span>
+<span class=p>}</span>
+</code></pre></div><h2 id=顶点动画的阴影>顶点动画的阴影</h2><h3 id=问题>问题：</h3><p><figure style=flex-grow:215;flex-basis:516px><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/VertexAniProblem.png data-size=1024x476><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/VertexAniProblem.png srcset="/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/VertexAniProblem_hu931032a658f33c677ce23380fe89e96b_115013_480x0_resize_box_2.png 480w, /p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/VertexAniProblem_hu931032a658f33c677ce23380fe89e96b_115013_1024x0_resize_box_2.png 1024w" width=1024 height=476 loading=lazy></a></figure></p><h3 id=原因>原因：</h3><p>因为 Unity 的阴影绘制需要调用一个 <strong>ShadowCaster Pass</strong> ，而如果直接使用这些内置的 <strong>ShadowCasterPass</strong> ，这个 Pass 中并没有进行相关的顶点动画。</p><h3 id=解决方法>解决方法：</h3><p>在 Unity 中自定义的 <strong>ShadowCaster Pass</strong> ，这个 Pass 中，我们将进行统一的顶点变换过程。需要注意的是，在前面的实现中，如果涉及半透明物体我们都把 <strong>Fallback</strong> 设置成了 <strong>Transparent/VertexLit</strong> ，而 <strong>Transparent/VertexLit</strong> 没有定义 <strong>ShadowCaster Pass</strong> ，因此也就不会产生阴影。需要注意的是，我们在 <strong>ShadowCaster Pass</strong> 采用的 <strong>渲染通道</strong> 与 <strong>编译指令</strong> 都与之前 <strong>标准光照着色器</strong> 中采用的有所不同，所以对应的 <strong>阴影内置宏</strong> 也不一样。</p><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>Shader</span> <span class=err>&#34;</span><span class=n>Unity</span> <span class=n>Shaders</span> <span class=n>Book</span><span class=o>/</span><span class=n>Chapter</span> <span class=mi>11</span><span class=o>/</span><span class=n>Vertex</span> <span class=n>Animation</span> <span class=n>With</span> <span class=n>Shadow</span><span class=err>&#34;</span>
+<span class=p>{</span>
+    <span class=n>Properties</span>
+    <span class=p>{</span>
+        <span class=n>_MainTex</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>Main</span> <span class=n>Tex</span><span class=err>&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=n>D</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>white</span><span class=err>&#34;</span> <span class=p>{</span> <span class=p>}</span>
+        <span class=n>_Color</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>Color</span> <span class=n>Tint</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Color</span><span class=p>)</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+        <span class=n>_Magnitude</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>Distortion</span> <span class=n>Magnitude</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>1</span>
+        <span class=n>_Frequency</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>Distortion</span> <span class=n>Frequency</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>1</span>
+        <span class=n>_InvWaveLength</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>Distortion</span> <span class=n>Inverse</span> <span class=n>Wave</span> <span class=n>Length</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mi>10</span>
+        <span class=n>_Speed</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>Speed</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Float</span><span class=p>)</span> <span class=o>=</span> <span class=mf>0.5</span>
+    <span class=p>}</span>
+    <span class=n>SubShader</span>
+    <span class=p>{</span>
+        <span class=c1>// 		禁用批处理	=	True</span>
+        <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>DisableBatching</span><span class=err>&#34;</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>True</span><span class=err>&#34;</span> <span class=p>}</span>
+        
+        <span class=c1>// 该Pass同流动效果Shader中的Pass</span>
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>LightMode</span><span class=err>&#34;</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>ForwardBase</span><span class=err>&#34;</span> <span class=p>}</span>
+            
+            <span class=n>Cull</span> <span class=n>Off</span>
+            
+            <span class=n>CGPROGRAM</span>
+            
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+            
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+            
+            <span class=k>sampler2D</span> <span class=n>_MainTex</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_MainTex_ST</span><span class=p>;</span>
+            <span class=n>fixed4</span> <span class=n>_Color</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Magnitude</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Frequency</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_InvWaveLength</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Speed</span><span class=p>;</span>
+            
+            <span class=k>struct</span> <span class=n>a2v</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>vertex</span><span class=o>:</span> <span class=n>POSITION</span><span class=p>;</span>
+                <span class=n>float4</span> <span class=n>texcoord</span><span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+            
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>pos</span><span class=o>:</span> <span class=n>SV_POSITION</span><span class=p>;</span>
+                <span class=n>float2</span> <span class=n>uv</span><span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+            
+            <span class=n>v2f</span> <span class=n>vert</span><span class=p>(</span><span class=n>a2v</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+                
+                <span class=n>float4</span> <span class=n>offset</span><span class=p>;</span>
+                <span class=n>offset</span><span class=p>.</span><span class=n>yzw</span> <span class=o>=</span> <span class=n>float3</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>);</span>
+                <span class=n>offset</span><span class=p>.</span><span class=n>x</span> <span class=o>=</span> <span class=n>sin</span><span class=p>(</span><span class=n>_Frequency</span> <span class=o>*</span> <span class=n>_Time</span><span class=p>.</span><span class=n>y</span> <span class=o>+</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>.</span><span class=n>x</span> <span class=o>*</span> <span class=n>_InvWaveLength</span> <span class=o>+</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>.</span><span class=n>y</span> <span class=o>*</span> <span class=n>_InvWaveLength</span> <span class=o>+</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>.</span><span class=n>z</span> <span class=o>*</span> <span class=n>_InvWaveLength</span><span class=p>)</span> <span class=o>*</span> <span class=n>_Magnitude</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>pos</span> <span class=o>=</span> <span class=n>UnityObjectToClipPos</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>vertex</span> <span class=o>+</span> <span class=n>offset</span><span class=p>);</span>
+                
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span> <span class=o>=</span> <span class=n>TRANSFORM_TEX</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>texcoord</span><span class=p>,</span> <span class=n>_MainTex</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span> <span class=o>+=</span> <span class=n>float2</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=n>_Time</span><span class=p>.</span><span class=n>y</span> <span class=o>*</span> <span class=n>_Speed</span><span class=p>);</span>
+                
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+            
+            <span class=n>fixed4</span> <span class=n>frag</span><span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span><span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=n>fixed4</span> <span class=n>c</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_MainTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span><span class=p>);</span>
+                <span class=n>c</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*=</span> <span class=n>_Color</span><span class=p>.</span><span class=n>rgb</span><span class=p>;</span>
+                
+                <span class=k>return</span> <span class=n>c</span><span class=p>;</span>
+            <span class=p>}</span>
+            
+            <span class=n>ENDCG</span>
+            
+        <span class=p>}</span>
+        
+        <span class=c1>// 以阴影投射的方式渲染物体的Pass</span>
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=c1>//		渲染通道 = 阴影投射</span>
+            <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>LightMode</span><span class=err>&#34;</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>ShadowCaster</span><span class=err>&#34;</span> <span class=p>}</span>
+            
+            <span class=n>CGPROGRAM</span>
+            
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+            
+            <span class=c1>// 编译指令会保证Unity可以为相应类型的光照Pass生成所需的Shader变种</span>
+            <span class=c1>// 注意该指令与之前光照渲染中Pass中的&#34;multi_compile_fwdbase&#34;有所不同</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>multi_compile_shadowcaster</span>
+            
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+            
+            <span class=k>float</span> <span class=n>_Magnitude</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Frequency</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_InvWaveLength</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Speed</span><span class=p>;</span>
+            
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=c1>// 使用宏定义阴影投射需要的变量</span>
+                <span class=n>V2F_SHADOW_CASTER</span><span class=p>;</span>
+            <span class=p>};</span>
+            
+            <span class=n>v2f</span> <span class=n>vert</span><span class=p>(</span><span class=n>appdata_base</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+                
+                <span class=c1>// 计算流动动画偏移</span>
+                <span class=n>float4</span> <span class=n>offset</span><span class=p>;</span>
+                <span class=n>offset</span><span class=p>.</span><span class=n>yzw</span> <span class=o>=</span> <span class=n>float3</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>,</span> <span class=mf>0.0</span><span class=p>);</span>
+                <span class=n>offset</span><span class=p>.</span><span class=n>x</span> <span class=o>=</span> <span class=n>sin</span><span class=p>(</span><span class=n>_Frequency</span> <span class=o>*</span> <span class=n>_Time</span><span class=p>.</span><span class=n>y</span> <span class=o>+</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>.</span><span class=n>x</span> <span class=o>*</span> <span class=n>_InvWaveLength</span> <span class=o>+</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>.</span><span class=n>y</span> <span class=o>*</span> <span class=n>_InvWaveLength</span> <span class=o>+</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>.</span><span class=n>z</span> <span class=o>*</span> <span class=n>_InvWaveLength</span><span class=p>)</span> <span class=o>*</span> <span class=n>_Magnitude</span><span class=p>;</span>
+                <span class=n>v</span><span class=p>.</span><span class=n>vertex</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span> <span class=o>+</span> <span class=n>offset</span><span class=p>;</span>
+
+                <span class=c1>// 使用宏计算阴影纹理变量</span>
+                <span class=n>TRANSFER_SHADOW_CASTER_NORMALOFFSET</span><span class=p>(</span><span class=n>o</span><span class=p>)</span>
+                
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+            
+            <span class=n>fixed4</span> <span class=n>frag</span><span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span><span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=c1>// 使用宏对阴影进行投射，并将结果输出到深度图与阴影映射纹理中</span>
+                <span class=n>SHADOW_CASTER_FRAGMENT</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+            <span class=p>}</span>
+            <span class=n>ENDCG</span>
+            
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=n>FallBack</span> <span class=err>&#34;</span><span class=n>VertexLit</span><span class=err>&#34;</span>
+<span class=p>}</span>
+</code></pre></div><h2 id=补充说明>补充说明</h2><ol><li>在之前看到的那样，如果我们在模型空间下进行了一些顶点动画，那么 <strong>批处理</strong> 往往就会破坏这种动画效果。这时，我们可以通过 <strong>SubShader</strong> 的 <strong>DisableBatching</strong> 标签来强制取消对该 Unity Shader 的 <strong>批处理</strong> 。然而，取消批处理会带来一定的性能下降，增加了 <strong>Draw Call</strong> ，因此我们应该尽量避免使用模型空间下的一些绝对位置和方向来进行计算。</li><li>在广告牌的例子中，为了避免显示使用模型空间的中心来作为锚点，我们可以利用顶点颜色来存储每个顶点到锚点的距离值，这种做法在商业游戏中很常见。</li></ol><h2 id=总结>总结</h2><p><strong>纹理动画</strong> 中主要是对贴图的 UV 进行操作。</p><p><strong>顶点动画</strong> 中是对顶点进行编辑，讲到了两个技术：流动的河流 和 广告牌技术。</p><p><strong>顶点动画的阴影</strong> 中需要根据顶点动画自定义 <strong>ShadowCaster Pass</strong>。</p></section><footer class=article-footer><section class=article-tags><a href=/tags/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81/>Shader入门精要</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-contents--wrapper><h2 class=section-title>相关文章</h2><div class=related-contents><div class="flex article-list--tile"><article class=has-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/><div class=article-image><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/topimg.67a55883ca0dddee7a38aee92b8bd0c8_hufdc4047d1f13243dc00ee98ca40c3721_1787439_250x150_fill_box_smart1_2.png width=250 height=150 loading=lazy data-key data-hash="md5-Z6VYg8oN3e56OK7pK4vQyA=="></div><div class=article-details><h2 class=article-title>Shader入门精要-高级纹理</h2></div></a></article><article class=has-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%9B%B4%E5%8A%A0%E5%A4%8D%E6%9D%82%E7%9A%84%E5%85%89%E7%85%A7/><div class=article-image><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%9B%B4%E5%8A%A0%E5%A4%8D%E6%9D%82%E7%9A%84%E5%85%89%E7%85%A7/topimg.6c5c6801e5665142f1afc74f7eccabb9_hud5b4711730563b8f6fe841cfaa71f45d_221051_250x150_fill_box_smart1_2.png width=250 height=150 loading=lazy data-key data-hash="md5-bFxoAeVmUULxr8dPfsyruQ=="></div><div class=article-details><h2 class=article-title>Shader入门精要-更加复杂的光照</h2></div></a></article><article class=has-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/><div class=article-image><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/topimg.d65ee7581cfef7096ee4aec08398a608_hucec924f8a8d5e17115b60defab86f43b_300097_250x150_fill_box_smart1_2.png width=250 height=150 loading=lazy data-key data-hash="md5-1l7nWBz+9wlu5K7Ag5imCA=="></div><div class=article-details><h2 class=article-title>Shader入门精要-透明效果</h2></div></a></article><article class=has-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/><div class=article-image><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/topimg.b1f07d907209b24d4812f315eb6ff2fa_hub743dc7ee0e867207b7b55e10230ffbf_426847_250x150_fill_box_smart1_2.png width=250 height=150 loading=lazy data-key data-hash="md5-sfB9kHIJsk1IEvMV62/y+g=="></div><div class=article-details><h2 class=article-title>Shader入门精要-基础纹理</h2></div></a></article><article class=has-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/><div class=article-image><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/topimg.133a0281833f182f38ff49d986a235dc_hubb21fb6872520e85a0401e3049fab639_84088_250x150_fill_q75_h2_box_smart1.webp width=250 height=150 loading=lazy data-key data-hash="md5-EzoCgYM/GC84/0nZhqI13A=="></div><div class=article-details><h2 class=article-title>Shader入门精要-简单光照模型</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo issue-term=pathname crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>function setUtterancesTheme(b){let a=document.querySelector('.utterances iframe');a&&a.contentWindow.postMessage({type:'set-theme',theme:`github-${b}`},'https://utteranc.es')}addEventListener('message',a=>{if(a.origin!=='https://utteranc.es')return;setUtterancesTheme(document.body.dataset.scheme)}),window.addEventListener('onColorSchemeChange',a=>{setUtterancesTheme(a.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2021 YanTree</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script><script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script></body></html>
