@@ -1,0 +1,708 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="模拟反射、折射效果"><title>Shader入门精要-高级纹理</title><link rel=canonical href=https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/><link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="Shader入门精要-高级纹理"><meta property="og:description" content="模拟反射、折射效果"><meta property="og:url" content="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/"><meta property="og:site_name" content="YanTree"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Shader入门精要"><meta property="article:published_time" content="2021-06-04T20:00:31+08:00"><meta property="article:modified_time" content="2021-06-04T20:00:31+08:00"><meta property="og:image" content="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/topimg.png"><meta name=twitter:title content="Shader入门精要-高级纹理"><meta name=twitter:description content="模拟反射、折射效果"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/topimg.png"><link rel="shortcut icon" href=img/favicon.ico></head><body><script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.body.dataset.scheme='dark':document.body.dataset.scheme='light'})()</script><div class="container main-container flex on-phone--column extended article-page with-toolbar"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header class=site-info><figure class=site-avatar><img src=/img/avatar_hud8215445c04336af6f3d5658bab85db7_7222_300x0_resize_box_2.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+<span class=emoji>🍥</span></figure><h1 class=site-name><a href=https://yantree.github.io/>YanTree</a></h1><h2 class=site-description>子非蝶，亦非周</h2></header><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>主页</span></a></li><li><a href=/%E5%85%B3%E4%BA%8E/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg><span>关于</span></a></li><li><a href=/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>归档</span></a></li><li><a href=/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>搜索</span></a></li><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></ol></aside><main class="main full-width"><div id=article-toolbar><a href=https://yantree.github.io/ class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg><span>Back</span></a></div><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/topimg_hufdc4047d1f13243dc00ee98ca40c3721_1787439_800x0_resize_box_2.png srcset="/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/topimg_hufdc4047d1f13243dc00ee98ca40c3721_1787439_800x0_resize_box_2.png 800w, /p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/topimg_hufdc4047d1f13243dc00ee98ca40c3721_1787439_1600x0_resize_box_2.png 1600w" width=800 height=449 loading=lazy alt="Featured image of post Shader入门精要-高级纹理"></a></div><div class=article-details><header class=article-category><a href=/categories/%E6%B8%B2%E6%9F%93/>渲染</a></header><h2 class=article-title><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%AB%98%E7%BA%A7%E7%BA%B9%E7%90%86/>Shader入门精要-高级纹理</a></h2><h3 class=article-subtitle>模拟反射、折射效果</h3><footer class=article-time><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--published>Jun 04, 2021</time></footer></div></header><section class=article-content><h1 id=技术美术高级纹理>技术美术——高级纹理</h1><h2 id=立方体纹理cubemap>立方体纹理(Cubemap)</h2><p><strong>立方体纹理（Cubemap）</strong> 是环境映射（Environment Mapping）的一种实现方法。环境映射可以模拟物体周围的环境，而使用了环境映射的物体可以看起来像镀了层金属一样 <strong>反射出周围的环境</strong>。</p><p>优点</p><ul><li>立方体纹理的实现简单快捷，而且得到的效果也比较好。</li></ul><p>缺点</p><ul><li>当场景中引入了新的物体、光源，或者物体发生移动时，我们就需要重新生成立方体纹理。</li><li>立方体纹理也仅可以反射环境，但不能反射使用了该立方体纹理的物体本身。这是因为，立方体纹理不能模拟多次反射的结果。</li></ul><p>综合考虑下来，立方体纹理适用于凸面体，而不太适用于凹面体 ( 因为凹面体会反射自身 )。</p><h3 id=立方体纹理用于环境映射>立方体纹理—用于环境映射</h3><p>立方体纹理最常见的用处是用于环境映射。通过这种方法，我们可以 <strong>模拟出金属质感的材质</strong>。</p><p>创建用于环境映射的立方体纹理的三种方法：</p><ol><li>直接由一些特殊布局的纹理创建；</li><li>手动创建一个Cubemap资源，再把6张图赋给它；</li><li>由脚本生成。</li></ol><p>第一种方法：提供一张具有特殊布局的纹理，例如类似立方体展开图的交叉布局、全景布局等（就类似于人物贴图，换成了球形）。然后只需把该纹理的 <strong>Texture Type</strong> 设置为 <strong>Cubemap</strong> 即可，Unity 会做好剩下的事情。</p><p>第二种方法：先在项目资源中创建一个 <strong>Cubemap</strong>，然后把它的 6 张纹理拖拽到它的面板中。在 Unity 5 中，官方推荐使用第一种方法创建立方体纹理，这是因为第一种方法可以对纹理数据进行压缩，即可以支持边缘修正、光滑反射（glossy reflection）和 HDR 等功能。</p><p>第三种方法：使用 <strong>Camera.RenderToCubemap</strong> 函数来实现，Camera.RenderToCubemap 函数可以把任意位置观察到的场景图像存储到 6 张图像中，从而创建出该位置上对应的立方体纹理。</p><ol><li><p>创建一个编辑器脚本，用于将摄像机照射到的图片渲染到 Cubemap 中。由于该代码需要添加菜单条目，因此我们需要把它放在 Editor 文件夹下才能正确执行。原理如下:</p><p>在 renderFromPosition（由用户指定）位置处动态创建一个摄像机，并调用 Camera.RenderToCubemap 函数把从当前位置观察到的图像渲染到用户指定的立方体纹理 cubemap 中，完成后再销毁临时摄像机。</p><div class=highlight><pre class=chroma><code class=language-c# data-lang=c#><span class=k>using</span> <span class=nn>UnityEngine</span><span class=p>;</span>
+<span class=k>using</span> <span class=nn>UnityEditor</span><span class=p>;</span>
+<span class=k>using</span> <span class=nn>System.Collections</span><span class=p>;</span>
+
+<span class=k>public</span> <span class=k>class</span> <span class=nc>RenderCubemapWizard</span> <span class=p>:</span> <span class=n>ScriptableWizard</span> <span class=p>{</span>
+
+	<span class=k>public</span> <span class=n>Transform</span> <span class=n>renderFromPosition</span><span class=p>;</span>
+	<span class=k>public</span> <span class=n>Cubemap</span> <span class=n>cubemap</span><span class=p>;</span>
+
+	<span class=k>void</span> <span class=n>OnWizardUpdate</span> <span class=p>()</span> <span class=p>{</span>
+     <span class=n>helpString</span> <span class=p>=</span> <span class=s>&#34;选择要渲染的坐标位置和要渲染的cubemap&#34;</span><span class=p>;</span>
+     <span class=n>isValid</span> <span class=p>=</span> <span class=p>(</span><span class=n>renderFromPosition</span> <span class=p>!=</span> <span class=k>null</span><span class=p>)</span> <span class=p>&amp;&amp;</span> <span class=p>(</span><span class=n>cubemap</span> <span class=p>!=</span> <span class=k>null</span><span class=p>);</span>
+	<span class=p>}</span>
+
+	<span class=k>void</span> <span class=n>OnWizardCreate</span> <span class=p>()</span> <span class=p>{</span>
+     <span class=c1>// 创建用于渲染的临时摄像机
+</span><span class=c1></span>     <span class=n>GameObject</span> <span class=n>go</span> <span class=p>=</span> <span class=k>new</span> <span class=n>GameObject</span><span class=p>(</span> <span class=s>&#34;CubemapCamera&#34;</span><span class=p>);</span>
+     <span class=n>go</span><span class=p>.</span><span class=n>AddComponent</span><span class=p>&lt;</span><span class=n>Camera</span><span class=p>&gt;();</span>
+     <span class=c1>// 把它放到物体坐标上
+</span><span class=c1></span>     <span class=n>go</span><span class=p>.</span><span class=n>transform</span><span class=p>.</span><span class=n>position</span> <span class=p>=</span> <span class=n>renderFromPosition</span><span class=p>.</span><span class=n>position</span><span class=p>;</span>
+     <span class=c1>// 渲染成cubemap
+</span><span class=c1></span>     <span class=n>go</span><span class=p>.</span><span class=n>GetComponent</span><span class=p>&lt;</span><span class=n>Camera</span><span class=p>&gt;().</span><span class=n>RenderToCubemap</span><span class=p>(</span><span class=n>cubemap</span><span class=p>);</span>
+
+     <span class=c1>// 销毁临时相机
+</span><span class=c1></span>     <span class=n>DestroyImmediate</span><span class=p>(</span> <span class=n>go</span> <span class=p>);</span>
+	<span class=p>}</span>
+<span class=na>
+</span><span class=na>	[MenuItem(&#34;GameObject/Render into Cubemap&#34;)]</span>
+	<span class=k>static</span> <span class=k>void</span> <span class=n>RenderCubemap</span> <span class=p>()</span> <span class=p>{</span>
+     <span class=n>ScriptableWizard</span><span class=p>.</span><span class=n>DisplayWizard</span><span class=p>&lt;</span><span class=n>RenderCubemapWizard</span><span class=p>&gt;(</span>
+         <span class=s>&#34;Render cubemap&#34;</span><span class=p>,</span> <span class=s>&#34;Render!&#34;</span><span class=p>);</span>
+	<span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div></li><li><p>新建一个用于存储的立方体纹理（在 Project 视图下单击右键，选择 Create -> Legacy -> Cubemap来创建）。为了让脚本可以顺利将图像渲染到该立方体纹理中，我们需要在它的面板中勾选 <strong>Readable</strong> 选项。</p></li><li><p>从 Unity 菜单栏选择 GameObject -> Render into Cubemap，打开我们在脚本中实现的用于渲染立方体纹理的窗口，并把第一步创建的 GameObject 和第二步中的纹理分别拖拽到窗口中的 Render From Position 和 Cubemap 选项。</p></li><li><p>单击窗口的 Render！按钮，就可以把从该位置观察到的世界空间下的 6 张图像中渲染到纹理中。</p></li></ol><p>需要注意的是，我们需要为 <strong>Cubemap</strong> 设置大小，即上图中的 <strong>Face size</strong> 选项。<strong>Face size</strong> 值越大，渲染出来的立方体纹理分辨率越大，效果可能更好，单需要占用的内存也越大，这可以由面板最下方显示的内存大小得到。</p><h3 id=反射>反射</h3><p>模拟反射效果很简单，我们只需要通过 <strong>入射光线的方向</strong> 和 <strong>表面法线方向来计算反射方向</strong>，再利用 <strong>反射方向对立方体纹理采样</strong> 即可。</p><p>反射用到 Shader 的是在漫反射模型上进行修改的：</p><ol><li>增添三个属性，分别用于控制反射颜色、反射程度和捕捉环境映射纹理</li><li>在顶点着色器中哪个使用<strong>reflect</strong>函数来计算该顶点的反射方向</li></ol><blockquote><p>reflect ( I, N ) 根据入射光线方向I和表面法向量N计算反射向量，仅对三元向量有效</p></blockquote><ol start=3><li>在片元着色器中使用 <strong>texCUBE</strong> 函数和顶点着色器中获得的反射方向对立方体纹理进行采样，得到反射颜色</li><li>最后使用 lerp 对原有漫反射与纹理反射颜色进行插值</li></ol><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>Shader</span> <span class=err>&#34;</span><span class=n>Unlit</span><span class=o>/</span><span class=n>Reflect</span><span class=err>&#34;</span>
+<span class=p>{</span>
+    <span class=n>Properties</span>
+    <span class=p>{</span>
+        <span class=n>_Color</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Color</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Color</span><span class=p>)</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+        <span class=n>_ReflectColor</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Reflect</span> <span class=n>Color</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Color</span><span class=p>)</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+        <span class=n>_ReflectPower</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Reflect</span> <span class=n>Power</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Range</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mi>1</span><span class=p>))</span> <span class=o>=</span> <span class=mf>0.2</span>
+        <span class=n>_CubeMap</span><span class=p>(</span><span class=err>&#34;</span><span class=n>CubeMap</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Cube</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>_Skybox</span><span class=err>&#34;</span> <span class=p>{}</span>
+    <span class=p>}</span>
+    <span class=n>SubShader</span>
+    <span class=p>{</span>
+        <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>RenderType</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Opaque</span><span class=err>&#34;</span> <span class=p>}</span>
+
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=n>Tags</span> <span class=p>{</span><span class=err>&#34;</span><span class=n>LightMode</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>ForwardBase</span><span class=err>&#34;</span><span class=p>}</span>
+
+            <span class=n>CGPROGRAM</span>
+
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>multi_compile_fwdbase</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>Lighting</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>AutoLight</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+
+            <span class=n>float4</span> <span class=n>_Color</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_ReflectColor</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_ReflectPower</span><span class=p>;</span>
+            <span class=n>samplerCUBE</span> <span class=n>_CubeMap</span><span class=p>;</span>
+
+            <span class=k>struct</span> <span class=n>appdata</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>vertex</span> <span class=o>:</span> <span class=n>POSITION</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>normal</span> <span class=o>:</span> <span class=n>NORMAL</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>pos</span> <span class=o>:</span> <span class=n>SV_POSITION</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>worldNormal</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>worldPos</span> <span class=o>:</span> <span class=n>TEXCOORD1</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>worldRefl</span> <span class=o>:</span> <span class=n>TEXCOOR2</span><span class=p>;</span>
+                <span class=n>SHADOW_COORDS</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span>
+            <span class=p>};</span>
+
+            <span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>pos</span> <span class=o>=</span> <span class=n>UnityObjectToClipPos</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>worldNormal</span> <span class=o>=</span> <span class=n>UnityObjectToWorldNormal</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>normal</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>worldPos</span> <span class=o>=</span> <span class=n>mul</span><span class=p>(</span><span class=n>unity_ObjectToWorld</span><span class=p>,</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>).</span><span class=n>xyz</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>worldRefl</span> <span class=o>=</span> <span class=n>reflect</span><span class=p>(</span><span class=o>-</span><span class=n>UnityWorldSpaceViewDir</span><span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=n>worldPos</span><span class=p>),</span> <span class=n>o</span><span class=p>.</span><span class=n>worldNormal</span><span class=p>);</span> <span class=c1>// 反射方向</span>
+
+                <span class=n>TRANSFER_SHADOW</span><span class=p>(</span><span class=n>o</span><span class=p>);</span>
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+
+            <span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=n>half3</span> <span class=n>worldNormal</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>worldNormal</span><span class=p>);</span>
+                <span class=n>half3</span> <span class=n>worldLightDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>UnityWorldSpaceLightDir</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>worldPos</span><span class=p>));</span>
+                <span class=n>half3</span> <span class=n>worldViewDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>UnityWorldSpaceViewDir</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>worldPos</span><span class=p>));</span>
+                <span class=n>half3</span> <span class=n>halfDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>worldLightDir</span> <span class=o>+</span> <span class=n>worldViewDir</span><span class=p>);</span>
+
+                <span class=k>half</span> <span class=n>NdotL</span> <span class=o>=</span> <span class=n>max</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=n>dot</span><span class=p>(</span><span class=n>worldNormal</span><span class=p>,</span> <span class=n>worldLightDir</span><span class=p>));</span>
+                <span class=n>half3</span> <span class=n>reflection</span> <span class=o>=</span> <span class=n>texCUBE</span><span class=p>(</span><span class=n>_CubeMap</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>worldRefl</span><span class=p>).</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>_ReflectColor</span><span class=p>.</span><span class=n>rgb</span><span class=p>;</span> <span class=c1>// 采样 Cubemap 计算反射</span>
+
+                <span class=n>half3</span> <span class=n>ambient</span> <span class=o>=</span> <span class=n>UNITY_LIGHTMODEL_AMBIENT</span><span class=p>.</span><span class=n>xyz</span><span class=p>;</span>
+                <span class=n>half3</span> <span class=n>diffuse</span> <span class=o>=</span> <span class=n>_LightColor0</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>_Color</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>NdotL</span><span class=p>;</span>
+
+                <span class=n>UNITY_LIGHT_ATTENUATION</span><span class=p>(</span><span class=n>atten</span><span class=p>,</span> <span class=n>i</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>worldPos</span><span class=p>);</span>
+                <span class=k>return</span> <span class=n>half4</span><span class=p>(</span><span class=n>ambient</span> <span class=o>+</span> <span class=n>lerp</span><span class=p>(</span><span class=n>diffuse</span><span class=p>,</span> <span class=n>reflection</span><span class=p>,</span> <span class=n>_ReflectPower</span><span class=p>)</span> <span class=o>*</span> <span class=n>atten</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
+            <span class=p>}</span>
+            <span class=n>ENDCG</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=n>Fallback</span> <span class=err>&#34;</span><span class=n>Diffuse</span><span class=err>&#34;</span>
+<span class=p>}</span>
+</code></pre></div><h3 id=折射>折射</h3><p>给定入射角时，我们可以使用 <strong>斯涅尔定律 (Snell’s law )</strong> 来计算反射角。当光从介质 1 沿着和表面法线夹角为 θ1 的方向斜射入介质 2 时，我们可以使用如下公式计算折射光线与法线的夹角θ2：</p><blockquote><p>η1 sinθ1 = η2 sinθ2</p></blockquote><p>其中 η1 和 η2 分别是两个介质的 <strong>折射率 (index of refraction )</strong> 。折射率是一项重要的物理常量，例如真空的折射率是 1，而玻璃的折射率一般是 1.5。</p><p>折射用到 Shader 中与反射类似，依旧使用 <strong>refract</strong> 函数来计算该顶点的折射方向，但不同的是采用了三个参数：</p><ul><li>第一个参数即为入射光线方向，它必须是归一化后的矢量；</li><li>第二个参数是表面法线，法线方向同样是要归一化后的；</li><li>第三个参数是入射光线所在介质的折射率和折射光线所在介质的折射率之间的比值。</li></ul><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>Shader</span> <span class=err>&#34;</span><span class=n>Unlit</span><span class=o>/</span><span class=n>Refract</span><span class=err>&#34;</span>
+<span class=p>{</span>
+    <span class=n>Properties</span>
+    <span class=p>{</span>
+        <span class=n>_Color</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Color</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Color</span><span class=p>)</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+        <span class=n>_RefractColor</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Refract</span> <span class=n>Color</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Color</span><span class=p>)</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+        <span class=n>_RefractPower</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Refract</span> <span class=n>Power</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Range</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mi>1</span><span class=p>))</span> <span class=o>=</span> <span class=mi>1</span>
+        <span class=n>_RefractRatio</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Refract</span> <span class=n>Ratio</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Range</span><span class=p>(</span><span class=mf>0.01</span><span class=p>,</span> <span class=mi>1</span><span class=p>))</span> <span class=o>=</span> <span class=mf>0.2</span>
+        <span class=n>_Cubemap</span><span class=p>(</span><span class=err>&#34;</span><span class=n>CubeMap</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Cube</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>_Skybox</span><span class=err>&#34;</span> <span class=p>{</span> <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=n>SubShader</span>
+    <span class=p>{</span>
+        <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>RenderType</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Opaque</span><span class=err>&#34;</span> <span class=p>}</span>
+
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=n>Tags</span> <span class=p>{</span><span class=err>&#34;</span><span class=n>LightMode</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>ForwardBase</span><span class=err>&#34;</span><span class=p>}</span>
+
+            <span class=n>CGPROGRAM</span>
+
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>multi_compile_fwdbase</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>Lighting</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>AutoLight</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+
+            <span class=n>float4</span> <span class=n>_Color</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_RefractColor</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_RefractPower</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_RefractRatio</span><span class=p>;</span>
+            <span class=n>samplerCUBE</span> <span class=n>_Cubemap</span><span class=p>;</span>
+
+            <span class=k>struct</span> <span class=n>appdata</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>vertex</span> <span class=o>:</span> <span class=n>POSITION</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>normal</span> <span class=o>:</span> <span class=n>NORMAL</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>pos</span> <span class=o>:</span> <span class=n>SV_POSITION</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>worldPos</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>worldNormal</span> <span class=o>:</span> <span class=n>TEXCOORD1</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>worldRefra</span> <span class=o>:</span> <span class=n>TEXCOORD2</span><span class=p>;</span>
+                <span class=n>SHADOW_COORDS</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span>
+            <span class=p>};</span>
+
+            <span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>pos</span> <span class=o>=</span> <span class=n>UnityObjectToClipPos</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>worldNormal</span> <span class=o>=</span> <span class=n>UnityObjectToWorldNormal</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>normal</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>worldPos</span> <span class=o>=</span> <span class=n>mul</span><span class=p>(</span><span class=n>unity_ObjectToWorld</span><span class=p>,</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>).</span><span class=n>xyz</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>worldRefra</span> <span class=o>=</span> <span class=n>refract</span><span class=p>(</span><span class=o>-</span><span class=n>normalize</span><span class=p>(</span><span class=n>UnityWorldSpaceViewDir</span><span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=n>worldPos</span><span class=p>)),</span> <span class=n>normalize</span><span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=n>worldNormal</span><span class=p>),</span> <span class=n>_RefractRatio</span><span class=p>);</span> <span class=c1>// 计算折射方向</span>
+
+                <span class=n>TRANSFER_SHADOW</span><span class=p>(</span><span class=n>o</span><span class=p>);</span>
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+
+            <span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=n>half3</span> <span class=n>worldNormal</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>worldNormal</span><span class=p>);</span>
+                <span class=n>half3</span> <span class=n>worldLightDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>UnityWorldSpaceLightDir</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>worldPos</span><span class=p>));</span>
+                <span class=n>half3</span> <span class=n>worldViewDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>UnityWorldSpaceViewDir</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>worldPos</span><span class=p>));</span>
+                
+                <span class=k>half</span> <span class=n>NdotL</span> <span class=o>=</span> <span class=n>max</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=n>dot</span><span class=p>(</span><span class=n>worldNormal</span><span class=p>,</span> <span class=n>worldLightDir</span><span class=p>));</span>
+                <span class=n>half3</span> <span class=n>refraction</span> <span class=o>=</span> <span class=n>texCUBE</span><span class=p>(</span><span class=n>_Cubemap</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>worldRefra</span><span class=p>).</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>_RefractColor</span><span class=p>.</span><span class=n>rgb</span><span class=p>;</span> <span class=c1>// 采样 Cubemap 计算折射</span>
+
+                <span class=n>half3</span> <span class=n>ambient</span> <span class=o>=</span> <span class=n>UNITY_LIGHTMODEL_AMBIENT</span><span class=p>.</span><span class=n>xyz</span><span class=p>;</span>
+                <span class=n>half3</span> <span class=n>diffuse</span> <span class=o>=</span> <span class=n>_LightColor0</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>_Color</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>NdotL</span><span class=p>;</span>
+
+                <span class=n>UNITY_LIGHT_ATTENUATION</span><span class=p>(</span><span class=n>atten</span><span class=p>,</span> <span class=n>i</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>worldPos</span><span class=p>);</span>
+                <span class=k>return</span> <span class=n>half4</span><span class=p>(</span><span class=n>ambient</span> <span class=o>+</span> <span class=n>lerp</span><span class=p>(</span><span class=n>diffuse</span><span class=p>,</span> <span class=n>refraction</span><span class=p>,</span> <span class=n>_RefractPower</span><span class=p>)</span> <span class=o>*</span> <span class=n>atten</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
+            <span class=p>}</span>
+            <span class=n>ENDCG</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=n>Fallback</span> <span class=err>&#34;</span><span class=n>Reflective</span><span class=o>/</span><span class=n>VertexLit</span><span class=err>&#34;</span>
+<span class=p>}</span>
+</code></pre></div><h3 id=菲涅尔反射>菲涅尔反射</h3><p>使用 <strong>菲涅尔反射 (Fresnel reflection )</strong> 来根据视角方向控制反射过程，菲涅尔反射描述了一种光学现象，即当光线照射到物体表面上时，一部分发生反射，一部分进入物体内部，发生折射或散射。被反射的光和入射光之间存在一定的比率关系，这个比率关系可以通过菲涅尔等式进行计算。</p><p>一个经常使用的例子是，当你站在湖边，直接低头看脚边的水面时，你会发现水几乎是透明的，你可以直接看到水底的小鱼和石子；但是当你抬头看远处的水面时，会发现几乎看不到水下的情景，而只能看到水面反射的环境。这就是所谓的菲涅尔效果。</p><p>真实世界的菲涅尔等式是非常复杂的，但在实时渲染中，我们通常会使用一些近似公式来计算。其中一个著名的计算公式就是 <strong>Schlick菲涅尔</strong> 近似等式：</p><blockquote><p>FSchlick ( v , n ) = F0 + ( 1 - F0 ) ( 1 - v · n)5</p></blockquote><p>其中，F0 是一个反射系数，用于控制菲涅尔反射的强度，v 是视角方向，n 是表面法线。另一个应用比较广泛的等式是 <strong>Empricial菲涅尔</strong> 近似等式：</p><blockquote><p>FEmpricial ( v , n ) = max ( 0 , min ( 1 , bias + scale * ( 1 - v · n ) power))</p></blockquote><p>其中 bias、scale 和 power 是控制项。</p><p>下面将使用 <strong>Schlick菲涅尔</strong> 近似等式来模拟菲涅尔反射。在片元着色器中，我们套用 Schlick 菲涅尔公式来计算菲尼尔比率，然后用该比率插值混合 <strong>漫反射光照</strong> 和 <strong>反射光照</strong> 。</p><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>Shader</span> <span class=err>&#34;</span><span class=n>Unlit</span><span class=o>/</span><span class=n>Fresnel</span><span class=err>&#34;</span>
+<span class=p>{</span>
+    <span class=n>Properties</span>
+    <span class=p>{</span>
+        <span class=n>_Color</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Color</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Color</span><span class=p>)</span> <span class=o>=</span> <span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>,</span><span class=mi>1</span><span class=p>)</span>
+        <span class=n>_FresnelScale</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Fresnel</span> <span class=n>Scale</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Range</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mi>1</span><span class=p>))</span> <span class=o>=</span> <span class=mf>0.5</span>
+        <span class=n>_CubeMap</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Cube</span> <span class=n>Map</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Cube</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>_Skybox</span><span class=err>&#34;</span>
+    <span class=p>}</span>
+    <span class=n>SubShader</span>
+    <span class=p>{</span>
+        <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>RenderType</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Opaque</span><span class=err>&#34;</span> <span class=p>}</span>
+
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=n>Tags</span> <span class=p>{</span><span class=err>&#34;</span><span class=n>LightMode</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>ForwardBase</span><span class=err>&#34;</span><span class=p>}</span>
+
+            <span class=n>CGPROGRAM</span>
+
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>multi_compile_fwdbase</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>Lighting</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>AutoLight</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+
+            <span class=n>float4</span> <span class=n>_Color</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_FresnelScale</span><span class=p>;</span>
+            <span class=n>samplerCUBE</span> <span class=n>_CubeMap</span><span class=p>;</span>
+
+            <span class=k>struct</span> <span class=n>appdata</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>vertex</span> <span class=o>:</span> <span class=n>POSITION</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>normal</span> <span class=o>:</span> <span class=n>NORMAL</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>pos</span> <span class=o>:</span> <span class=n>SV_POSITION</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>worldNormal</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>worldPos</span> <span class=o>:</span> <span class=n>TEXCOORD1</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>worldRefl</span> <span class=o>:</span> <span class=n>TEXCOORD2</span><span class=p>;</span>
+                <span class=n>SHADOW_COORDS</span><span class=p>(</span><span class=mi>3</span><span class=p>)</span>
+            <span class=p>};</span>
+
+            <span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>pos</span> <span class=o>=</span> <span class=n>UnityObjectToClipPos</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>worldNormal</span> <span class=o>=</span> <span class=n>UnityObjectToWorldNormal</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>worldPos</span> <span class=o>=</span> <span class=n>mul</span><span class=p>(</span><span class=n>unity_ObjectToWorld</span><span class=p>,</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>).</span><span class=n>xyz</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>worldRefl</span> <span class=o>=</span> <span class=n>reflect</span><span class=p>(</span><span class=o>-</span><span class=n>UnityWorldSpaceViewDir</span><span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=n>worldPos</span><span class=p>),</span> <span class=n>o</span><span class=p>.</span><span class=n>worldNormal</span><span class=p>);</span> <span class=c1>// 计算反射方向</span>
+
+                <span class=n>TRANSFER_SHADOW</span><span class=p>(</span><span class=n>o</span><span class=p>);</span>
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+
+            <span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=n>half3</span> <span class=n>worldNormal</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>worldNormal</span><span class=p>);</span>
+                <span class=n>half3</span> <span class=n>worldLightDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>UnityWorldSpaceLightDir</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>worldPos</span><span class=p>));</span>
+                <span class=n>half3</span> <span class=n>worldViewDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>UnityWorldSpaceViewDir</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>worldPos</span><span class=p>));</span>
+
+                <span class=k>half</span> <span class=n>NdotL</span> <span class=o>=</span> <span class=n>max</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=n>dot</span><span class=p>(</span><span class=n>worldNormal</span><span class=p>,</span> <span class=n>worldLightDir</span><span class=p>));</span>
+                <span class=n>half3</span> <span class=n>reflection</span> <span class=o>=</span> <span class=n>texCUBE</span><span class=p>(</span><span class=n>_CubeMap</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>worldRefl</span><span class=p>).</span><span class=n>rgb</span><span class=p>;</span> <span class=c1>// 采样 Cubemap</span>
+                <span class=k>half</span> <span class=n>fresnel</span> <span class=o>=</span> <span class=n>_FresnelScale</span> <span class=o>+</span> <span class=p>(</span><span class=mf>1.0</span> <span class=o>-</span> <span class=n>_FresnelScale</span><span class=p>)</span> <span class=o>*</span> <span class=n>pow</span><span class=p>((</span><span class=mf>1.0</span> <span class=o>-</span> <span class=n>dot</span><span class=p>(</span><span class=n>worldViewDir</span><span class=p>,</span> <span class=n>worldNormal</span><span class=p>)),</span> <span class=mf>5.0</span><span class=p>);</span> <span class=c1>// 计算 Fresnel 效果</span>
+                
+                <span class=n>half3</span> <span class=n>ambient</span> <span class=o>=</span> <span class=n>UNITY_LIGHTMODEL_AMBIENT</span><span class=p>.</span><span class=n>xyz</span><span class=p>;</span>
+                <span class=n>half3</span> <span class=n>diffuse</span> <span class=o>=</span> <span class=n>_LightColor0</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>_Color</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>NdotL</span><span class=p>;</span>
+
+                <span class=n>UNITY_LIGHT_ATTENUATION</span><span class=p>(</span><span class=n>atten</span><span class=p>,</span> <span class=n>i</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>worldPos</span><span class=p>);</span>
+                <span class=k>return</span> <span class=n>half4</span><span class=p>(</span><span class=n>ambient</span> <span class=o>+</span> <span class=n>lerp</span><span class=p>(</span><span class=n>diffuse</span><span class=p>,</span> <span class=n>reflection</span><span class=p>,</span> <span class=n>saturate</span><span class=p>(</span><span class=n>fresnel</span><span class=p>))</span> <span class=o>*</span> <span class=n>atten</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
+            <span class=p>}</span>
+            <span class=n>ENDCG</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=err>&#34;</span><span class=n>Reflective</span><span class=o>/</span><span class=n>VertexLit</span><span class=err>&#34;</span>
+<span class=p>}</span>
+</code></pre></div><h2 id=渲染纹理>渲染纹理</h2><p>一个摄像机的渲染结果会输出到颜色缓冲中，并显示到我们的屏幕上。现代的 GPU 允许我们把整个三维场景渲染到一个中间缓存中，即 <strong>渲染目标纹理 (Render Target Texture，RTT)</strong> ，而不是传统的 <strong>帧缓冲或后备缓冲 ( back buffer )</strong> 。与之相关的是 <strong>多重渲染目标 ( Multiple Render Target ，MRT )</strong> ，这种技术指的是 GPU 允许我们把场景同时渲染到多个目标纹理中，而不再需要为每个渲染目标纹理单独渲染完整的场景。延迟渲染就是使用多重渲染目标的一个应用。</p><p>Unity 为渲染目标纹理定义了一种专门的纹理类型—— <strong>渲染纹理 ( Render Texture )</strong> 。在 Unity 中使用渲染纹理通常有两种方式：</p><ul><li>一种方式是在 Project 目录下创建一个 <strong>渲染纹理</strong> ，然后把某个摄像机的 <strong>渲染目标</strong> 设置成该 <strong>渲染纹理</strong> ，这样一来该摄像机的渲染结果就会实时更新到 <strong>渲染纹理</strong> 中，而不会显示在屏幕上。使用这种方法，我们还可以选择纹理的分辨率、滤波模式等纹理属性。</li><li>另一种方式是在屏幕后处理时使用 <strong>GrabPass</strong> 命令或 <strong>OnRenderImage</strong> 函数来获取当前屏幕图像，Unity 会把这个屏幕图像放到一张和屏幕分辨率等同的渲染纹理中，下面我们可以在自定义的 Pass 中把它们当成普通纹理来处理，从而实现各种屏幕特效。</li></ul><h3 id=镜子效果>镜子效果</h3><p>关键在于新建一个摄像机，一个 Render Texture，将新建的 Render Texture 当作新建相机的 <strong>Target Texture</strong> ，新建一个 Shader，shader 里声明一个 2D 纹理属性，将新建的 Render Texture 赋值给它。</p><ol><li>创建一个四边形（Quad），调整它的位置和大小，用于充当镜子。</li><li>为了得到从镜子出发观察到的场景图像，我们需要创建一个摄像机，并调整它的位置、裁剪平面、视角等，使得它显示的图像是我们希望的镜子的图像。</li><li>由于这个摄像机不需要直接显示在屏幕上，而是用于渲染纹理。因此我们可以直接创建一个 <strong>Texture</strong> 并拖拽到该摄像机的 <strong>Target Texture</strong> 上。</li></ol><p>关于 Quad 的着色器实现也非常简单，只需要声明一个纹理属性，然后将该纹理进行左右翻转后输出。</p><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>Shader</span> <span class=err>&#34;</span><span class=n>Unlit</span><span class=o>/</span><span class=n>Mirror</span><span class=err>&#34;</span>
+<span class=p>{</span>
+    <span class=n>Properties</span>
+    <span class=p>{</span>
+        <span class=n>_MainTex</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>Texture</span><span class=err>&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=n>D</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>white</span><span class=err>&#34;</span> <span class=p>{}</span>
+    <span class=p>}</span>
+    <span class=n>SubShader</span>
+    <span class=p>{</span>
+        <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>RenderType</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Opaque</span><span class=err>&#34;</span> <span class=p>}</span>
+        <span class=n>LOD</span> <span class=mi>100</span>
+
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=n>CGPROGRAM</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+
+            <span class=k>sampler2D</span> <span class=n>_MainTex</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_MainTex_ST</span><span class=p>;</span>
+
+            <span class=k>struct</span> <span class=n>appdata</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>vertex</span> <span class=o>:</span> <span class=n>POSITION</span><span class=p>;</span>
+                <span class=n>float2</span> <span class=n>texcoord</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>pos</span> <span class=o>:</span> <span class=n>SV_POSITION</span><span class=p>;</span>
+                <span class=n>float2</span> <span class=n>uv</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>pos</span> <span class=o>=</span> <span class=n>UnityObjectToClipPos</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>);</span>
+
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>texcoord</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>x</span> <span class=o>=</span> <span class=mi>1</span> <span class=o>-</span> <span class=n>o</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>x</span><span class=p>;</span> <span class=c1>// 反转 x 轴</span>
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+
+            <span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=n>fixed4</span> <span class=n>col</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_MainTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span><span class=p>);</span>
+                <span class=k>return</span> <span class=n>col</span><span class=p>;</span>
+            <span class=p>}</span>
+            <span class=n>ENDCG</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=n>FallBack</span> <span class=n>Off</span>
+<span class=p>}</span>
+</code></pre></div><h3 id=玻璃效果>玻璃效果</h3><p>Unity 中，还可以在 Unity Shader 中使用一种特殊的 Pass 来完成获取屏幕图像的目的，这就是 <strong>GrabPass</strong> 。通常会使用 <strong>GrabPass</strong> 来实现诸如 <code>玻璃等透明材质的模拟</code> ，与使用简单的透明混合不同，使用 <strong>GrabPass</strong> 可以让我们对物体后面的图像进行更复杂的处理，例如使用法线来模拟折射效果，而不再是简单的和原屏幕颜色混合。</p><p>当我们在 Shader 中定义了一个 <strong>GrabPass</strong> 后，Unity 会把当前屏幕的图像绘制在一张纹理中，以便我们在后续的 Pass 中访问它。需要注意的是，在使用 <strong>GrabPass</strong> 的时候，我们需要额外小心物体的渲染队列设置。正如之前所说，<strong>GrabPass</strong> 通常用于渲染透明物体，尽管代码里并不包含混合指令，但我们往往仍然需要把物体的 <strong>渲染队列</strong> 设置成 <strong>透明队列</strong> （即 <strong>“Queue”=“Transparent”</strong> ）。这样才能保证渲染物体时，所有的不透明物体都已经被绘制在屏幕上，从而获得正确的屏幕图像。</p><h4 id=grabpass-的两种形式>GrabPass 的两种形式</h4><ul><li>直接使用 <strong>GrabPass{}</strong> ，然后在后续的 Pass 中直接使用 <strong>_GrabTexture</strong> 来访问屏幕图像。但是当场景中有多个物体都使用了这样的形式来抓取屏幕时，这种方法的性能消耗比较大，因为对于每一个使用它的物体，Unity 都会为它单独进行一次昂贵的屏幕抓取操作。但这种方法可以让每个物体得到不同的屏幕图像，这取决于它们的渲染队列及渲染它们时当前的屏幕缓冲中的颜色。</li><li>使用 <strong>GrabPass{“TextureName”}</strong> ，正如本节所实现，我们可以在后续的 Pass 中使用 <strong>TextureName</strong> 来访问屏幕图像。使用这种方法同样可以抓取屏幕，但 Unity 只会在每一帧为第一个使用名为 <strong>TextureName</strong> 的纹理的物体执行一次屏幕抓取操作，而这个纹理同时也可以在其它 Pass 中被访问。这种方法更加高效，因为不管场景中有多少物体使用了该命令，每一帧中 Unity 都只会执行一次抓取操作，这也意味着所有物体都会使用同一张屏幕图像。不过，在大多数情况下这已经足够了。</li></ul><p>在本节中，我们将会使用 <strong>GrabPass</strong> 来模拟一个玻璃效果。</p><h4 id=思路>思路</h4><p>这种效果实现非常简单，我们首先使用一张法线纹理来修改模型的法线信息，然后使用反射的方法，通过一个 <strong>Cubemap</strong> 来模拟玻璃反射，而在模拟折射时，则使用了 <strong>GrabPass</strong> 获取玻璃后面的屏幕图像，并使用切线空间下的法线对屏幕纹理坐标偏移后，再对屏幕图像进行采样来模拟近似的折射效果。</p><h4 id=具体实现>具体实现</h4><ol><li>搭建环境：建立一个房间，然后放置了一个立方体和球体，其中球体位于立方体内部，这是为了模拟玻璃对内部物体的折射效果。创建一个着色器付给立方体。</li><li>在着色器中，我们把 <strong>Queue</strong> 设置成 <strong>Transparent</strong> 可以保证该物体渲染时，其它所有不透明物体都已经被渲染到屏幕上了，否则就可能无法正确得到“透过玻璃看到的图像”。</li><li>然后设置 <strong>RenderType</strong> 为 <strong>Opaque</strong> 则是为了在使用 <strong>着色器替换 ( Shader Replacement )</strong> 时，该物体可以在需要时被正确渲染。这通常发生在我们需要得到摄像机的深度和法线纹理时。</li><li>通过关键词 <strong>CrabPass</strong> 定义了一个抓取屏幕图像的 Pass。在这个 Pass 中我们定义了一个字符串，该字符串内部的名称决定了抓取到的屏幕图像将会被存入哪个纹理中。实际上，我们可以省略声明该字符串，但直接声明纹理名称的方法往往可以得到更高的性能。</li><li>定义了 <strong>_RefractionTex</strong> 和 <strong>_RefractionTex_TexelSize</strong> 变量，这对应了在使用 <strong>GrabPass</strong> 时指定的纹理名称。 <strong>_RefractionTex_TexelSize</strong> 可以让我们得到该像素的纹理大小，例如一个大小为 256×512 的纹理，它的像素大小为（1/256, 1/512）。我们需要在对屏幕图像的采样坐标进行偏移时使用该量。</li><li>在顶点着色器中通过调用内置的 <strong>ComputeGrabScreenPos</strong> 函数来得到对应被抓取的屏幕图像的采样坐标。</li><li>在片元着色器中我们对法线纹理进行采样，得到切线空间下的法线方向。我们使用该值和 <strong>_Distortion</strong> 属性以及 <strong>_RefractionTex_TexelSize</strong> 来对屏幕图像的采样所需的坐标进行偏移，模拟折射效果。 <strong>_Distortion</strong> 值越大，偏移量越大，玻璃背后的物体看起来变形程度越大。</li><li>在对屏幕纹理进行采样时使用了 <strong>齐次除法</strong> 获取视口坐标下的坐标：( i.scrPos.xy / i.scrPos.w )</li><li>最后，我们使用 <strong>_RefractAmount</strong> 属性对反射和折射颜色进行混合，作为最终的输出颜色。</li></ol><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>Shader</span> <span class=err>&#34;</span><span class=n>Unlit</span><span class=o>/</span><span class=n>Glass</span><span class=err>&#34;</span>
+<span class=p>{</span>
+    <span class=n>Properties</span>
+    <span class=p>{</span>
+        <span class=n>_MainTex</span> <span class=p>(</span><span class=err>&#34;</span><span class=n>MainTex</span><span class=err>&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=n>D</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>white</span><span class=err>&#34;</span> <span class=p>{}</span>
+        <span class=n>_BumpTex</span><span class=p>(</span><span class=err>&#34;</span><span class=n>BumpTex</span><span class=err>&#34;</span><span class=p>,</span> <span class=mi>2</span><span class=n>D</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>bump</span><span class=err>&#34;</span> <span class=p>{}</span>
+        <span class=n>_Cubemap</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Cube</span> <span class=n>Map</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Cube</span><span class=p>)</span> <span class=o>=</span> <span class=err>&#34;</span><span class=n>_Skybox</span><span class=err>&#34;</span> <span class=p>{}</span>
+        <span class=n>_Distortion</span><span class=p>(</span><span class=err>&#34;</span><span class=n>Distortion</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Range</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mi>100</span><span class=p>))</span> <span class=o>=</span> <span class=mi>10</span>
+        <span class=n>_RefractAmount</span><span class=p>(</span><span class=err>&#34;</span><span class=n>RefractAmount</span><span class=err>&#34;</span><span class=p>,</span> <span class=n>Range</span><span class=p>(</span><span class=mf>0.0</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>))</span> <span class=o>=</span> <span class=mf>1.0</span>
+    <span class=p>}</span>
+    <span class=n>SubShader</span>
+    <span class=p>{</span>
+        <span class=n>Tags</span> <span class=p>{</span> <span class=err>&#34;</span><span class=n>RenderType</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Opaque</span><span class=err>&#34;</span> <span class=err>&#34;</span><span class=n>Queue</span><span class=err>&#34;</span><span class=o>=</span><span class=err>&#34;</span><span class=n>Transparent</span><span class=err>&#34;</span> <span class=p>}</span>
+
+        <span class=n>GrabPass</span> 
+        <span class=p>{</span>
+            <span class=err>&#34;</span><span class=n>_RefractionTex</span><span class=err>&#34;</span>  <span class=c1>// GrabPass：用于抓取屏幕图像的 pass，内部字符串决定输出纹理名称</span>
+        <span class=p>}</span>
+
+        <span class=n>Pass</span>
+        <span class=p>{</span>
+            <span class=n>CGPROGRAM</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>vertex</span> <span class=n>vert</span>
+            <span class=err>#</span><span class=n>pragma</span> <span class=n>fragment</span> <span class=n>frag</span>
+
+            <span class=err>#</span><span class=n>include</span> <span class=err>&#34;</span><span class=n>UnityCG</span><span class=p>.</span><span class=n>cginc</span><span class=err>&#34;</span>
+
+            <span class=k>sampler2D</span> <span class=n>_MainTex</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_MainTex_ST</span><span class=p>;</span>
+            <span class=k>sampler2D</span> <span class=n>_BumpTex</span><span class=p>;</span>
+            <span class=n>float4</span> <span class=n>_BumpTex_ST</span><span class=p>;</span>
+            <span class=n>samplerCUBE</span> <span class=n>_Cubemap</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_Distortion</span><span class=p>;</span>
+            <span class=k>float</span> <span class=n>_RefractAmount</span><span class=p>;</span>
+
+            <span class=k>sampler2D</span> <span class=n>_RefractionTex</span><span class=p>;</span>        <span class=c1>// 获取屏幕图像输出的纹理</span>
+            <span class=n>float4</span> <span class=n>_RefractionTex_TexelSize</span><span class=p>;</span> <span class=c1>// 获取纹理的纹素大小</span>
+
+            <span class=k>struct</span> <span class=n>appdata</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>vertex</span> <span class=o>:</span> <span class=n>POSITION</span><span class=p>;</span>
+                <span class=n>float4</span> <span class=n>texcoord</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>normal</span> <span class=o>:</span> <span class=n>NORMAL</span><span class=p>;</span>
+                <span class=n>float4</span> <span class=n>tangent</span> <span class=o>:</span> <span class=n>TANGENT</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=k>struct</span> <span class=n>v2f</span>
+            <span class=p>{</span>
+                <span class=n>float4</span> <span class=n>pos</span> <span class=o>:</span> <span class=n>SV_POSITION</span><span class=p>;</span>
+                <span class=n>float4</span> <span class=n>uv</span> <span class=o>:</span> <span class=n>TEXCOORD0</span><span class=p>;</span>
+                <span class=n>float4</span> <span class=n>screenPos</span> <span class=o>:</span> <span class=n>TEXCOORD1</span><span class=p>;</span> <span class=c1>// 屏幕采样坐标</span>
+                <span class=n>float4</span> <span class=n>TtoW0</span> <span class=o>:</span> <span class=n>TEXCOORD2</span><span class=p>;</span>
+                <span class=n>float4</span> <span class=n>TtoW1</span> <span class=o>:</span> <span class=n>TEXCOORD3</span><span class=p>;</span>
+                <span class=n>float4</span> <span class=n>TtoW2</span> <span class=o>:</span> <span class=n>TEXCOORD4</span><span class=p>;</span>
+            <span class=p>};</span>
+
+            <span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>v2f</span> <span class=n>o</span><span class=p>;</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>pos</span> <span class=o>=</span> <span class=n>UnityObjectToClipPos</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>);</span>
+
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>xy</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>texcoord</span><span class=p>.</span><span class=n>xy</span> <span class=o>*</span> <span class=n>_MainTex_ST</span><span class=p>.</span><span class=n>xy</span> <span class=o>+</span> <span class=n>_MainTex_ST</span><span class=p>.</span><span class=n>zw</span><span class=p>;</span> <span class=c1>// 缩放和平移</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>zw</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>texcoord</span><span class=p>.</span><span class=n>xy</span> <span class=o>*</span> <span class=n>_BumpTex_ST</span><span class=p>.</span><span class=n>xy</span> <span class=o>+</span> <span class=n>_BumpTex_ST</span><span class=p>.</span><span class=n>zw</span><span class=p>;</span> <span class=c1>// 缩放和平移</span>
+
+                <span class=n>o</span><span class=p>.</span><span class=n>screenPos</span> <span class=o>=</span> <span class=n>ComputeGrabScreenPos</span><span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=n>pos</span><span class=p>);</span> <span class=c1>// ComputeGrabScreenPos 获取抓取屏幕的采样坐标</span>
+
+                <span class=n>float3</span> <span class=n>worldPos</span> <span class=o>=</span> <span class=n>mul</span><span class=p>(</span><span class=n>unity_ObjectToWorld</span><span class=p>,</span> <span class=n>v</span><span class=p>.</span><span class=n>vertex</span><span class=p>).</span><span class=n>xyz</span><span class=p>;</span>
+                <span class=n>float3</span> <span class=n>worldNormal</span> <span class=o>=</span> <span class=n>UnityObjectToWorldNormal</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>normal</span><span class=p>);</span>
+                <span class=n>float3</span> <span class=n>worldTangent</span> <span class=o>=</span> <span class=n>UnityObjectToWorldDir</span><span class=p>(</span><span class=n>v</span><span class=p>.</span><span class=n>tangent</span><span class=p>.</span><span class=n>xyz</span><span class=p>);</span>
+                <span class=n>float3</span> <span class=n>worldBinormal</span> <span class=o>=</span> <span class=n>cross</span><span class=p>(</span><span class=n>worldNormal</span><span class=p>,</span> <span class=n>worldTangent</span><span class=p>)</span> <span class=o>*</span> <span class=n>v</span><span class=p>.</span><span class=n>tangent</span><span class=p>.</span><span class=n>w</span><span class=p>;</span>
+
+                <span class=n>o</span><span class=p>.</span><span class=n>TtoW0</span> <span class=o>=</span> <span class=n>float4</span><span class=p>(</span><span class=n>worldTangent</span><span class=p>.</span><span class=n>x</span><span class=p>,</span> <span class=n>worldBinormal</span><span class=p>.</span><span class=n>x</span><span class=p>,</span> <span class=n>worldNormal</span><span class=p>.</span><span class=n>x</span><span class=p>,</span> <span class=n>worldPos</span><span class=p>.</span><span class=n>x</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>TtoW1</span> <span class=o>=</span> <span class=n>float4</span><span class=p>(</span><span class=n>worldTangent</span><span class=p>.</span><span class=n>y</span><span class=p>,</span> <span class=n>worldBinormal</span><span class=p>.</span><span class=n>y</span><span class=p>,</span> <span class=n>worldNormal</span><span class=p>.</span><span class=n>y</span><span class=p>,</span> <span class=n>worldPos</span><span class=p>.</span><span class=n>y</span><span class=p>);</span>
+                <span class=n>o</span><span class=p>.</span><span class=n>TtoW2</span> <span class=o>=</span> <span class=n>float4</span><span class=p>(</span><span class=n>worldTangent</span><span class=p>.</span><span class=n>z</span><span class=p>,</span> <span class=n>worldBinormal</span><span class=p>.</span><span class=n>z</span><span class=p>,</span> <span class=n>worldNormal</span><span class=p>.</span><span class=n>z</span><span class=p>,</span> <span class=n>worldPos</span><span class=p>.</span><span class=n>z</span><span class=p>);</span>
+
+                <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+            <span class=p>}</span>
+
+            <span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+            <span class=p>{</span>
+                <span class=n>half3</span> <span class=n>worldPos</span> <span class=o>=</span> <span class=n>float3</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>TtoW0</span><span class=p>.</span><span class=n>w</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>TtoW1</span><span class=p>.</span><span class=n>w</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>TtoW2</span><span class=p>.</span><span class=n>w</span><span class=p>);</span>
+                <span class=n>half3</span> <span class=n>worldLightDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>UnityWorldSpaceLightDir</span><span class=p>(</span><span class=n>worldPos</span><span class=p>));</span>
+                <span class=n>half3</span> <span class=n>worldViewDir</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>UnityWorldSpaceViewDir</span><span class=p>(</span><span class=n>worldPos</span><span class=p>));</span>
+
+                <span class=n>half3</span> <span class=n>bump</span> <span class=o>=</span> <span class=n>UnpackNormal</span><span class=p>(</span><span class=n>tex2D</span><span class=p>(</span><span class=n>_BumpTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>zw</span><span class=p>));</span>
+                <span class=n>half2</span> <span class=n>offset</span> <span class=o>=</span> <span class=n>bump</span><span class=p>.</span><span class=n>xy</span> <span class=o>*</span> <span class=n>_Distortion</span> <span class=o>*</span> <span class=n>_RefractionTex_TexelSize</span><span class=p>.</span><span class=n>xy</span><span class=p>;</span>
+                <span class=n>i</span><span class=p>.</span><span class=n>screenPos</span><span class=p>.</span><span class=n>xy</span> <span class=o>=</span> <span class=n>offset</span> <span class=o>*</span> <span class=n>i</span><span class=p>.</span><span class=n>screenPos</span><span class=p>.</span><span class=n>z</span> <span class=o>+</span> <span class=n>i</span><span class=p>.</span><span class=n>screenPos</span><span class=p>.</span><span class=n>xy</span><span class=p>;</span>
+
+                <span class=n>half3</span> <span class=n>refrCol</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_RefractionTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>screenPos</span><span class=p>.</span><span class=n>xy</span> <span class=o>/</span> <span class=n>i</span><span class=p>.</span><span class=n>screenPos</span><span class=p>.</span><span class=n>w</span><span class=p>).</span><span class=n>rgb</span><span class=p>;</span>
+
+                <span class=n>bump</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>half3</span><span class=p>(</span><span class=n>dot</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>TtoW0</span><span class=p>.</span><span class=n>xyz</span><span class=p>,</span> <span class=n>bump</span><span class=p>),</span> <span class=n>dot</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>TtoW1</span><span class=p>.</span><span class=n>xyz</span><span class=p>,</span> <span class=n>bump</span><span class=p>),</span> <span class=n>dot</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>TtoW2</span><span class=p>.</span><span class=n>xyz</span><span class=p>,</span> <span class=n>bump</span><span class=p>)));</span>
+
+                <span class=n>half3</span> <span class=n>reflDir</span> <span class=o>=</span> <span class=n>reflect</span><span class=p>(</span><span class=o>-</span><span class=n>worldViewDir</span><span class=p>,</span> <span class=n>bump</span><span class=p>);</span>
+                <span class=n>half4</span> <span class=n>texColor</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_MainTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>xy</span><span class=p>);</span>
+                <span class=n>half3</span> <span class=n>reflCol</span> <span class=o>=</span> <span class=n>texCUBE</span><span class=p>(</span><span class=n>_Cubemap</span><span class=p>,</span> <span class=n>reflDir</span><span class=p>).</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>texColor</span><span class=p>.</span><span class=n>rgb</span><span class=p>;</span>
+
+                <span class=n>half3</span> <span class=n>col</span> <span class=o>=</span> <span class=n>reflCol</span> <span class=o>*</span> <span class=p>(</span><span class=mi>1</span> <span class=o>-</span> <span class=n>_RefractAmount</span><span class=p>)</span> <span class=o>+</span> <span class=n>refrCol</span> <span class=o>*</span> <span class=n>_RefractAmount</span><span class=p>;</span>
+
+                <span class=k>return</span> <span class=n>half4</span><span class=p>(</span><span class=n>col</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
+            <span class=p>}</span>
+            <span class=n>ENDCG</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=n>Fallback</span> <span class=err>&#34;</span><span class=n>Diffuse</span><span class=err>&#34;</span>
+<span class=p>}</span>
+</code></pre></div><h3 id=渲染纹理-vs-grabpass>渲染纹理 VS GrabPass</h3><ul><li>GrabPass 的好处在于实现简单，我们只需在 Shader 中写几行代码就可以实现抓取屏幕的问题。</li><li>从效率上来讲，使用渲染纹理的效率往往要好于 GrabPass ，尤其在移动设备上。使用渲染纹理我们可以自定义渲染纹理的大小，尽管这种方法需要把部分场景再次渲染一遍，但我们可以通过调整摄像机的渲染层来减少二次渲染时的场景大小，或使用其它方法来控制摄像机是否需要开启。</li></ul><p>GrabPass 获取到的图像分辨率和显示屏幕是一致的，这意味着在一些高分辨率的设备上可能会造成严重的带宽影响。</p><p>在移动设备上，GrabPass 虽然不会重新渲染场景，但它往往需要 CPU 直接读取后备缓冲（back buffer）中的数据，破坏了 CPU 和 GPU 之间的并行性，这是比较耗时的，甚至在一些移动设备上这是不支持的。</p><h3 id=命令缓存-command-buffers>命令缓存 (Command Buffers)</h3><p>在 Unity5 中，Unity 引入了 <strong>命令缓冲（Command Buffers）</strong> 来允许我们扩展 Unity 的渲染流水线。使用命令缓冲我们也可以得到类似抓屏的效果，它可以在不透明物体渲染后把当前的图像复制到一个临时的渲染目标纹理中，然后在那里进行一些额外的操作，例如模糊等，最后把图像传递给需要使用它的物体进行处理和显示。</p><p>有关命令缓冲区更多知识，移步：<a class=link href=https://docs.unity.cn/cn/current/Manual/GraphicsCommandBuffers.html target=_blank rel=noopener>图形命令缓冲区 - Unity 手册</a></p><h2 id=程序纹理>程序纹理</h2><p><strong>程序纹理（Procedural Texture）</strong> 指的是那些由计算机生成的图像，我们通常使用一些特定的算法来创建个性化图案或非常真实的自然元素，例如木头、石子等。</p><p>使用 <strong>程序纹理</strong> 的好处在于我们可以使用各种参数来控制纹理的外观，而这些属性不仅仅是那些颜色属性，甚至可以是完全不同类型的图案属性，这是我们可以得到更加丰富的动画和视觉效果。</p><div class=highlight><pre class=chroma><code class=language-c# data-lang=c#><span class=k>using</span> <span class=nn>UnityEngine</span><span class=p>;</span>
+<span class=k>using</span> <span class=nn>System.Collections</span><span class=p>;</span>
+<span class=k>using</span> <span class=nn>System.Collections.Generic</span><span class=p>;</span>
+<span class=na>
+</span><span class=na>[ExecuteInEditMode]</span><span class=c1>//用于编辑器下运行
+</span><span class=c1></span><span class=k>public</span> <span class=k>class</span> <span class=nc>ProceduralTextureGeneration</span> <span class=p>:</span> <span class=n>MonoBehaviour</span>
+<span class=p>{</span>
+    <span class=c1>// 声明材质
+</span><span class=c1></span>    <span class=k>public</span> <span class=n>Material</span> <span class=n>material</span> <span class=p>=</span> <span class=k>null</span><span class=p>;</span>
+
+    <span class=cp>#region Material properties//材质属性
+</span><span class=cp></span>    <span class=c1>// 纹理大小
+</span><span class=c1></span><span class=na>    [SerializeField, SetProperty(&#34;textureWidth&#34;)]</span>
+    <span class=c1>// 值通常是2的整数幂
+</span><span class=c1></span>    <span class=k>private</span> <span class=kt>int</span> <span class=n>m_textureWidth</span> <span class=p>=</span> <span class=m>512</span><span class=p>;</span>
+    <span class=k>public</span> <span class=kt>int</span> <span class=n>textureWidth</span>
+    <span class=p>{</span>
+        <span class=k>get</span>
+        <span class=p>{</span>
+            <span class=k>return</span> <span class=n>m_textureWidth</span><span class=p>;</span>
+        <span class=p>}</span>
+        <span class=k>set</span>
+        <span class=p>{</span>
+            <span class=n>m_textureWidth</span> <span class=p>=</span> <span class=k>value</span><span class=p>;</span>
+            <span class=m>_</span><span class=n>UpdateMaterial</span><span class=p>();</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=c1>// 纹理背景颜色
+</span><span class=c1></span><span class=na>    [SerializeField, SetProperty(&#34;backgroundColor&#34;)]</span>
+    <span class=k>private</span> <span class=n>Color</span> <span class=n>m_backgroundColor</span> <span class=p>=</span> <span class=n>Color</span><span class=p>.</span><span class=n>white</span><span class=p>;</span>
+    <span class=k>public</span> <span class=n>Color</span> <span class=n>backgroundColor</span>
+    <span class=p>{</span>
+        <span class=k>get</span>
+        <span class=p>{</span>
+            <span class=k>return</span> <span class=n>m_backgroundColor</span><span class=p>;</span>
+        <span class=p>}</span>
+        <span class=k>set</span>
+        <span class=p>{</span>
+            <span class=n>m_backgroundColor</span> <span class=p>=</span> <span class=k>value</span><span class=p>;</span>
+            <span class=m>_</span><span class=n>UpdateMaterial</span><span class=p>();</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=c1>// 圆点颜色
+</span><span class=c1></span><span class=na>    [SerializeField, SetProperty(&#34;circleColor&#34;)]</span>
+    <span class=k>private</span> <span class=n>Color</span> <span class=n>m_circleColor</span> <span class=p>=</span> <span class=n>Color</span><span class=p>.</span><span class=n>yellow</span><span class=p>;</span>
+    <span class=k>public</span> <span class=n>Color</span> <span class=n>circleColor</span>
+    <span class=p>{</span>
+        <span class=k>get</span>
+        <span class=p>{</span>
+            <span class=k>return</span> <span class=n>m_circleColor</span><span class=p>;</span>
+        <span class=p>}</span>
+        <span class=k>set</span>
+        <span class=p>{</span>
+            <span class=n>m_circleColor</span> <span class=p>=</span> <span class=k>value</span><span class=p>;</span>
+            <span class=m>_</span><span class=n>UpdateMaterial</span><span class=p>();</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=c1>// 模糊因子
+</span><span class=c1></span><span class=na>    [SerializeField, SetProperty(&#34;blurFactor&#34;)]</span>
+    <span class=c1>// 用来磨合圆形边界
+</span><span class=c1></span>    <span class=k>private</span> <span class=kt>float</span> <span class=n>m_blurFactor</span> <span class=p>=</span> <span class=m>2.0f</span><span class=p>;</span>
+    <span class=k>public</span> <span class=kt>float</span> <span class=n>blurFactor</span>
+    <span class=p>{</span>
+        <span class=k>get</span>
+        <span class=p>{</span>
+            <span class=k>return</span> <span class=n>m_blurFactor</span><span class=p>;</span>
+        <span class=p>}</span>
+        <span class=k>set</span>
+        <span class=p>{</span>
+            <span class=n>m_blurFactor</span> <span class=p>=</span> <span class=k>value</span><span class=p>;</span>
+            <span class=m>_</span><span class=n>UpdateMaterial</span><span class=p>();</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+    <span class=cp>#endregion
+</span><span class=cp></span>
+    <span class=c1>/// &lt;summary&gt;生成的纹理&lt;/summary&gt;
+</span><span class=c1></span>    <span class=k>private</span> <span class=n>Texture2D</span> <span class=n>m_generatedTexture</span> <span class=p>=</span> <span class=k>null</span><span class=p>;</span>
+
+    <span class=c1>// 初始化
+</span><span class=c1></span>    <span class=k>void</span> <span class=n>Start</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1>// 检测材质是否为空
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=n>material</span> <span class=p>==</span> <span class=k>null</span><span class=p>)</span>
+        <span class=p>{</span>
+            <span class=c1>// 获取渲染器
+</span><span class=c1></span>            <span class=n>Renderer</span> <span class=n>renderer</span> <span class=p>=</span> <span class=n>gameObject</span><span class=p>.</span><span class=n>GetComponent</span><span class=p>&lt;</span><span class=n>Renderer</span><span class=p>&gt;();</span>
+            <span class=k>if</span> <span class=p>(</span><span class=n>renderer</span> <span class=p>==</span> <span class=k>null</span><span class=p>)</span>
+            <span class=p>{</span>
+                <span class=n>Debug</span><span class=p>.</span><span class=n>LogWarning</span><span class=p>(</span><span class=s>&#34;找不到渲染器。&#34;</span><span class=p>);</span>
+                <span class=k>return</span><span class=p>;</span>
+            <span class=p>}</span>
+            <span class=c1>// 获取渲染器的材质
+</span><span class=c1></span>            <span class=n>material</span> <span class=p>=</span> <span class=n>renderer</span><span class=p>.</span><span class=n>sharedMaterial</span><span class=p>;</span>
+        <span class=p>}</span>
+
+        <span class=m>_</span><span class=n>UpdateMaterial</span><span class=p>();</span>
+    <span class=p>}</span>
+
+    <span class=c1>/// &lt;summary&gt;
+</span><span class=c1></span>    <span class=c1>/// 生成纹理
+</span><span class=c1></span>    <span class=c1>/// &lt;/summary&gt;
+</span><span class=c1></span>    <span class=k>private</span> <span class=k>void</span> <span class=m>_</span><span class=n>UpdateMaterial</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=c1>// 材质不为空
+</span><span class=c1></span>        <span class=k>if</span> <span class=p>(</span><span class=n>material</span> <span class=p>!=</span> <span class=k>null</span><span class=p>)</span>
+        <span class=p>{</span>
+            <span class=c1>// 调用方法生成程序纹理
+</span><span class=c1></span>            <span class=n>m_generatedTexture</span> <span class=p>=</span> <span class=m>_</span><span class=n>GenerateProceduralTexture</span><span class=p>();</span>
+            <span class=c1>// 将纹理赋值给材质
+</span><span class=c1></span>            <span class=n>material</span><span class=p>.</span><span class=n>SetTexture</span><span class=p>(</span><span class=s>&#34;_MainTex&#34;</span><span class=p>,</span> <span class=n>m_generatedTexture</span><span class=p>);</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+
+    <span class=k>private</span> <span class=n>Color</span> <span class=m>_</span><span class=n>MixColor</span><span class=p>(</span><span class=n>Color</span> <span class=n>color0</span><span class=p>,</span> <span class=n>Color</span> <span class=n>color1</span><span class=p>,</span> <span class=kt>float</span> <span class=n>mixFactor</span><span class=p>)</span>
+    <span class=p>{</span>
+        <span class=n>Color</span> <span class=n>mixColor</span> <span class=p>=</span> <span class=n>Color</span><span class=p>.</span><span class=n>white</span><span class=p>;</span>
+        <span class=n>mixColor</span><span class=p>.</span><span class=n>r</span> <span class=p>=</span> <span class=n>Mathf</span><span class=p>.</span><span class=n>Lerp</span><span class=p>(</span><span class=n>color0</span><span class=p>.</span><span class=n>r</span><span class=p>,</span> <span class=n>color1</span><span class=p>.</span><span class=n>r</span><span class=p>,</span> <span class=n>mixFactor</span><span class=p>);</span>
+        <span class=n>mixColor</span><span class=p>.</span><span class=n>g</span> <span class=p>=</span> <span class=n>Mathf</span><span class=p>.</span><span class=n>Lerp</span><span class=p>(</span><span class=n>color0</span><span class=p>.</span><span class=n>g</span><span class=p>,</span> <span class=n>color1</span><span class=p>.</span><span class=n>g</span><span class=p>,</span> <span class=n>mixFactor</span><span class=p>);</span>
+        <span class=n>mixColor</span><span class=p>.</span><span class=n>b</span> <span class=p>=</span> <span class=n>Mathf</span><span class=p>.</span><span class=n>Lerp</span><span class=p>(</span><span class=n>color0</span><span class=p>.</span><span class=n>b</span><span class=p>,</span> <span class=n>color1</span><span class=p>.</span><span class=n>b</span><span class=p>,</span> <span class=n>mixFactor</span><span class=p>);</span>
+        <span class=n>mixColor</span><span class=p>.</span><span class=n>a</span> <span class=p>=</span> <span class=n>Mathf</span><span class=p>.</span><span class=n>Lerp</span><span class=p>(</span><span class=n>color0</span><span class=p>.</span><span class=n>a</span><span class=p>,</span> <span class=n>color1</span><span class=p>.</span><span class=n>a</span><span class=p>,</span> <span class=n>mixFactor</span><span class=p>);</span>
+        <span class=k>return</span> <span class=n>mixColor</span><span class=p>;</span>
+    <span class=p>}</span>
+    <span class=c1>/// &lt;summary&gt;
+</span><span class=c1></span>    <span class=c1>/// 生成程序纹理
+</span><span class=c1></span>    <span class=c1>/// &lt;/summary&gt;
+</span><span class=c1></span>    <span class=c1>/// &lt;returns&gt;&lt;/returns&gt;
+</span><span class=c1></span>    <span class=k>private</span> <span class=n>Texture2D</span> <span class=m>_</span><span class=n>GenerateProceduralTexture</span><span class=p>()</span>
+    <span class=p>{</span>
+        <span class=n>Texture2D</span> <span class=n>proceduralTexture</span> <span class=p>=</span> <span class=k>new</span> <span class=n>Texture2D</span><span class=p>(</span><span class=n>textureWidth</span><span class=p>,</span> <span class=n>textureWidth</span><span class=p>);</span>
+
+        <span class=c1>// 定义圆与圆之间的间距
+</span><span class=c1></span>        <span class=kt>float</span> <span class=n>circleInterval</span> <span class=p>=</span> <span class=n>textureWidth</span> <span class=p>/</span> <span class=m>4.0f</span><span class=p>;</span>
+        <span class=c1>// 定义圆的半径
+</span><span class=c1></span>        <span class=kt>float</span> <span class=n>radius</span> <span class=p>=</span> <span class=n>textureWidth</span> <span class=p>/</span> <span class=m>10.0f</span><span class=p>;</span>
+        <span class=c1>// 定义模糊系数
+</span><span class=c1></span>        <span class=kt>float</span> <span class=n>edgeBlur</span> <span class=p>=</span> <span class=m>1.0f</span> <span class=p>/</span> <span class=n>blurFactor</span><span class=p>;</span>
+
+        <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>w</span> <span class=p>=</span> <span class=m>0</span><span class=p>;</span> <span class=n>w</span> <span class=p>&lt;</span> <span class=n>textureWidth</span><span class=p>;</span> <span class=n>w</span><span class=p>++)</span>
+        <span class=p>{</span>
+            <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>h</span> <span class=p>=</span> <span class=m>0</span><span class=p>;</span> <span class=n>h</span> <span class=p>&lt;</span> <span class=n>textureWidth</span><span class=p>;</span> <span class=n>h</span><span class=p>++)</span>
+            <span class=p>{</span>
+                <span class=c1>// 使用背景颜色进行初始化
+</span><span class=c1></span>                <span class=n>Color</span> <span class=n>pixel</span> <span class=p>=</span> <span class=n>backgroundColor</span><span class=p>;</span>
+
+                <span class=c1>// 依次画九个圆
+</span><span class=c1></span>                <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=p>=</span> <span class=m>0</span><span class=p>;</span> <span class=n>i</span> <span class=p>&lt;</span> <span class=m>3</span><span class=p>;</span> <span class=n>i</span><span class=p>++)</span>
+                <span class=p>{</span>
+                    <span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>j</span> <span class=p>=</span> <span class=m>0</span><span class=p>;</span> <span class=n>j</span> <span class=p>&lt;</span> <span class=m>3</span><span class=p>;</span> <span class=n>j</span><span class=p>++)</span>
+                    <span class=p>{</span>
+                        <span class=c1>// 定义圆的圆心
+</span><span class=c1></span>                        <span class=n>Vector2</span> <span class=n>circleCenter</span> <span class=p>=</span> <span class=k>new</span> <span class=n>Vector2</span><span class=p>(</span><span class=n>circleInterval</span> <span class=p>*</span> <span class=p>(</span><span class=n>i</span> <span class=p>+</span> <span class=m>1</span><span class=p>),</span> <span class=n>circleInterval</span> <span class=p>*</span> <span class=p>(</span><span class=n>j</span> <span class=p>+</span> <span class=m>1</span><span class=p>));</span>
+
+                        <span class=c1>// 计算当前像素与圆心的距离
+</span><span class=c1></span>                        <span class=kt>float</span> <span class=n>dist</span> <span class=p>=</span> <span class=n>Vector2</span><span class=p>.</span><span class=n>Distance</span><span class=p>(</span><span class=k>new</span> <span class=n>Vector2</span><span class=p>(</span><span class=n>w</span><span class=p>,</span> <span class=n>h</span><span class=p>),</span> <span class=n>circleCenter</span><span class=p>)</span> <span class=p>-</span> <span class=n>radius</span><span class=p>;</span>
+
+                        <span class=c1>// 模糊圆的边界
+</span><span class=c1></span>                        <span class=n>Color</span> <span class=n>color</span> <span class=p>=</span> <span class=m>_</span><span class=n>MixColor</span><span class=p>(</span><span class=n>circleColor</span><span class=p>,</span> <span class=k>new</span> <span class=n>Color</span><span class=p>(</span><span class=n>pixel</span><span class=p>.</span><span class=n>r</span><span class=p>,</span> <span class=n>pixel</span><span class=p>.</span><span class=n>g</span><span class=p>,</span> <span class=n>pixel</span><span class=p>.</span><span class=n>b</span><span class=p>,</span> <span class=m>0.0f</span><span class=p>),</span> <span class=n>Mathf</span><span class=p>.</span><span class=n>SmoothStep</span><span class=p>(</span><span class=m>0f</span><span class=p>,</span> <span class=m>1.0f</span><span class=p>,</span> <span class=n>dist</span> <span class=p>*</span> <span class=n>edgeBlur</span><span class=p>));</span>
+
+                        <span class=c1>// 与之前得到的颜色进行混合
+</span><span class=c1></span>                        <span class=n>pixel</span> <span class=p>=</span> <span class=m>_</span><span class=n>MixColor</span><span class=p>(</span><span class=n>pixel</span><span class=p>,</span> <span class=n>color</span><span class=p>,</span> <span class=n>color</span><span class=p>.</span><span class=n>a</span><span class=p>);</span>
+                    <span class=p>}</span>
+                <span class=p>}</span>
+                <span class=c1>// 写入像素
+</span><span class=c1></span>                <span class=n>proceduralTexture</span><span class=p>.</span><span class=n>SetPixel</span><span class=p>(</span><span class=n>w</span><span class=p>,</span> <span class=n>h</span><span class=p>,</span> <span class=n>pixel</span><span class=p>);</span>
+            <span class=p>}</span>
+        <span class=p>}</span>
+        <span class=c1>// 将像素值写入纹理
+</span><span class=c1></span>        <span class=n>proceduralTexture</span><span class=p>.</span><span class=n>Apply</span><span class=p>();</span>
+
+        <span class=k>return</span> <span class=n>proceduralTexture</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div><h2 id=总结>总结</h2><p>常规反射</p><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+<span class=p>{</span>
+    <span class=p>...</span>
+    <span class=n>o</span><span class=p>.</span><span class=n>worldRefl</span> <span class=o>=</span> <span class=n>reflect</span><span class=p>(</span><span class=o>-</span><span class=n>UnityWorldSpaceViewDir</span><span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=n>worldPos</span><span class=p>),</span> <span class=n>o</span><span class=p>.</span><span class=n>worldNormal</span><span class=p>);</span> <span class=c1>// 反射方向</span>
+
+    <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+<span class=p>{</span>
+    <span class=p>...</span>
+    <span class=n>half3</span> <span class=n>reflection</span> <span class=o>=</span> <span class=n>texCUBE</span><span class=p>(</span><span class=n>_CubeMap</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>worldRefl</span><span class=p>).</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>_ReflectColor</span><span class=p>.</span><span class=n>rgb</span><span class=p>;</span>
+
+    <span class=n>half3</span> <span class=n>ambient</span> <span class=o>=</span> <span class=n>UNITY_LIGHTMODEL_AMBIENT</span><span class=p>.</span><span class=n>xyz</span><span class=p>;</span>
+    <span class=n>half3</span> <span class=n>diffuse</span> <span class=o>=</span> <span class=n>_LightColor0</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>_Color</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>NdotL</span><span class=p>;</span>
+
+    <span class=k>return</span> <span class=n>half4</span><span class=p>(</span><span class=n>ambient</span> <span class=o>+</span> <span class=n>lerp</span><span class=p>(</span><span class=n>diffuse</span><span class=p>,</span> <span class=n>reflection</span><span class=p>,</span> <span class=n>_ReflectPower</span><span class=p>),</span> <span class=mf>1.0</span><span class=p>);</span>
+<span class=p>}</span>
+</code></pre></div><p>常规折射</p><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+<span class=p>{</span>
+    <span class=p>...</span>
+    <span class=n>o</span><span class=p>.</span><span class=n>worldRefra</span> <span class=o>=</span> <span class=n>refract</span><span class=p>(</span><span class=o>-</span><span class=n>normalize</span><span class=p>(</span><span class=n>UnityWorldSpaceViewDir</span><span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=n>worldPos</span><span class=p>)),</span> <span class=n>normalize</span><span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=n>worldNormal</span><span class=p>),</span> <span class=n>_RefractRatio</span><span class=p>);</span>
+
+    <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+<span class=p>{</span>
+    <span class=p>...</span>
+    <span class=n>half3</span> <span class=n>refraction</span> <span class=o>=</span> <span class=n>texCUBE</span><span class=p>(</span><span class=n>_Cubemap</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>worldRefra</span><span class=p>).</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>_RefractColor</span><span class=p>.</span><span class=n>rgb</span><span class=p>;</span>
+
+    <span class=n>half3</span> <span class=n>ambient</span> <span class=o>=</span> <span class=n>UNITY_LIGHTMODEL_AMBIENT</span><span class=p>.</span><span class=n>xyz</span><span class=p>;</span>
+    <span class=n>half3</span> <span class=n>diffuse</span> <span class=o>=</span> <span class=n>_LightColor0</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>_Color</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>NdotL</span><span class=p>;</span>
+
+    <span class=k>return</span> <span class=n>half4</span><span class=p>(</span><span class=n>ambient</span> <span class=o>+</span> <span class=n>lerp</span><span class=p>(</span><span class=n>diffuse</span><span class=p>,</span> <span class=n>refraction</span><span class=p>,</span> <span class=n>_RefractPower</span><span class=p>),</span> <span class=mf>1.0</span><span class=p>);</span>
+<span class=p>}</span>
+</code></pre></div><p>菲涅尔反射</p><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+<span class=p>{</span>
+    <span class=p>...</span>
+    <span class=n>o</span><span class=p>.</span><span class=n>worldRefl</span> <span class=o>=</span> <span class=n>reflect</span><span class=p>(</span><span class=o>-</span><span class=n>UnityWorldSpaceViewDir</span><span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=n>worldPos</span><span class=p>),</span> <span class=n>o</span><span class=p>.</span><span class=n>worldNormal</span><span class=p>);</span>
+
+    <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+<span class=p>{</span>
+    <span class=p>...</span>
+    <span class=n>half3</span> <span class=n>reflection</span> <span class=o>=</span> <span class=n>texCUBE</span><span class=p>(</span><span class=n>_CubeMap</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>worldRefl</span><span class=p>).</span><span class=n>rgb</span><span class=p>;</span>
+    <span class=k>half</span> <span class=n>fresnel</span> <span class=o>=</span> <span class=n>_FresnelScale</span> <span class=o>+</span> <span class=p>(</span><span class=mf>1.0</span> <span class=o>-</span> <span class=n>_FresnelScale</span><span class=p>)</span> <span class=o>*</span> <span class=n>pow</span><span class=p>((</span><span class=mf>1.0</span> <span class=o>-</span> <span class=n>dot</span><span class=p>(</span><span class=n>worldViewDir</span><span class=p>,</span> <span class=n>worldNormal</span><span class=p>)),</span> <span class=mf>5.0</span><span class=p>);</span>
+    
+    <span class=n>half3</span> <span class=n>ambient</span> <span class=o>=</span> <span class=n>UNITY_LIGHTMODEL_AMBIENT</span><span class=p>.</span><span class=n>xyz</span><span class=p>;</span>
+    <span class=n>half3</span> <span class=n>diffuse</span> <span class=o>=</span> <span class=n>_LightColor0</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>_Color</span><span class=p>.</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>NdotL</span><span class=p>;</span>
+
+    <span class=k>return</span> <span class=n>half4</span><span class=p>(</span><span class=n>ambient</span> <span class=o>+</span> <span class=n>lerp</span><span class=p>(</span><span class=n>diffuse</span><span class=p>,</span> <span class=n>reflection</span><span class=p>,</span> <span class=n>saturate</span><span class=p>(</span><span class=n>fresnel</span><span class=p>)),</span> <span class=mf>1.0</span><span class=p>);</span>
+<span class=p>}</span>
+</code></pre></div><p>镜子</p><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>v2f</span> <span class=n>vert</span><span class=p>(</span><span class=n>a2v</span> <span class=n>v</span><span class=p>)</span>
+<span class=p>{</span>
+    <span class=p>...</span>    
+    <span class=n>o</span><span class=p>.</span><span class=n>uv</span> <span class=o>=</span> <span class=n>v</span><span class=p>.</span><span class=n>texcoord</span><span class=p>;</span>
+    <span class=c1>// 需要镜像图像</span>
+    <span class=n>o</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>x</span> <span class=o>=</span> <span class=mi>1</span> <span class=o>-</span> <span class=n>o</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>x</span><span class=p>;</span>
+    
+    <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=n>fixed4</span> <span class=n>frag</span><span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span><span class=o>:</span> <span class=n>SV_Target</span>
+<span class=p>{</span>
+    <span class=c1>// 对纹理采样输出</span>
+    <span class=k>return</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_MainTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span><span class=p>);</span>
+<span class=p>}</span>
+</code></pre></div><p>玻璃</p><div class=highlight><pre class=chroma><code class=language-glsl data-lang=glsl><span class=n>v2f</span> <span class=n>vert</span> <span class=p>(</span><span class=n>appdata</span> <span class=n>v</span><span class=p>)</span>
+<span class=p>{</span>
+    <span class=p>...</span>
+    <span class=n>o</span><span class=p>.</span><span class=n>screenPos</span> <span class=o>=</span> <span class=n>ComputeGrabScreenPos</span><span class=p>(</span><span class=n>o</span><span class=p>.</span><span class=n>pos</span><span class=p>);</span> <span class=c1>// ComputeGrabScreenPos 获取抓取屏幕的采样坐标</span>
+    <span class=p>...</span>
+    <span class=k>return</span> <span class=n>o</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=n>fixed4</span> <span class=n>frag</span> <span class=p>(</span><span class=n>v2f</span> <span class=n>i</span><span class=p>)</span> <span class=o>:</span> <span class=n>SV_Target</span>
+<span class=p>{</span>
+    <span class=p>...</span>
+    <span class=n>half2</span> <span class=n>offset</span> <span class=o>=</span> <span class=n>bump</span><span class=p>.</span><span class=n>xy</span> <span class=o>*</span> <span class=n>_Distortion</span> <span class=o>*</span> <span class=n>_RefractionTex_TexelSize</span><span class=p>.</span><span class=n>xy</span><span class=p>;</span>
+    <span class=n>i</span><span class=p>.</span><span class=n>screenPos</span><span class=p>.</span><span class=n>xy</span> <span class=o>=</span> <span class=n>offset</span> <span class=o>*</span> <span class=n>i</span><span class=p>.</span><span class=n>screenPos</span><span class=p>.</span><span class=n>z</span> <span class=o>+</span> <span class=n>i</span><span class=p>.</span><span class=n>screenPos</span><span class=p>.</span><span class=n>xy</span><span class=p>;</span>
+
+    <span class=n>half3</span> <span class=n>refrCol</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_RefractionTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>screenPos</span><span class=p>.</span><span class=n>xy</span> <span class=o>/</span> <span class=n>i</span><span class=p>.</span><span class=n>screenPos</span><span class=p>.</span><span class=n>w</span><span class=p>).</span><span class=n>rgb</span><span class=p>;</span>
+
+    <span class=n>bump</span> <span class=o>=</span> <span class=n>normalize</span><span class=p>(</span><span class=n>half3</span><span class=p>(</span><span class=n>dot</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>TtoW0</span><span class=p>.</span><span class=n>xyz</span><span class=p>,</span> <span class=n>bump</span><span class=p>),</span> <span class=n>dot</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>TtoW1</span><span class=p>.</span><span class=n>xyz</span><span class=p>,</span> <span class=n>bump</span><span class=p>),</span> <span class=n>dot</span><span class=p>(</span><span class=n>i</span><span class=p>.</span><span class=n>TtoW2</span><span class=p>.</span><span class=n>xyz</span><span class=p>,</span> <span class=n>bump</span><span class=p>)));</span>
+
+    <span class=n>half3</span> <span class=n>reflDir</span> <span class=o>=</span> <span class=n>reflect</span><span class=p>(</span><span class=o>-</span><span class=n>worldViewDir</span><span class=p>,</span> <span class=n>bump</span><span class=p>);</span>
+    <span class=n>half4</span> <span class=n>texColor</span> <span class=o>=</span> <span class=n>tex2D</span><span class=p>(</span><span class=n>_MainTex</span><span class=p>,</span> <span class=n>i</span><span class=p>.</span><span class=n>uv</span><span class=p>.</span><span class=n>xy</span><span class=p>);</span>
+    <span class=n>half3</span> <span class=n>reflCol</span> <span class=o>=</span> <span class=n>texCUBE</span><span class=p>(</span><span class=n>_Cubemap</span><span class=p>,</span> <span class=n>reflDir</span><span class=p>).</span><span class=n>rgb</span> <span class=o>*</span> <span class=n>texColor</span><span class=p>.</span><span class=n>rgb</span><span class=p>;</span>
+
+    <span class=n>half3</span> <span class=n>col</span> <span class=o>=</span> <span class=n>reflCol</span> <span class=o>*</span> <span class=p>(</span><span class=mi>1</span> <span class=o>-</span> <span class=n>_RefractAmount</span><span class=p>)</span> <span class=o>+</span> <span class=n>refrCol</span> <span class=o>*</span> <span class=n>_RefractAmount</span><span class=p>;</span>
+
+    <span class=k>return</span> <span class=n>half4</span><span class=p>(</span><span class=n>col</span><span class=p>,</span> <span class=mf>1.0</span><span class=p>);</span>
+<span class=p>}</span>
+</code></pre></div></section><footer class=article-footer><section class=article-tags><a href=/tags/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81/>Shader入门精要</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-contents--wrapper><h2 class=section-title>相关文章</h2><div class=related-contents><div class="flex article-list--tile"><article class=has-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%9B%B4%E5%8A%A0%E5%A4%8D%E6%9D%82%E7%9A%84%E5%85%89%E7%85%A7/><div class=article-image><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%9B%B4%E5%8A%A0%E5%A4%8D%E6%9D%82%E7%9A%84%E5%85%89%E7%85%A7/topimg.6c5c6801e5665142f1afc74f7eccabb9_hud5b4711730563b8f6fe841cfaa71f45d_221051_250x150_fill_box_smart1_2.png width=250 height=150 loading=lazy data-key data-hash="md5-bFxoAeVmUULxr8dPfsyruQ=="></div><div class=article-details><h2 class=article-title>Shader入门精要-更加复杂的光照</h2></div></a></article><article class=has-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/><div class=article-image><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C/topimg.d65ee7581cfef7096ee4aec08398a608_hucec924f8a8d5e17115b60defab86f43b_300097_250x150_fill_box_smart1_2.png width=250 height=150 loading=lazy data-key data-hash="md5-1l7nWBz+9wlu5K7Ag5imCA=="></div><div class=article-details><h2 class=article-title>Shader入门精要-透明效果</h2></div></a></article><article class=has-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/><div class=article-image><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E5%9F%BA%E7%A1%80%E7%BA%B9%E7%90%86/topimg.b1f07d907209b24d4812f315eb6ff2fa_hub743dc7ee0e867207b7b55e10230ffbf_426847_250x150_fill_box_smart1_2.png width=250 height=150 loading=lazy data-key data-hash="md5-sfB9kHIJsk1IEvMV62/y+g=="></div><div class=article-details><h2 class=article-title>Shader入门精要-基础纹理</h2></div></a></article><article class=has-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/><div class=article-image><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%AE%80%E5%8D%95%E5%85%89%E7%85%A7%E6%A8%A1%E5%9E%8B/topimg.133a0281833f182f38ff49d986a235dc_hubb21fb6872520e85a0401e3049fab639_84088_250x150_fill_q75_h2_box_smart1.webp width=250 height=150 loading=lazy data-key data-hash="md5-EzoCgYM/GC84/0nZhqI13A=="></div><div class=article-details><h2 class=article-title>Shader入门精要-简单光照模型</h2></div></a></article><article class=has-image><a href=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4%E7%BA%BF/><div class=article-image><img src=/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E6%B8%B2%E6%9F%93%E6%B5%81%E6%B0%B4%E7%BA%BF/topimg.c2f0e179924493154c3a187926595681_hu00ad781032300df6911004af6f547e11_134852_250x150_fill_box_smart1_2.png width=250 height=150 loading=lazy data-key data-hash="md5-wvDheZJEkxVMOhh5JllWgQ=="></div><div class=article-details><h2 class=article-title>Shader入门精要-渲染流水线</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo issue-term=pathname crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>function setUtterancesTheme(b){let a=document.querySelector('.utterances iframe');a&&a.contentWindow.postMessage({type:'set-theme',theme:`github-${b}`},'https://utteranc.es')}addEventListener('message',a=>{if(a.origin!=='https://utteranc.es')return;setUtterancesTheme(document.body.dataset.scheme)}),window.addEventListener('onColorSchemeChange',a=>{setUtterancesTheme(a.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2021 YanTree</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=2.3.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script><script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script></body></html>
