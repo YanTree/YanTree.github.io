@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YanTree</title><link>https://yantree.github.io/</link><description>Recent content on YanTree</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 05 Jun 2021 10:41:12 +0800</lastBuildDate><atom:link href="https://yantree.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Shader入门精要-画面动起来</title><link>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/</link><pubDate>Sat, 05 Jun 2021 10:41:12 +0800</pubDate><guid>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/</guid><description>&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/topimg.png" alt="Featured image of post Shader入门精要-画面动起来" />&lt;h1 id="技术美术动画">技术美术——动画&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YanTree</title><link>https://yantree.github.io/</link><description>Recent content on YanTree</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 05 Jun 2021 10:41:12 +0800</lastBuildDate><atom:link href="https://yantree.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Shader入门精要-画面动起来</title><link>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/</link><pubDate>Sat, 05 Jun 2021 10:41:12 +0800</pubDate><guid>https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/</guid><description>&lt;img src="https://yantree.github.io/p/shader%E5%85%A5%E9%97%A8%E7%B2%BE%E8%A6%81-%E7%94%BB%E9%9D%A2%E5%8A%A8%E8%B5%B7%E6%9D%A5/topimg.png" alt="Featured image of post Shader入门精要-画面动起来" />&lt;h1 id="技术美术动画">技术美术——动画&lt;/h1>
 &lt;p>Unity Shader 提供了一系列关于时间的内置变量，可以方便地在 Shader 中访问，实现各种动画效果。下表给出了这些内置的时间变量。&lt;/p>
 &lt;table>
 &lt;thead>
@@ -4423,4 +4423,65 @@ git checkout -- /test/test02.txt
 &lt;h2 id="总结">总结&lt;/h2>
 &lt;p>除了一直提示输入用户名及密码的问题外，其他所有的问题都是比较容易解决的。当然我现在并没有使用官网命令行的 &lt;code>Git&lt;/code> ，在接触了 &lt;a class="link" href="https://www.gnu.org/software/emacs/" target="_blank" rel="noopener"
 >Emacs&lt;/a> 后，有一个叫 &lt;a class="link" href="https://magit.vc/" target="_blank" rel="noopener"
->Magit&lt;/a> 的 &lt;code>Emacs&lt;/code> 杀手锏，类似于图形化界面的操作，我基本上就没用过命令行了。哈哈，having a nice day！&lt;/p></description></item></channel></rss>
+>Magit&lt;/a> 的 &lt;code>Emacs&lt;/code> 杀手锏，类似于图形化界面的操作，我基本上就没用过命令行了。哈哈，having a nice day！&lt;/p></description></item><item><title>HUGO 博客</title><link>https://yantree.github.io/p/hugo-%E5%8D%9A%E5%AE%A2/</link><pubDate>Tue, 14 Apr 2020 21:26:23 +0800</pubDate><guid>https://yantree.github.io/p/hugo-%E5%8D%9A%E5%AE%A2/</guid><description>&lt;h1 id="为何搭建这个博客">为何搭建这个博客&lt;/h1>
+&lt;p>驱使我搭建博客的原因，有以下几点&lt;/p>
+&lt;blockquote>
+&lt;h4 id="1-展示链接作品的需要">1. 展示、链接作品的需要。&lt;/h4>
+&lt;/blockquote>
+&lt;p>今年鼠年，国内乃至全球遭遇了自二战以来最大的灾难—— &lt;code>COVID-19&lt;/code> 新冠病毒。因为这场疫情，开学日期一延再延，而我本人又恰巧没携带笔记本电脑，但所有文件都放在笔记本电脑里（包括个人作品），这样使我在投递简历时先天的落入了一些劣势。痛定思痛，决定搭建这个博客，将个人的作品放在网站里用于展示和提供链接地址以防万一。&lt;/p>
+&lt;blockquote>
+&lt;h4 id="2-整理笔记的需要">2. 整理笔记的需要。&lt;/h4>
+&lt;/blockquote>
+&lt;p>个人有做笔记的习惯，校内的专业课程十有八九，我都有整理好笔记，此次疫情让我决定不把所有鸡蛋都放在一个篮子里。而且放在网站上的另一个好处是，只要有能够连接到网络的地方，基本上我就能够下载和浏览。&lt;/p>
+&lt;blockquote>
+&lt;h4 id="3-搭建博客是我计划中的一步">3. 搭建博客是我计划中的一步&lt;/h4>
+&lt;/blockquote>
+&lt;p>我是在大一春季学期开始接触 &lt;a class="link" href="https://github.com/" target="_blank" rel="noopener"
+>Github&lt;/a> （当时是为了玩儿 &lt;a class="link" href="https://www.gnu.org/software/emacs/" target="_blank" rel="noopener"
+>Emacs&lt;/a>，放配置文件的需求）。在接触 &lt;code>Github&lt;/code> 后就有尝试用 GitHub 平台搭建博客。苦于英语水平较低，当时并不会FQ，没有使用谷歌浏览器，更没有谷歌翻译，不知道 HTML 是什么的时候，进展缓慢，博客地址全是黑体字像极了十年前的网络环境，这都是后话了。上一个版本为了灵活使用 &lt;code>网页美工&lt;/code> 所学内容并没有采用生成博客的框架，导致发表内容的时候相当麻烦！即使生成网页模板，但是像写代码一样写文章真的是反人类。为了解决这一痛点，这次我采用了博客生成框架 &lt;a class="link" href="https://gohugo.io/" target="_blank" rel="noopener"
+>HUGO&lt;/a> 专注于内容写作。&lt;/p>
+&lt;h2 id="为什么选择-hugo">为什么选择 HUGO&lt;/h2>
+&lt;blockquote>
+&lt;h3 id="1-fastest">1. Fastest!!!&lt;/h3>
+&lt;/blockquote>
+&lt;p>打开&lt;a class="link" href="https://gohugo.io/" target="_blank" rel="noopener"
+>官网&lt;/a>，你就会知道了。它的博客生成速度是世界上最快的，以毫秒计时（截至写这篇文章的时间&lt;code>2020.04.14&lt;/code> 依然是最快的）。当然，这并不意味着我使用过很多博客生成框架，截至目前我只用过&lt;a class="link" href="https://gohugo.io/" target="_blank" rel="noopener"
+>HUGO&lt;/a>。&lt;/p>
+&lt;ul>
+&lt;li>我又是从哪里了解到 &lt;a class="link" href="https://gohugo.io/" target="_blank" rel="noopener"
+>HUGO&lt;/a> 的呢？&lt;/li>
+&lt;/ul>
+&lt;p>这一切还得从 &lt;a class="link" href="https://www.gnu.org/software/emacs/" target="_blank" rel="noopener"
+>Emacs&lt;/a> 说起，&lt;code>Emacs&lt;/code>想说爱你真不容易。得益于自己的坚持，最终找到了最大的 &lt;code>Emacs&lt;/code> 中文社区 &lt;a class="link" href="https://emacs-china.org/" target="_blank" rel="noopener"
+>Emacs China&lt;/a> （虽然此时我的配置文件已经基本成型，模仿 &lt;code>Hacker&lt;/code> &lt;a class="link" href="https://github.com/purcell/emacs.d" target="_blank" rel="noopener"
+>Purecell 师傅&lt;/a> 的配置思路）。直到现在我每天饭后都会逛逛论坛，没有了一开始那样整天都泡在论坛里，害怕错过了论坛大牛们讨论的激情（因为最新的帖子我已经都看过了:wink:）。大牛们各有各自擅长的领域，我很 :heart: 这个社区，大家都很宽容，虽然会因为技术方面的分歧而争吵，但事后还是会冰释前嫌，依然会发表自己的观点，因此接触到了很多新鲜的东西，希望 &lt;code>Emacs-China&lt;/code> 能走得更远！说得有点远了😁。因为社区里有很多使用者都会搭建自己的博客，有 &lt;a class="link" href="http://jekyllcn.com/" target="_blank" rel="noopener"
+>Jekyll&lt;/a>，&lt;a class="link" href="https://hexo.io/" target="_blank" rel="noopener"
+>Hexo&lt;/a> 的使用者，他们开了一份新帖讨论这个新生的框架 &lt;code>HUGO&lt;/code> ，不少人更是转投了 &lt;code>HUGO&lt;/code> ，这就是我与 &lt;code>HUGO&lt;/code> 的初次相遇。&lt;/p>
+&lt;blockquote>
+&lt;h3 id="2-powerful-coummity-support-heart">2. Powerful Coummity Support! :heart:&lt;/h3>
+&lt;/blockquote>
+&lt;p>有着强大的社区支持，你几乎可以在&lt;a class="link" href="https://discourse.gohugo.io/" target="_blank" rel="noopener"
+>社区&lt;/a>里解决你遇到的所有问题，里面也有中文板块，不过不活跃。我在搭建这个博客时就遇到了一个棘手的问题：&lt;code>4个分类的计数器工作不正常&lt;/code> 返回值始终为0。在查阅了很多文档后还是无果。无奈，只好发一份帖子求助社区，可能是因为有着时差的关系，头一天晚上的帖子第二天中午就有人回帖了，在经历了一番折腾，查看了整个 &lt;code>Project&lt;/code> 后，社区管理提供的解决思路和代码解决了这个问题，此时已经 19:00 了！在此再次感谢 &lt;a class="link" href="https://discourse.gohugo.io/" target="_blank" rel="noopener"
+>社区&lt;/a> 友人们的帮助。&lt;/p>
+&lt;h2 id="主题的选择">主题的选择&lt;/h2>
+&lt;p>既然已经选择好了博客生成框架，接下来就是撸起袖子加油干了。第一步，也是最重要的一步当然就是主题的选择啦！😎&lt;/p>
+&lt;p>在浏览了官方的&lt;a class="link" href="https://themes.gohugo.io/" target="_blank" rel="noopener"
+>主题列表&lt;/a>之后，一个名叫 &lt;a class="link" href="https://themes.gohugo.io/github-style/" target="_blank" rel="noopener"
+>GitHub Style&lt;/a> 的主题吸引住了我。我个人是很喜欢 &lt;code>Github&lt;/code> 网站的 &lt;code>Style&lt;/code>，酷酷的同时又显得俏皮可爱(●'◡'●)，所以就立马 &lt;code>fork&lt;/code> 了一份源代码。使用之后发现并不能满足我所有的需求：&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>没有响应式的导航栏&lt;/li>
+&lt;li>没有Github式的分类功能&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>所以花了点时间进行大刀阔斧的改造，现在的样子就是最终的成品效果啦！&lt;/p>
+&lt;blockquote>
+&lt;p>可能以后还会添加 Search Button&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>几天的努力终于迎来了最后的收获，开心😊！这篇文章用于记录创建博客的整个过程，包括创建动机，框架的选择，主题的选择和魔改。🚩&lt;/p>
+&lt;ol>
+&lt;li>接触新的东西时要大胆尝试。&lt;/li>
+&lt;li>做之前看看有没有前人做过，如果有看一看他的实现方式，不满足自己的需求时，自己再改造改造，这样会节约很多时间。整个框架的完成大概花了我两天时间，可能有点慢。&lt;/li>
+&lt;li>不要做闷葫芦，不懂的地方要敢于询问（没错，即使是跨语言的），当然态度要恭敬。&lt;/li>
+&lt;/ol></description></item></channel></rss>
